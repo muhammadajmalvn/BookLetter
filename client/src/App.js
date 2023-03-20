@@ -13,11 +13,10 @@ const App = () => {
       <Router>
         <Routes>
           <Route path='/' exact Component={Homepage} />
-          <Route path='/signup' Component={Signup}/>
-          <Route path='/login' Component={Login}/>
-          <Route path='/profile' exact Component={UserProfile}/>
-          <Route path='/admin' exact Component={AdminLogin}/>
-
+          <Route path='/signup' Component={Signup} />
+          <Route path='/login' Component={Login} />
+          <Route path='/profile' exact Component={UserProfile} />
+          <Route path='/admin' exact Component={AdminLogin} />
         </Routes>
       </Router>
     </div>
