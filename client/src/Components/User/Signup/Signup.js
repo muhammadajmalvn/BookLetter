@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch,useSelector } from 'react-redux'
-import Image from '../../public/clay-banks-GX8KBbVmC6c-unsplash.jpg'
+import { useDispatch, useSelector } from 'react-redux'
+import Image from '../../../public/clay-banks-GX8KBbVmC6c-unsplash.jpg'
 import {
   MDBBtn,
   MDBContainer,
@@ -14,8 +14,10 @@ import {
   from 'mdb-react-ui-kit';
 
 import { Link, useNavigate } from 'react-router-dom'
-import { userSignup } from '../../Redux/Actions/userActions'
+import { userSignup } from '../../../Redux/Actions/userActions/SignupActions'
 import { useForm } from 'react-hook-form'
+import Loading from '../../Loading';
+import ErrorMessage from '../../Error';
 
 function Signup() {
 
@@ -63,6 +65,9 @@ function Signup() {
                 <span className="h1 fw-bold mb-0"> <i class="fa-solid fa-book-open-reader" ></i>  LetterBox</span>
               </div>
 
+              <p style={{ margin: '0' }}>          {error ? <ErrorMessage variant='danger'>{error}</ErrorMessage> : " "}
+                {loading ? <Loading /> : ""}
+              </p>
               <h5 className="fw-normal my-2 pb-3" style={{ letterSpacing: '1px' }}>Create Account</h5>
 
 
@@ -93,13 +98,13 @@ function Signup() {
                 </p>
                 <MDBInput wrapperClass='mb-3' label='Password' id='formControlLg' type='password' size="lg"  {...register("password", { required: true, minLength: '6', maxLength: '16' })} onChange={(e) => setPassword(e.target.value)} />
 
-                <MDBBtn className="px-5" size='lg' style={{ backgroundColor: '#355B3E', width: '100%' }}>Login</MDBBtn>
+                <MDBBtn className="px-5" size='lg' style={{ backgroundColor: '#355B3E', width: '100%' }}>Signup</MDBBtn>
 
               </form>
 
-              <a className="small text-muted" href="#!">Forgot password?</a>
-              <p className="mb-5 pb-lg-2" style={{ color: '#393f81' }}>Don't have an account? <a href="#!" style={{ color: '#393f81' }}>Register here</a></p>
-
+              <Link to={'/login'}>
+                <p className="mb-5 pb-lg-2" style={{ color: '#393f81' }}>Already have an account? <a href="#!" style={{ color: '#393f81' }}>Login here</a></p>
+              </Link>
             </MDBCardBody>
           </MDBCol>
 

@@ -2,17 +2,14 @@ import {
     USER_SIGNUP_REQUEST,
     USER_SIGNUP_SUCCESS,
     USER_SIGNUP_FAILURE,
-    USER_LOGIN_REQUEST,
-    USER_LOGIN_SUCCESS,
-    USER_LOGIN_FAILURE
-} from '../Constants/userConstants'
+} from '../../Constants/userConstants'
 
 import axios from 'axios'
 
 const API = axios.create({ baseURL: "http://localhost:5000" })
 
 export const userSignup = (firstName, lastName, email, phone, password) => async (dispatch) => {
-    console.log(firstName, lastName, email, phone, password,'inside userActionsssssssssssssssssss');
+    console.log(firstName, lastName, email, phone, password, 'inside userActionsssssssssssssssssss');
     try {
         dispatch({ type: USER_SIGNUP_REQUEST });
         const config = {
@@ -21,7 +18,7 @@ export const userSignup = (firstName, lastName, email, phone, password) => async
             }
         }
 
-        const { data } = await API.post("/user-signup", { firstName, lastName, email,phone, password }, config);
+        const { data } = await API.post("/user-signup", { firstName, lastName, email, phone, password }, config);
         dispatch({
             type: USER_SIGNUP_SUCCESS, payload: data
 

@@ -1,9 +1,9 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Signup from './Components/User/Signup'
-import Login from './Components/User/Login'
-import Homepage from './Components/User/Homepage'
-import UserProfile from './Components/User/UserProfile'
+import Signup from './Components/User/Signup/Signup'
+import Login from './Components/User/Login/Login'
+import Homepage from './Components/User/Homepage/Homepage'
+import UserProfile from './Components/User/User Profile/UserProfile'
 import AdminLogin from './Components/Admin/AdminLogin'
 
 
