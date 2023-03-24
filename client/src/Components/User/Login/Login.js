@@ -38,22 +38,22 @@ function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
 
-  // workign not the right way 
-  useEffect(() => {
-    let interval;
+  // // workign not the right way 
+  // useEffect(() => {
+  //   let interval;
 
-    // check for userInfo every second until it is available
-    interval = setInterval(() => {
-      let userInfo = JSON.parse(localStorage.getItem('user-login'))
-      console.log(userInfo, 'usserrrrrrrrrrrrinfoooooooooooooooo');
-      if (userInfo) {
-        navigate('/');
-        clearInterval(interval); // clear the interval once userInfo is available
-      }
-    }, 1000)
+  //   // check for userInfo every second until it is available
+  //   interval = setInterval(() => {
+  //     let userInfo = JSON.parse(localStorage.getItem('user-login'))
+  //     console.log(userInfo, 'usserrrrrrrrrrrrinfoooooooooooooooo');
+  //     if (userInfo) {
+  //       navigate('/');
+  //       clearInterval(interval); // clear the interval once userInfo is available
+  //     }
+  //   }, 1000)
 
-    return () => clearInterval(interval); // clear the interval on unmount
-  }, [navigate, userLoginDetails]);
+  //   return () => clearInterval(interval); // clear the interval on unmount
+  // }, [navigate, userLoginDetails]);
 
 
 
