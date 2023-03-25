@@ -19,6 +19,9 @@ import ListItemText from '@mui/material/ListItemText';
 import GridViewIcon from '@mui/icons-material/GridView';
 import { useNavigate } from 'react-router-dom';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import SummarizeIcon from '@mui/icons-material/Summarize';
 
 const drawerWidth = 240;
 
@@ -125,18 +128,21 @@ function Sidebar() {
                 </Toolbar>
             </AppBarWrapper>
 
-            <Drawer variant="permanent" open={open}>
+            <DrawerWrapper variant="permanent" open={open} >
                 <DrawerHeader>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <List>
+                <List style={{ color: 'rgb(53, 91, 62)' }}>
 
                     {[
                         { name: 'Dashboard', icon: <GridViewIcon /> },
-                        { name: 'Users', icon: <PeopleAltIcon/>  },
+                        { name: 'Users', icon: <PeopleAltIcon /> },
+                        { name: 'Books', icon: <LibraryBooksIcon /> },
+                        { name: 'Sell Request', icon: <StorefrontIcon /> },
+                        { name: 'Report', icon: <SummarizeIcon /> },
 
 
                     ].map((text, index) => (
@@ -146,6 +152,7 @@ function Sidebar() {
                                     minHeight: 48,
                                     justifyContent: open ? 'initial' : 'center',
                                     px: 2.5,
+                                    fontWeight: 'bolder'
                                 }}
                             >
                                 <ListItemIcon
@@ -153,6 +160,7 @@ function Sidebar() {
                                         minWidth: 0,
                                         mr: open ? 3 : 'auto',
                                         justifyContent: 'center',
+                                        color: 'rgb(53, 91, 62)'
                                     }}
                                 >
                                     {text.icon}
@@ -161,8 +169,8 @@ function Sidebar() {
                                     onClick={() => {
                                         console.log(text.name);
                                         let text2 = text.name.toLowerCase()
-                                        text2 === "users" && navigate('/admin/manage-user')
-                                        text2 === "dashboard" && navigate('/admin/dashboard')
+                                        text2 === "users" && navigate('/admin/users')
+                                        text2 === "dashboard" && navigate('/admin')
 
 
                                     }} />
@@ -172,7 +180,7 @@ function Sidebar() {
                 </List>
 
                 <Divider />
-            </Drawer>
+            </DrawerWrapper>
         </Box >
     );
 }

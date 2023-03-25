@@ -26,7 +26,7 @@ const App = () => {
           <Route path='/profile' exact element={userData ? <UserProfile /> : <Login />} />
 
           <Route path='/admin' exact element={adminData ? <Dashboard /> : <AdminLogin />} />
-          <Route path='/admin/manage-user' exact element={adminData ? <UserManage /> : <AdminLogin />} />
+          <Route path='/admin/users' exact element={adminData ? <UserManage /> : <AdminLogin />} />
         </Routes>
       </Router>
     </div>

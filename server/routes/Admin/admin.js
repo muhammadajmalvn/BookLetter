@@ -7,6 +7,6 @@ const protect = require('../../utils/verifyToken')
 router.post('/', loginController.adminLogin)
 
 router.route('/users').get(userController.getUsers)
-router.get('/manage-users').get(protect,userController.blockUser)
+router.route('/manage-users').get(userController.blockUser)
 
 module.exports = router;
