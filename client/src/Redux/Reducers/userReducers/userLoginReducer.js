@@ -5,7 +5,6 @@ import {
     USER_LOGOUT
 } from '../../Constants/userConstants'
 
-const initialState = {};
 
 
 export const userLoginReducer = (state = {}, action) => {

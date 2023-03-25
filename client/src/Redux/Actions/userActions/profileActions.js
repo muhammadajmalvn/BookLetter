@@ -12,9 +12,15 @@ const API = axios.create({ baseURL: "http://localhost:5000" })
 export const getUserProfile = () => async (dispatch) => {
     try {
         dispatch({ type: GET_USER_PROFILE_REQUEST });
-        const user = JSON.parse(localStorage.getItem('userInfo'))
-        console.log(user, 'userdetails from localstorage inside actionssssssssssssss');
-        await API.get('/profile/' + user._id).then((data) => {
+        const user = JSON.parse(localStorage.getItem('user-login'))
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + user.token
+            }
+        }
+
+        await API.get('/profile/?id=' + user.id, config).then((data) => {
             dispatch({
                 type: GET_USER_PROFILE_SUCCESS, payload: data
             })

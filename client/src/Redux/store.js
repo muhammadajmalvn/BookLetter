@@ -1,12 +1,19 @@
 import { combineReducers, createStore, applyMiddleware } from "redux";
 import { userSignupReducer } from './Reducers/userReducers/userSignupReducer'
 import { userLoginReducer } from './Reducers/userReducers/userLoginReducer'
+import {userProfileReducer} from './Reducers/userReducers/userProfileReducer'
+import {adminLoginReducer} from '../Redux/Reducers/adminReducers/adminLoginReducer'
+import { adminControlReducer } from "./Reducers/adminReducers/adminControlReducers";
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunkMiddleware from 'redux-thunk'
 
 const rootReducer = combineReducers({ 
     userSignup: userSignupReducer,
-    userLogin: userLoginReducer
+    userLogin: userLoginReducer,
+    userProfile: userProfileReducer,
+
+    adminLogin :adminLoginReducer,
+    adminControl : adminControlReducer
   });
   
 

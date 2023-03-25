@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import Image from '../../../public/toa-heftiba-DakDfhDHMSA-unsplash.jpg'
 import {
@@ -12,9 +12,9 @@ import {
   MDBInput
 }
   from 'mdb-react-ui-kit';
-import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { userLogin } from '../../../Redux/Actions/userActions/LoginActions'
+
 import ErrorMessage from '../../Error';
 import Loading from '../../Loading';
 
@@ -28,7 +28,6 @@ function Login() {
   const { error, loading, userLoginDetails } = userLoginData
 
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const onSubmit = (data) => {
     console.log(data);
@@ -36,25 +35,6 @@ function Login() {
   }
 
   const { register, handleSubmit, formState: { errors } } = useForm();
-
-
-  // // workign not the right way 
-  // useEffect(() => {
-  //   let interval;
-
-  //   // check for userInfo every second until it is available
-  //   interval = setInterval(() => {
-  //     let userInfo = JSON.parse(localStorage.getItem('user-login'))
-  //     console.log(userInfo, 'usserrrrrrrrrrrrinfoooooooooooooooo');
-  //     if (userInfo) {
-  //       navigate('/');
-  //       clearInterval(interval); // clear the interval once userInfo is available
-  //     }
-  //   }, 1000)
-
-  //   return () => clearInterval(interval); // clear the interval on unmount
-  // }, [navigate, userLoginDetails]);
-
 
 
   return (
@@ -85,11 +65,11 @@ function Login() {
 
                 <p style={{ color: 'red', margin: '0' }}>{errors.email && "Enter a valid email address"}
                 </p>
-                <MDBInput wrapperClass='mb-3' label='Email address' id='formControlLg' type='email' size="lg"  {...register("email", { required: true, minLength: '10' })} onChange={(e) => setEmail(e.target.value)} />
+                <MDBInput wrapperClass='mb-3' label='Email address' id='formControlLg' type='email' size="lg"  {...register("email", { required: true })} onChange={(e) => setEmail(e.target.value)} />
 
                 <p style={{ color: 'red', margin: '0' }}>{errors.password && "Enter a valid password"}
                 </p>
-                <MDBInput wrapperClass='mb-3' label='Password' id='formControlLg' type='password' size="lg"  {...register("password", { required: true, minLength: '6', maxLength: '16' })} onChange={(e) => setPassword(e.target.value)} />
+                <MDBInput wrapperClass='mb-3' label='Password' id='formControlLg' type='password' size="lg"  {...register("password", { required: true })} onChange={(e) => setPassword(e.target.value)} />
                 <MDBBtn className="px-5" size='lg' style={{ backgroundColor: '#355B3E', width: '100%' }}>Login</MDBBtn>
               </form>
 

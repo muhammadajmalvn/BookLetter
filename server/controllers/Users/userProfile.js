@@ -4,7 +4,7 @@ exports.viewProfile = (req, res) => {
     try {
         console.log(req.query.id, "UserrrrrrrrrrrIdddddddddddddddd");
         let userId = req.query.id;
-        userSchema.findOne({ id: userId }).then((userData) => {
+        userSchema.findOne({ _id: userId }).then((userData) => {
             console.log(userData, "Dataaaaaaaaaaaa offfffffffffff userrrr");
             res.json(userData);
         })

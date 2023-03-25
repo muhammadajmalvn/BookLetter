@@ -9,7 +9,7 @@ const adminSchema = new mongoose.Schema({
         type:String,
         required:true
     }
-})
+});
 
-const model = mongoose.model('Admin',adminSchema)
-module.exports = model
+const model = mongoose.model("Admin",adminSchema)
+module.exports = model;

@@ -19,7 +19,6 @@ export const userLogin = (email, password) => async (dispatch) => {
                 "Content-Type": "application/json",
             }
         }
-
         const { data } = await API.post("/user-login", { email, password }, config);
         console.log(data, '555555555555555555544444444444444444');
         dispatch({
@@ -29,7 +28,7 @@ export const userLogin = (email, password) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_LOGIN_FAILURE,
-            payload: error.response && error.response.message ? error.response.message : error.response.data
+            payload:  error.response && error.response.message ? error.response.message : error.response.data
         })
         console.log(error.response.data);
     }
@@ -44,3 +43,5 @@ export const userLogout = () => async (dispatch) => {
         console.log(error);
     }
 }
+
+
