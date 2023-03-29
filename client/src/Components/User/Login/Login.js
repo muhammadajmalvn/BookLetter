@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import Image from '../../../public/toa-heftiba-DakDfhDHMSA-unsplash.jpg'
+import Image from '../../../public/toa-heftiba-ip9R11FMbV8-unsplash.jpg'
 import {
   MDBBtn,
   MDBContainer,
@@ -14,10 +14,10 @@ import {
   from 'mdb-react-ui-kit';
 import { useForm } from 'react-hook-form'
 import { userLogin } from '../../../Redux/Actions/userActions/LoginActions'
-
+import { Link } from 'react-router-dom'
 import ErrorMessage from '../../Error';
 import Loading from '../../Loading';
-
+import './Login.css'
 
 
 function Login() {
@@ -38,7 +38,7 @@ function Login() {
 
 
   return (
-    <MDBContainer className="my-5">
+    <MDBContainer className="my-5" >
 
       <MDBCard>
         <MDBRow className='g-0'>
@@ -72,8 +72,9 @@ function Login() {
                 <MDBInput wrapperClass='mb-3' label='Password' id='formControlLg' type='password' size="lg"  {...register("password", { required: true })} onChange={(e) => setPassword(e.target.value)} />
                 <MDBBtn className="px-5" size='lg' style={{ backgroundColor: '#355B3E', width: '100%' }}>Login</MDBBtn>
               </form>
-
-              <p className="mb-5 pb-lg-2" style={{ color: '#393f81' }}>Don't have an account? <a href="#!" style={{ color: '#393f81' }}>Register here</a></p>
+              <Link to={'/signup'}>
+                <p className="mb-5 pb-lg-2" style={{ color: '#393f81' }}>Don't have an account? <a style={{ color: '#393f81' }}>Register here</a></p>
+              </Link>
 
               <div className='d-flex flex-row justify-content-start'>
                 <a href="#!" className="small text-muted me-1">Terms of use.</a>

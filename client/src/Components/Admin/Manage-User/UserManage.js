@@ -46,20 +46,16 @@ const UserManage = () => {
                     {/* <DrawerHeader /> */}
 
                     <Container fixed sx={{ mt: 1 }} style={{ maxWidth: '100%' }}>
-
-                        <DataTable showGridlines value={adminUserData} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '100%' }}>
+                        <DataTable value={adminUserData} stripedRows tableStyle={{ minWidth: '50rem' }}>
                             <Column field="firstName" header="First Name" style={{ width: '25%' }}></Column>
                             <Column field="lastName" header="Last Name" style={{ width: '25%' }}></Column>
                             <Column field="email" header="E-mail" style={{ width: '25%' }}></Column>
                             <Column field="phone" header="Mobile" style={{ width: '25%' }}></Column>
+                            <Column><Button><i class="fa-sharp fa-solid fa-trash"></i></Button> </Column>
+
                             <Column
                                 body={(rowData) => (
                                     <>
-                                        {/* {rowData.status ? (
-                                            <Button label="Block" severity="danger" outlined className="my-button" onClick={() => handleBlockUser(rowData._id)} />
-                                        ) : (
-                                            <Button label="Unblock" severity="success" outlined className="my-button" onClick={() => handleBlockUser(rowData._id)} />
-                                        )} */}
                                         <Button
                                             label={rowData.status ? "Block" : "Unblock"}
                                             className={rowData.status ? "my-button block" : "my-button unblock"}
@@ -67,6 +63,8 @@ const UserManage = () => {
                                             outlined
                                             severity={rowData.status ? "danger" : "success"}
                                         />
+
+
 
                                     </>
                                 )}

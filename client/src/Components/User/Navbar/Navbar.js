@@ -31,6 +31,7 @@ import {
   IconChevronDown,
 } from '@tabler/icons-react';
 
+import './Navbar.css'
 import { useSelector } from 'react-redux'
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -97,38 +98,6 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const mockdata = [
-  {
-    icon: IconCode,
-    title: 'Open source',
-    description: 'This Pokémon’s cry is very loud and distracting',
-  },
-  {
-    icon: IconCoin,
-    title: 'Free for everyone',
-    description: 'The fluid of Smeargle’s tail secretions changes',
-  },
-  {
-    icon: IconBook,
-    title: 'Documentation',
-    description: 'Yanma is capable of seeing 360 degrees without',
-  },
-  {
-    icon: IconFingerprint,
-    title: 'Security',
-    description: 'The shell’s rounded shape and the grooves on its.',
-  },
-  {
-    icon: IconChartPie3,
-    title: 'Analytics',
-    description: 'This Pokémon uses its flying ability to quickly chase',
-  },
-  {
-    icon: IconNotification,
-    title: 'Notifications',
-    description: 'Combusken battles with the intensely hot flames it spews',
-  },
-];
 
 function Navbar() {
   const userData = useSelector((state) => state.userLogin.userLoginDetails)
@@ -141,7 +110,6 @@ function Navbar() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const logOut = () => {
-    console.log('hiiiiiiiiiiiiiiiiiiiiii');
     dispatch(userLogout())
     navigate("/login")
   }
@@ -187,23 +155,18 @@ function Navbar() {
 
           <Group className={classes.hiddenMobile}>
 
-            {/* <Link to={userData?logOut():'/login'}>
-                <a className={classes.link} variant="default">{userData?'LOG OUT':'LOG IN'}</a>
-              </Link> */}
+
             {userData ?
-              <a className={classes.link} variant="default" onClick={logOut}>LOG OUT</a>
+              <a className={classes.link} variant="default" onClick={logOut}><i class="fa-solid fa-power-off"></i></a>
               : <Link to={'/login'}>
-                <a className={classes.link} variant="default">LOG IN</a>
+                <a className={classes.link} variant="default"><i class="fa-solid fa-power-off" style={{ color: 'black' }}></i></a>
               </Link>}
-            {/* <Link to={'/login'}>
-              <a className={classes.link} variant="default">LOG IN</a>
-            </Link> */}
+
             <Link to={'/signup'}>
-              <a className={classes.link}>SIGN UP</a>
+              <a className={classes.link}><i class="fa-sharp fa-solid fa-user-plus" style={{ color: 'black' }}></i></a>
             </Link>
 
             <Link to={'/profile'}>
-              {/* <a className={classes.link} icon="pi pi-user" rounded severity="primary" aria-label="User" /> */}
               <i class="fa fa-user" aria-hidden="true" style={{ color: 'black' }}></i>
             </Link>
 
@@ -251,7 +214,7 @@ function Navbar() {
           <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
 
           <Group position="center" grow pb="xl" px="md">
-            <Button variant="default">LOG IN</Button>
+            <Button variant="default"><i class="fa-solid fa-power-off"></i></Button>
             <Button>Sign up</Button>
 
           </Group>

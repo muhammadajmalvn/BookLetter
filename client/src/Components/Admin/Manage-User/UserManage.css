@@ -1,26 +1,15 @@
 .my-button {
-    color: white;
-    border-radius: 4px;
-    font-size: 14px;
-    padding: 8px 16px;
-    cursor: pointer;
-  }
-  
-  .block {
-    background-color: red;
-  }
-  
-  .unblock {
-    background-color: green;
-  }
-  .ui-datatable table {
-    border-collapse: separate !important;
-    border-spacing: 0;
-  }
-  
-  .ui-datatable td,
-  .ui-datatable th {
-    border: 1px solid #ccc;
-  }
-  
-  
+  color: white;
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.block {
+  background-color: red;
+}
+
+.unblock {
+  background-color: green;
+}

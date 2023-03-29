@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import Image from '../../../public/clay-banks-GX8KBbVmC6c-unsplash.jpg'
+import Image from '../../../public/julia-kicova-JSOnWnJx_rc-unsplash.jpg'
 import {
   MDBBtn,
   MDBContainer,
@@ -13,6 +13,7 @@ import {
 }
   from 'mdb-react-ui-kit';
 
+import './Signup.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { userSignup } from '../../../Redux/Actions/userActions/SignupActions'
 import { useForm } from 'react-hook-form'
@@ -103,7 +104,7 @@ function Signup() {
               </form>
 
               <Link to={'/login'}>
-                <p className="mb-5 pb-lg-2" style={{ color: '#393f81' }}>Already have an account? <a href="#!" style={{ color: '#393f81' }}>Login here</a></p>
+                <p className="mb-5 pb-lg-2" style={{ color: '#393f81' }}>Already have an account? <a style={{ color: '#393f81' }}>Login here</a></p>
               </Link>
             </MDBCardBody>
           </MDBCol>
