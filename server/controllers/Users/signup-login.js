@@ -10,7 +10,6 @@ exports.signupPost = async (req, res) => {
         let details = {
             firstName, lastName, email, phone, password
         } = req.body
-        console.log(details, 'after destructuringggggggg');
 
         details.password = await bcrypt.hash(req.body.password, 10)
 

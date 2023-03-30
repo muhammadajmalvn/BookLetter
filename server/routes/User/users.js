@@ -11,5 +11,4 @@ router.post('/user-login', userSignupLogin.loginPost)
 router.route('/profile').get(protect, userProfile.viewProfile)
 
 
-
 module.exports = router;
