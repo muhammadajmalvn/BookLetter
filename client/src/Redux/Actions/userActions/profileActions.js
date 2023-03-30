@@ -1,7 +1,11 @@
 import {
     GET_USER_PROFILE_REQUEST,
     GET_USER_PROFILE_SUCCESS,
-    GET_USER_PROFILE_FAILURE
+    GET_USER_PROFILE_FAILURE,
+
+    UPLOAD_USER_IMAGE_REQUEST,
+    UPLOAD_USER_IMAGE_SUCCESS,
+    UPLOAD_USER_IMAGE_FAILURE
 } from '../../Constants/userConstants'
 
 import axios from 'axios'
@@ -32,6 +36,16 @@ export const getUserProfile = () => async (dispatch) => {
                 })
                 console.log(error.response.data);
             })
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+export const userImageAction = (image) => async (dispatch) => {
+    try {
+        const user = JSON.parse(localStorage.getItem('userInfo'))
+
     }
     catch (error) {
         console.log(error);
