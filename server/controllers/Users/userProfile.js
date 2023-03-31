@@ -12,3 +12,11 @@ exports.viewProfile = (req, res) => {
         console.log(err,"Error in fetching user data");
     }
 }
+
+exports.imageUpdate=(req, res) => {
+    try{
+        console.log(req.body);
+    } catch(err){
+
+    }
+}

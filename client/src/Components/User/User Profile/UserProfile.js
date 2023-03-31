@@ -9,10 +9,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserProfile } from '../../../Redux/Actions/userActions/profileActions'
 import Loading from '../../Loading';
 import ErrorMessage from '../../Error';
+import { userImageAction } from '../../../Redux/Actions/userActions/profileActions';
 
 const UserProfile = () => {
   const profileDatas = useSelector((state) => state.userProfile)
   const { loading, error, profileData } = profileDatas;
+  const [ImgTypeError, setImgTypeError] = useState('')
 
   const addPhoto = (e) => {
     e.preventDefault();

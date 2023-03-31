@@ -10,5 +10,6 @@ router.post('/user-login', userSignupLogin.loginPost)
 
 router.route('/profile').get(protect, userProfile.viewProfile)
 
+router.route('/profileImageUpdate').post(protect, userProfile.imageUpdate)
 
 module.exports = router;
