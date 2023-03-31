@@ -44,22 +44,23 @@ export const getUserProfile = () => async (dispatch) => {
 
 export const userImageAction = (image) => async (dispatch) => {
     try {
-        dispatch({ type: UPLOAD_USER_IMAGE_REQUEST});
-        const user = JSON.parse(localStorage.getItem('userInfo'))
+        dispatch({ type: UPLOAD_USER_IMAGE_REQUEST });
+        const user = JSON.parse(localStorage.getItem('user-login'))
         const config = {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: "Bearer " + user.token
             }
         }
-        API.post('/profileImageUpdate',config).then((data)=>{
-            dispatch({type:UPLOAD_USER_IMAGE_SUCCESS,payload:data});
+        await API.post('/profileImageUpdate?id=' + user.id, { image }, config).then((data) => {
+            dispatch({ type: UPLOAD_USER_IMAGE_SUCCESS, payload: data });
         })
-        .catch((error)=>{
-            dispatch({type:UPLOAD_USER_IMAGE_FAILURE,payload:error.response && error.response.message ? error.response.message : error.response.data
+            .catch((error) => {
+                dispatch({
+                    type: UPLOAD_USER_IMAGE_FAILURE, payload: error.response && error.response.message ? error.response.message : error.response.data
+                });
+                console.log(error.response.data);
             });
-            console.log(error.response.data);
-        });
     }
     catch (error) {
         console.log(error);

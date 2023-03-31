@@ -16,29 +16,35 @@ const UserProfile = () => {
   const { loading, error, profileData } = profileDatas;
   const [ImgTypeError, setImgTypeError] = useState('')
 
+
+
   const addPhoto = (e) => {
     e.preventDefault();
-    const data = new FormData()
-    console.log(photo, 'phooooooootttttttttttooooooooooo');
-    data.append('file', photo);
-    data.append('upload_preset', "LetterBox");
-    data.append('cloudname', 'driuxmoax')
-    console.log(data, 'dataaaaaaaaaaaaa');
+    const data = new FormData();
+    console.log(photo, 'bbbbbbbbbbbbbb');
+    data.append("file", photo);
+
+    data.append("upload_preset", "BookLetter");
+
+    data.append("cloud_name", "djjtc1xxa");
+    console.log(data);
+
+
     if (photo.type !== 'image/jpeg' && photo.type !== 'image/png') {
-      setImgTypeError('Not supported')
+      setImgTypeError('Not Supported');
     } else {
-      setImgTypeError('')
-      fetch("https://api.cloudinary.com/v1_1/driuxmoax/image/upload", {
+      setImgTypeError('');
+      fetch("https://api.cloudinary.com/v1_1/djjtc1xxa/image/upload", {
         method: "post",
-        body: "data"
+        body: data,
       })
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          dispatch(userImageAction(data.url))
-        })
+          dispatch(userImageAction(data.url));
+        });
     }
-  }
+  };
 
   const dispatch = useDispatch()
   useEffect(() => {
