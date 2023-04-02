@@ -12,8 +12,8 @@ import ErrorMessage from '../../Error';
 import { userImageAction } from '../../../Redux/Actions/userActions/profileActions';
 
 const UserProfile = () => {
-  const profileDatas = useSelector((state) => state.userProfile)
-  const { loading, error, profileData } = profileDatas;
+  const profileData = useSelector((state) => state.userLogin.userLoginDetails);
+  console.log(profileData, 'dataasssssssssss');
   const [ImgTypeError, setImgTypeError] = useState('')
 
 
@@ -47,9 +47,7 @@ const UserProfile = () => {
   };
 
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(getUserProfile())
-  }, [])
+
 
 
   const [photo, setPhoto] = useState("");
@@ -64,8 +62,9 @@ const UserProfile = () => {
               <img
                 className="rounded-circle mt-5"
                 width="150px"
-                src={
-                  profileData?.data.photo} />
+                src={profileData?.photo
+                  ? profileData?.photo
+                  : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"} />
             </div>
             <form>
               <MDBFile size='md' className='mt-4' id='formFileLg' onChange={(e) => setPhoto(e.target.files[0])} />
@@ -81,8 +80,8 @@ const UserProfile = () => {
             </form>
           </div>
           <div className="col-md-9 border-right">
-            {error ? <ErrorMessage variant='danger'>{error}</ErrorMessage> : " "}
-            {loading ? <Loading /> : ""}
+            {/* {error ? <ErrorMessage variant='danger'>{error}</ErrorMessage> : " "}
+            {loading ? <Loading /> : ""} */}
             <div className="p-3 py-5">
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <h4 className="text-right">Profile Settings</h4>
@@ -94,7 +93,7 @@ const UserProfile = () => {
                     type="text"
                     className="form-control"
                     placeholder="first name"
-                    defaultValue={profileData?.data.firstName}
+                    defaultValue={profileData?.firstName}
                   />
                 </div>
                 <div className="col-md-6">
@@ -102,7 +101,7 @@ const UserProfile = () => {
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={profileData?.data.lastName}
+                    defaultValue={profileData?.lastName}
                     placeholder="surname"
                   />
                 </div>
@@ -114,7 +113,7 @@ const UserProfile = () => {
                     type="text"
                     className="form-control"
                     placeholder="enter phone number"
-                    defaultValue={profileData?.data.phone}
+                    defaultValue={profileData?.phone}
                   />
                 </div>
 
@@ -124,7 +123,7 @@ const UserProfile = () => {
                     type="text"
                     className="form-control"
                     placeholder="enter address line 1"
-                    defaultValue={profileData?.data.address}
+                    defaultValue={profileData?profileData.address:'enter address line 1'}
                   />
                 </div>
                 <div className="col-md-12">
@@ -133,7 +132,7 @@ const UserProfile = () => {
                     type="text"
                     className="form-control"
                     placeholder="enter address line 2"
-                    defaultValue={profileData?.data.address}
+                    defaultValue={profileData?profileData.address:'enter address line 2'}
                   />
                 </div>
                 <div className="col-md-12">
@@ -141,8 +140,8 @@ const UserProfile = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="enter address line 2"
-                    defaultValue={profileData?.data.address}
+                    placeholder="enter the pincode"
+                    defaultValue={profileData?profileData.address:'enter the pincode'}
                   />
                 </div>
                 <div className="col-md-12">
@@ -150,8 +149,8 @@ const UserProfile = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="enter address line 2"
-                    defaultValue={profileData?.data.address}
+                    placeholder="enter the state"
+                    defaultValue={profileData?profileData.address:'enter the state'}
                   />
                 </div>
 
@@ -161,14 +160,14 @@ const UserProfile = () => {
                     type="text"
                     className="form-control"
                     placeholder="enter email id"
-                    defaultValue={profileData?.data.email}
+                    defaultValue={profileData?.email}
                   />
                 </div>
 
               </div>
 
               <div className="mt-5 text-center">
-                <button className="btn profile-button" type="button" style={{ backgroundColor: '#355B3E', color: 'white' }}>
+                <button className="btn profile-button" type="button" style={{ backgroundColor: '#355B3E', color: 'white' }} >
                   Save Profile
                 </button>
               </div>

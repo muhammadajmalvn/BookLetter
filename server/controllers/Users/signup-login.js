@@ -54,7 +54,9 @@ exports.loginPost = (req, res) => {
                                 lastName: userData.lastName,
                                 email: userData.email,
                                 phone: userData.phone,
-                                token: generateToken(userData.id)
+                                token: generateToken(userData.id),
+                                photo: userData.photo,
+                                address: userData.address
                             }
                             console.log(details, 'details of user');
                             res.status(200).json(details)

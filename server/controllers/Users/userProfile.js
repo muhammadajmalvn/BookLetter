@@ -3,7 +3,6 @@ const generateToken = require('../../utils/generateToken')
 
 exports.viewProfile = (req, res) => {
     try {
-        // console.log(req.query.id, "UserrrrrrrrrrrIdddddddddddddddd");
         let userId = req.query.id;
         userSchema.findOne({ _id: userId }).then((userData) => {
             res.status(200).json(userData);
@@ -15,7 +14,6 @@ exports.viewProfile = (req, res) => {
 }
 
 exports.imageUpdate = (req, res) => {
-    console.log(req.query.id, req.body, 'jaaaaaaaaaaaaaaaaaaaaiiiiiiiii');
     try {
         userSchema.updateOne({ _id: req.query.id }, { $set: { photo: req.body.image } }).then((result) => {
             userSchema.findOne({ _id: req.query.id }).then((data) => {

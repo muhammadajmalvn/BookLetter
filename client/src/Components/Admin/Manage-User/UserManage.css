@@ -1,15 +1,7 @@
-.my-button {
-  color: white;
-  border-radius: 4px;
-  font-size: 14px;
-  padding: 8px 16px;
-  cursor: pointer;
+.block-switch {
+  color: red;
 }
 
-.block {
-  background-color: red;
-}
-
-.unblock {
-  background-color: green;
+.unblock-switch {
+  color: green;
 }
