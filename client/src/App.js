@@ -9,6 +9,9 @@ import UserProfile from './Components/User/User Profile/UserProfile'
 import AdminLogin from './Components/Admin/AdminLogin'
 import Dashboard from './Components/Admin/Dashboard/Dashboard'
 import UserManage from './Components/Admin/Manage-User/UserManage'
+import Books from './Components/Admin/Manage-Books/Books'
+import AddBook from './Components/Admin/Manage-Books/AddBook'
+
 
 
 const App = () => {
@@ -27,6 +30,9 @@ const App = () => {
 
           <Route path='/admin' exact element={adminData ? <Dashboard /> : <AdminLogin />} />
           <Route path='/admin/users' exact element={adminData ? <UserManage /> : <AdminLogin />} />
+          <Route path='/admin/books' exact element={adminData ? <Books/> : <AdminLogin />} />
+          <Route path='/admin/add-book' exact element={adminData ? <AddBook/> : <AdminLogin />} />
+
         </Routes>
       </Router>
     </div>

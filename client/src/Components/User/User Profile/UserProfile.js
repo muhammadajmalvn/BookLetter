@@ -17,6 +17,11 @@ const UserProfile = () => {
   const [ImgTypeError, setImgTypeError] = useState('')
 
 
+  const dispatch = useDispatch()
+
+
+
+  const [photo, setPhoto] = useState("");
 
   const addPhoto = (e) => {
     e.preventDefault();
@@ -46,11 +51,6 @@ const UserProfile = () => {
     }
   };
 
-  const dispatch = useDispatch()
-
-
-
-  const [photo, setPhoto] = useState("");
 
   return (
     <>
@@ -116,8 +116,18 @@ const UserProfile = () => {
                     defaultValue={profileData?.phone}
                   />
                 </div>
-
+                <br />
                 <div className="col-md-12">
+                  <label className="labels">Email ID</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="enter email id"
+                    defaultValue={profileData?.email}
+                  />
+                </div>
+
+                {/* <div className="col-md-12">
                   <label className="labels">Address Line 1</label>
                   <input
                     type="text"
@@ -169,7 +179,7 @@ const UserProfile = () => {
               <div className="mt-5 text-center">
                 <button className="btn profile-button" type="button" style={{ backgroundColor: '#355B3E', color: 'white' }} >
                   Save Profile
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

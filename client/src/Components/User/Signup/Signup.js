@@ -92,6 +92,7 @@ function Signup() {
 
                 <p style={{ color: 'red', margin: '0' }}>{errors.phone && "Enter a valid mobile number"}
                 </p>
+                
                 <MDBInput wrapperClass='mb-3' label='Mobile Number' id='formControlLg' type='phone' size="lg"  {...register("phone", { required: true, minLength: '10', maxLength: '10' })} onChange={(e) => setPhone(e.target.value)} />
 
 

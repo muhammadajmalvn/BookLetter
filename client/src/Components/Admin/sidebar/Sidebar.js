@@ -20,6 +20,7 @@ import GridViewIcon from '@mui/icons-material/GridView';
 import { useNavigate } from 'react-router-dom';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 
@@ -141,6 +142,7 @@ function Sidebar() {
                         { name: 'Dashboard', icon: <GridViewIcon /> },
                         { name: 'Users', icon: <PeopleAltIcon /> },
                         { name: 'Books', icon: <LibraryBooksIcon /> },
+                        { name: 'Add-Book', icon: <BookmarkAddIcon /> },
                         { name: 'Sell Request', icon: <StorefrontIcon /> },
                         { name: 'Report', icon: <SummarizeIcon /> },
 
@@ -171,7 +173,8 @@ function Sidebar() {
                                         let text2 = text.name.toLowerCase()
                                         text2 === "users" && navigate('/admin/users')
                                         text2 === "dashboard" && navigate('/admin')
-
+                                        text2 === "books" && navigate('/admin/books')
+                                        text2 === "add-book" && navigate('/admin/add-book')
 
                                     }} />
                             </ListItemButton>
