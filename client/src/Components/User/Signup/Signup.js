@@ -34,7 +34,7 @@ function Signup() {
     console.log(data);
     dispatch(userSignup(firstName, lastName, email, phone, password))
   }
-  // this one redirect the user into login page
+
   useEffect(() => {
     if (userInfo) {
       navigate('/login');

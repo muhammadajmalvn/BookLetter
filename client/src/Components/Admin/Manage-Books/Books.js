@@ -1,11 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { Box } from '@mui/material'
 import Sidebar from '../sidebar/Sidebar'
 import { Table } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-
+import { useDispatch, useSelector } from 'react-redux'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Books = () => {
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const books = useSelector((state)=>state)
+
+  useEffect(() => {
+    dispatch(adminGetAllBikeAction())
+  }, [])
+
+
   // const books = [
   //   {
   //     name: "Atomic Book",
@@ -24,7 +36,6 @@ const Books = () => {
   //     price: 20
   //   }
   // ]
-  const [books, setBooks] = useState('')
   return (
     <>
       <Box sx={{ display: 'flex', marginLeft: '6%', marginTop: '6%' }}>

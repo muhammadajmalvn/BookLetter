@@ -66,3 +66,16 @@ exports.addBook = async (req, res) => {
         console.log('cloudinary error occured', error);
     }
 }
+
+exports.getAllBooks =  async (req, res) => {
+    try{
+        bookSchema.find().then((data)=>{
+            console.log(data);
+            res.status(200).json(data)
+        })
+    }
+    catch(error){
+        console.log(err,'Error in fetching books');
+        res.status(500).json(err)
+    }
+}

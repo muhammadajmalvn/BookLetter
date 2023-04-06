@@ -10,16 +10,11 @@ import {
     ADMIN_USER_DELETE_REQUEST,
     ADMIN_USER_DELETE_SUCCESS,
     ADMIN_USER_DELETE_FAILURE,
-
-    ADMIN_BOOK_ADD_REQUEST,
-    ADMIN_BOOK_ADD_SUCCESS,
-    ADMIN_BOOK_ADD_FAILURE
 } from '../../Constants/adminConstants'
 
 
 
 export const adminControlReducer = (state = {}, action) => {
-    console.log(action, 'output from server inside reducer');
     switch (action.type) {
         case ADMIN_USERS_FETCH_REQUEST:
             return { loading: true }
@@ -51,7 +46,6 @@ export const blockUserReducer = (state = {}, action) => {
 
 
 export const deleteUserReducer = (state = {}, action) => {
-    // console.log(action, 'output from server inside reducer');
     switch (action.type) {
         case ADMIN_USER_DELETE_REQUEST:
             return { loading: true }
@@ -64,6 +58,10 @@ export const deleteUserReducer = (state = {}, action) => {
             return state
     }
 }
+
+
+
+
 
 
 // export const addBookReducer = (state = {}, action) => {

@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
-import Sidebar from '../sidebar/Sidebar'
+import Sidebar from '../../sidebar/Sidebar'
 import { MDBCol, MDBInput, MDBRow } from 'mdb-react-ui-kit';
 import { Button } from 'react-bootstrap';
 import { Card } from 'primereact/card';
 import { Box } from '@mui/material';
 import { useForm } from 'react-hook-form'
-import Loading from '../../Loading';
+import Loading from '../../../Loading';
 import { useDispatch } from 'react-redux';
-import { addBook } from '../../../Redux/Actions/adminActions/bookActions';
-import { adminAddBookAPI } from '../../../APIs/adminAPI';
+import { addBook } from '../../../../Redux/Actions/adminActions/adminBookActions';
+import { adminAddBookAPI } from '../../../../APIs/adminAPI';
 import { useNavigate } from 'react-router-dom';
 
 const AddBook = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const dispatch = useDispatch()
-    const Navigate = useNavigate()
+    const navigate = useNavigate()
 
     const [date, setDate] = useState(new Date());
     const [title, setTitle] = useState('');
@@ -65,7 +65,7 @@ const AddBook = () => {
             setSuccess(true)
 
             setTimeout(() => {
-                Navigate("/admin/books", { state: { bookAdded: true } })
+                navigate("/admin/books", { state: { bookAdded: true } })
                 setSuccess(false)
             }, 3000)
         })
@@ -84,9 +84,11 @@ const AddBook = () => {
                     <div className="card flex flex-column md:flex-row gap-3">
 
                         <h1 className='ms-4 mt-2'>Add Book</h1>
-                        <p style={{alignContent:'center'}}>
-                            {loading ? <Loading /> : ""}
-                        </p>
+                        {loading ? (
+                            <div className="loading-container">
+                                <Loading />
+                            </div>
+                        ) : null}
                         <form id='addBookForm' onSubmit={handleSubmit(onSubmit)}>
                             <MDBRow className='pt-2 ms-3 me-3 mb-4'>
                                 <MDBCol>
