@@ -3,7 +3,7 @@ import {
     ADMIN_BOOK_FETCH_REQUEST, ADMIN_BOOK_FETCH_SUCCESS, ADMIN_BOOK_FETCH_FAILURE,
     ADMIN_BOOK_DELETE_REQUEST, ADMIN_BOOK_DELETE_SUCCESS, ADMIN_BOOK_DELETE_FAILURE
 } from '../../Constants/adminConstants'
-import { adminGetBooksAPI } from '../../../APIs/adminAPI'
+import { adminGetBooksAPI,adminDeleteBookAPI } from '../../../APIs/adminAPI'
 
 import axios from 'axios'
 

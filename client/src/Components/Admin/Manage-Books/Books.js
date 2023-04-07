@@ -5,7 +5,7 @@ import { Table } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, useNavigate } from 'react-router-dom';
-import { adminGetAllBikeAction,adminDeleteBookAction } from '../../../Redux/Actions/adminActions/adminBookActions';
+import { adminGetAllBikeAction, adminDeleteBookAction } from '../../../Redux/Actions/adminActions/adminBookActions';
 
 
 const Books = () => {
@@ -21,8 +21,7 @@ const Books = () => {
     dispatch(adminGetAllBikeAction())
   }, [])
 
-  handleDeleteBook = async (id) => {
-    console.log('hiii');
+ const handleDeleteBook = async (id) => {
     swal({
       title: "Are you sure?",
       text: "The selected book will deleted!",
@@ -34,7 +33,7 @@ const Books = () => {
         if (willDelete) {
           // Call the deleteUser function here if the user confirms the deletion
           dispatch(adminDeleteBookAction(id));
-          swal("User deleted successfully!", {
+          swal("Book deleted successfully!", {
             icon: "success",
           });
         } else {
@@ -77,7 +76,9 @@ const Books = () => {
                         <td>{book.copies[0]._id}</td>
                         <td>{book.publisher}</td>
                         <td>{book.price}</td>
-                        <td><Button className='btn btn-dark'><i class="fa-sharp fa-solid fa-pen" style={{ color: 'cyan', fontSize: '150%' }}></i></Button> <Button className='btn btn-dark' onClick={() => handleDeleteBook(book._id)}><i class="fa-sharp fa-solid fa-trash" style={{ color: 'red', fontSize: '150%' }}></i></Button> </td>
+                        <td><Button className='btn btn-dark'><i class="fa-sharp fa-solid fa-pen" style={{ color: 'cyan', fontSize: '150%' }}></i></Button>
+
+                          <Button className='btn btn-dark' onClick={() => handleDeleteBook(book._id)}><i class="fa-sharp fa-solid fa-trash" style={{ color: 'red', fontSize: '150%' }}></i></Button> </td>
                       </tr>
                     </>
                   )

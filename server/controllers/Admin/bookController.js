@@ -82,9 +82,8 @@ exports.getAllBooks = async (req, res) => {
 
 exports.deleteBook = async (req, res) => {
     try {
+        console.log(req.query.id);
         await bookSchema.deleteOne({ _id: req.query.id })
-        // console.log(result, 'stausssssssssssss');
-        // await userSchema.updateOne({ _id: req.query.id }, { $set: { status: (!result.status) } })
         const data = await bookSchema.find()
         res.status(200).json(data)
     } catch (err) {
