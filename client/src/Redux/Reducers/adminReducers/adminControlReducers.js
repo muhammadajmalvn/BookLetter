@@ -10,6 +10,14 @@ import {
     ADMIN_USER_DELETE_REQUEST,
     ADMIN_USER_DELETE_SUCCESS,
     ADMIN_USER_DELETE_FAILURE,
+
+    ADMIN_BOOK_FETCH_REQUEST,
+    ADMIN_BOOK_FETCH_SUCCESS,
+    ADMIN_BOOK_FETCH_FAILURE,
+
+    ADMIN_BOOK_DELETE_REQUEST,
+    ADMIN_BOOK_DELETE_SUCCESS,
+    ADMIN_BOOK_DELETE_FAILURE
 } from '../../Constants/adminConstants'
 
 
@@ -59,6 +67,38 @@ export const deleteUserReducer = (state = {}, action) => {
     }
 }
 
+export const getBookReducer = (state={}, action) =>{
+    switch (action.type) {
+        case ADMIN_BOOK_FETCH_REQUEST:
+            return { loading: true }
+        case ADMIN_BOOK_FETCH_SUCCESS:
+            return { loading: false, adminBookData: action.payload }
+        case ADMIN_BOOK_FETCH_FAILURE:
+            return { loading: false, error: action.payload }
+            case ADMIN_BOOK_DELETE_REQUEST:
+            return { loading: true }
+        case ADMIN_BOOK_DELETE_SUCCESS:
+            return { loading: false, adminBookData: action.payload }
+        case ADMIN_BOOK_DELETE_FAILURE:
+            return { loading: false, error: action.payload }
+        default:
+            return state
+    }
+}
+
+
+export const deleteBookReducer = (state={}, action) =>{
+    switch (action.type) {
+        case ADMIN_BOOK_DELETE_REQUEST:
+            return { loading: true }
+        case ADMIN_BOOK_DELETE_SUCCESS:
+            return { loading: false, adminBookData: action.payload }
+        case ADMIN_BOOK_DELETE_FAILURE:
+            return { loading: false, error: action.payload }
+        default:
+            return state
+    }
+}
 
 
 

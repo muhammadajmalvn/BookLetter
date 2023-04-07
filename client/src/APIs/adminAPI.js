@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API = axios.create({ baseURL: "http://localhost:5000/api/admin" })
+const API = axios.create({ baseURL: "http://localhost:5000/admin" })
 
 const admin = JSON.parse(localStorage.getItem('adminInfo'))
 console.log(admin, 'adminnnnnnnn');
@@ -24,7 +24,11 @@ const configFormData = {
 }
 
 
+export const adminGetUsersAPI =() => API.get('/users',configToken)
+export const adminUserBlockUnblockAPI = (id) => API.get('/manage-users?id='+id,configToken)
+export const adminDeleteUserAPI = (id) => API.get("/delete-user?id=" + id, configToken)
 
 
 export const adminAddBookAPI = (formdata) => API.post("/add-books", formdata, configFormData)
-export const adminGetBooksAPI = () =>  API.get('/books',configToken)
+export const adminGetBooksAPI = () => API.get('/books', configToken)
+export const adminDeleteBookAPI = (id) => API.get("/delete-book?id=" + id, configToken)

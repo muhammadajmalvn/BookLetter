@@ -125,7 +125,7 @@ const UserManage = () => {
                         <tbody>
 
                             {
-                                adminUserData ? adminUserData.map((user, index) => {
+                                adminUserData ? adminUserData.data.map((user, index) => {
                                     return (
                                         <>
                                             <tr>

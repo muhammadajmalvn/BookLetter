@@ -45,7 +45,7 @@ exports.addBook = async (req, res) => {
                 pages: req.body.pages,
                 publishedDate: req.body.date,
                 description: req.body.description,
-                copies:copies,
+                copies: copies,
                 photo
 
             }
@@ -67,15 +67,27 @@ exports.addBook = async (req, res) => {
     }
 }
 
-exports.getAllBooks =  async (req, res) => {
-    try{
-        bookSchema.find().then((data)=>{
-            console.log(data);
+exports.getAllBooks = async (req, res) => {
+    try {
+        bookSchema.find().then((data) => {
             res.status(200).json(data)
         })
     }
-    catch(error){
-        console.log(err,'Error in fetching books');
+    catch (error) {
+        console.log(err, 'Error in fetching books');
         res.status(500).json(err)
+    }
+}
+
+
+exports.deleteBook = async (req, res) => {
+    try {
+        await bookSchema.deleteOne({ _id: req.query.id })
+        // console.log(result, 'stausssssssssssss');
+        // await userSchema.updateOne({ _id: req.query.id }, { $set: { status: (!result.status) } })
+        const data = await bookSchema.find()
+        res.status(200).json(data)
+    } catch (err) {
+        res.status(500).json('Internal Server Error')
     }
 }

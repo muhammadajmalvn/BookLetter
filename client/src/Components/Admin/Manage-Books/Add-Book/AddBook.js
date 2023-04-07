@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Sidebar from '../../sidebar/Sidebar'
-import { MDBCol, MDBInput, MDBRow } from 'mdb-react-ui-kit';
+import { MDBCol, MDBContainer, MDBInput, MDBRow } from 'mdb-react-ui-kit';
 import { Button } from 'react-bootstrap';
 import { Card } from 'primereact/card';
 import { Box } from '@mui/material';
@@ -34,11 +34,9 @@ const AddBook = () => {
 
         setLoading(true)
 
-        // for using the form data
 
         const formdata = new FormData()
 
-        // for image
         images.forEach((img) => {
             console.log(img)
             formdata.append("images", img)
@@ -79,14 +77,17 @@ const AddBook = () => {
         <>
             <Sidebar />
             <Box component='main' sx={{ flexGrow: 1, p: 3, marginTop: 10 }}>
-                <Card className='container col-md-6'>
+                <div className="col-2">
+
+                </div>
+                <Card className='col-8 mx-auto'>
 
                     <div className="card flex flex-column md:flex-row gap-3">
 
                         <h1 className='ms-4 mt-2'>Add Book</h1>
                         {loading ? (
                             <div className="loading-container">
-                                <Loading />
+                            <Loading />
                             </div>
                         ) : null}
                         <form id='addBookForm' onSubmit={handleSubmit(onSubmit)}>
@@ -177,10 +178,13 @@ const AddBook = () => {
                                     <MDBInput id='form3Example2' type='file'  {...register("image4", { required: true, minLength: 1 })} onChange={(e) => setImages([...images, e.target.files[0]])} />
                                 </MDBCol>
                             </MDBRow>
-                            <Button type='submit' className='mb-4 container col-md-10 sm-3 mx-5' style={{ backgroundColor: 'rgb(53, 91, 62)' }}>ADD</Button>
+                            <MDBContainer>
+                                <Button type='submit' className='mb-4 container sm-3 mx-auto' style={{ backgroundColor: 'rgb(53, 91, 62)' }}>ADD</Button>
+                            </MDBContainer>
                         </form>
                     </div>
                 </Card>
+                <div className="col-2"></div>
             </Box>
 
         </>
