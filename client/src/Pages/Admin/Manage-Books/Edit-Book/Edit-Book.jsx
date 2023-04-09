@@ -4,6 +4,7 @@ import { MDBCol, MDBContainer, MDBInput, MDBRow } from 'mdb-react-ui-kit';
 import { Button } from 'react-bootstrap';
 import TextField from '@mui/material/TextField';
 import { Card } from 'primereact/card';
+import { Alert } from '@mui/material';
 import { Box, Avatar, Grid } from '@mui/material';
 import { useForm } from 'react-hook-form'
 import Loading from '../../../Loading';
@@ -82,24 +83,21 @@ const EditBook = () => {
         adminEditBookAPI(id, formdata).then((data) => {
             console.log(data.data, 'form data response');
 
-            // dispatch(addBook(data.data))
-            // setLoading(false)
+     
+            setLoading(false)
+            setSuccess(true)
 
-            // setSuccess(true)
-
-            // setTimeout(() => {
-            //     navigate("/admin/books", { state: { bookAdded: true } })
-            //     setSuccess(false)
-            // }, 3000)
+            setTimeout(() => {
+                navigate("/admin/books", { state: { bookEdited: true } })
+                setSuccess(false)
+            }, 3000)
         })
             .catch((error) => {
                 console.log("some error", error);
                 // setLoading(false)
             })
     }
-    // const jsDate = new Date(location.state.adminBookData.publishedDate);
-    // // convert the Date object to the desired date string format
-    // const dateString = jsDate.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/-/g, '/');
+ 
     const mongoDate = location.state.adminBookData.publishedDate;
     const dateObject = new Date(mongoDate);
     const year = dateObject.getFullYear();
@@ -123,6 +121,9 @@ const EditBook = () => {
                                 <Loading />
                             </div>
                         ) : null}
+                         {
+                        sucess ? <Alert severity="success" >Book Edited !!!</Alert> : ''
+                    }
                         <form id='addBookForm' onSubmit={handleSubmit(onSubmit)}>
                             <MDBRow className='pt-2 ms-3 me-3 mb-4'>
                                 <MDBCol>

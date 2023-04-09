@@ -8,6 +8,7 @@ import Switch from '@mui/material/Switch';
 import { Table } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import swal from 'sweetalert';
+import Pagination from 'react-bootstrap/Pagination';
 
 
 const UserManage = () => {
@@ -25,14 +26,12 @@ const UserManage = () => {
     }
 
     const [blockedUsers, setBlockedUsers] = useState([]);
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const [usersPerPage] = useState(10);
 
     useEffect(() => {
         dispatch(userDetailsFetch());
     }, [dispatch]);
-
-
-
 
     const handleToggle = (id) => {
         const updatedUsers = [...blockedUsers];
@@ -47,7 +46,6 @@ const UserManage = () => {
         setBlockedUsers(updatedUsers);
         dispatch(userBlock(id));
     }
-
 
     const handleDeleteUser = async (id) => {
         swal({
@@ -71,45 +69,35 @@ const UserManage = () => {
             });
     }
 
+    const indexOfLastUser = currentPage * usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - usersPerPage;
+    const currentUsers = adminUserData?.data?.slice(indexOfFirstUser, indexOfLastUser);
 
+    const totalPages = Math.ceil(adminUserData?.data?.length / usersPerPage);
+    const pageItems = [];
+    const pageNumbers = [];
+
+    for (let number = 1; number <= totalPages; number++) {
+        pageItems.push(
+            <Pagination.Item key={number} active={number === currentPage} onClick={() => setCurrentPage(number)}>
+                {number}
+            </Pagination.Item>,
+        );
+    }
+
+    const renderPageNumbers = pageNumbers.map(number => {
+        return (
+            <Pagination.Item key={number} active={number === currentPage} onClick={() => setCurrentPage(number)}>
+                {number}
+            </Pagination.Item>
+        );
+    });
 
     return (
         <>
-
-
-
             <Box sx={{ display: 'flex', marginLeft: '6%', marginTop: '6%' }}>
-
                 <Sidebar />
                 <Box component="main" sx={{ flexGrow: 1, p: 3, mr: 1 }}>
-
-                    {/* <Container fixed sx={{ mt: 1 }} style={{ maxWidth: '100%' }}>
-                        <DataTable value={adminUserData} stripedRows tableStyle={{ minWidth: '50rem' }}>
-                            <Column field="firstName" header="First Name" style={{ width: '15%' }}></Column>
-                            <Column field="lastName" header="Last Name" style={{ width: '15%' }}></Column>
-                            <Column field="email" header="E-mail" style={{ width: '35%' }}></Column>
-                            <Column field="phone" header="Mobile" style={{ width: '20%' }}></Column>
-                            <Column header="Status" style={{ width: '10%' }}
-                                body={(rowData) => (
-                                    <>
-
-                                        <Switch
-                                            checked={rowData.status}
-                                            onChange={() => handleBlockUser(rowData._id)}
-                                            name="blockUser"
-                                            inputProps={{ 'aria-label': 'Block User Switch' }}
-                                            className={rowData.status ? "block-switch" : "unblock-switch"}
-                                        />
-
-
-                                    </>
-                                )}
-                            />
-                            <Column header="Action"><Button style={{ color: 'red' }}><i class="fa-sharp fa-solid fa-trash"></i></Button> </Column>
-                        </DataTable>
-                    </Container> */}
-
-
                     <Table bordered hover striped="columns" variant="dark" responsive>
                         <thead >
                             <tr>
@@ -119,21 +107,20 @@ const UserManage = () => {
                                 <th>Email</th>
                                 <th>Mobile</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-
-                            {
-                                adminUserData ? adminUserData.data.map((user, index) => {
-                                    return (
-                                        <>
-                                            <tr>
-                                                <td>{index + 1}</td>
-                                                <td >{user.firstName}</td>
-                                                <td>{user.lastName}</td>
-                                                <td>{user.email}</td>
-                                                <td>{user.phone}</td>
+                            {loading ? <tr><td colSpan="5" className="text-center">Loading...</td></tr> :
+                                error ? <tr><td colSpan="5" className="text-center">{error}</td></tr> :
+                                    currentUsers && currentUsers.map((user, index) => (
+                                        <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td>{user.firstName}</td>
+                                            <td>{user.lastName}</td>
+                                            <td>{user.email}</td>
+                                            <td>{user.phone}</td>
+                                        
                                                 <td> <Switch
                                                     checked={user.status}
                                                     onChange={() => handleBlockUser(user._id)}
@@ -141,31 +128,25 @@ const UserManage = () => {
                                                     inputProps={{ 'aria-label': 'Block User Switch' }}
                                                     className={user.status ? "block-switch" : "unblock-switch"}
                                                 /></td>
-                                                <td><Button className='btn btn-dark' onClick={() => handleDeleteUser(user._id)}><i class="fa-sharp fa-solid fa-trash" style={{ color: 'red', fontSize: '150%' }}></i></Button> </td>
-                                            </tr>
-                                        </>
-                                    )
-                                }) : ''
+                                                  <td><Button className='btn btn-dark' onClick={() => handleDeleteUser(user._id)}><i class="fa-sharp fa-solid fa-trash" style={{ color: 'red', fontSize: '150%' }}></i></Button> </td>
+                                          
+                                        </tr>
+                                    ))
                             }
-
-
-
-
                         </tbody>
                     </Table>
+                    <Pagination className="pagination">
+                        <Pagination.First onClick={() => setCurrentPage(1)} />
+                        <Pagination.Prev onClick={() => setCurrentPage(currentPage - 1)} />
+                        {renderPageNumbers}
+                        <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} />
+                        <Pagination.Last onClick={() => setCurrentPage(pageNumbers.length)} />
+                    </Pagination>
                 </Box>
             </Box>
-
-
-
-
         </>
-    )
+    );
 }
-
-export default UserManage
-
-
-
+export default UserManage;
 
 

@@ -1,10 +1,20 @@
 import React, { useEffect } from 'react'
 import { Box } from '@mui/material'
-import Sidebar from '../../Sidebar/Sidebar'
 import { Table } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+// import React, { useEffect } from 'react'
+// import { useDispatch, useSelector } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
+// import { DataTable } from 'primereact/datatable';
+// import { Column } from 'primereact/column';
+// import { Button } from 'primereact/button';
+// import { Rating } from 'primereact/rating';
+// import { Tag } from 'primereact/tag';
+// import { Box, styled } from '@mui/material'
+// import { Container } from '@mantine/core';
+import Sidebar from '../../Sidebar/Sidebar'
 import { adminGetAllBookAction, adminDeleteBookAction } from '../../../../Redux/Actions/adminActions/adminBookActions';
 import './Books.css'
 
@@ -91,6 +101,47 @@ const Books = () => {
         </Box>
       </Box>
     </>
+
+
+
+
+    // <Box sx={{ display: 'flex' }}>
+
+    //   <Sidebar />
+    //   <Box component="main" sx={{ flexGrow: 1, p: 3, mr: 1 }}>
+
+    //     <Container fixed sx={{ mt: 1 }} style={{ maxWidth: '100rem' }}>
+
+    //       {/* <div className="card"> */}
+    //       <DataTable value={adminBookData} tableStyle={{ minWidth: '60rem' }} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} resizableColumns showGridlines>
+    //         <Column field="bikeName" header="Name" sortable ></Column>
+    //         <Column field="photo" header="Photo" body={(rowData) => <img src={rowData.photo[0]} alt="User" style={{
+    //           width: '5rem',
+    //           height: '5rem',
+    //           boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+    //           borderRadius: '30%',
+    //         }} />} />
+    //         <Column field="title" header="Model" sortable></Column>
+    //         <Column field="author" header="Brand" sortable></Column>
+    //         <Column field="genre" header="Color" sortable></Column>
+    //         <Column field="copies[0]._id" header="engineNumber" sortable ></Column>
+    //         <Column field='publisher' header="fuel" sortable></Column>
+    //         <Column field='price' header="price" sortable></Column>
+    //         <Column header="Action" body={(rowData) => (
+    //           <div>
+    //             <i className="pi pi-file-edit" style={{ fontSize: '1.5rem', marginRight: '5px', color: 'blue' }}
+    //               onClick={(e) => {
+    //                 navigate('/admin/edit-book', { state: { adminBookData: rowData } })
+    //               }} ></i>
+    //             <i className="pi pi-times" style={{ fontSize: '1.5rem', marginRight: '5px', color: 'red' }}
+    //               onClick={() => handleDeleteBook(rowData._id)}></i>
+    //           </div>
+    //         )} />
+
+    //       </DataTable>
+    //     </Container>
+    //   </Box>
+    // </Box>
   )
 }
 

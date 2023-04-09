@@ -16,6 +16,6 @@ router.route('/delete-user').get(userController.deleteUser)
 router.route('/add-books').post(upload.array('images'), bookController.addBook)
 router.route('/books').get(bookController.getAllBooks)
 router.route('/delete-book').get(bookController.deleteBook)
-router.route('/edit-book').get(upload.array('images'), bookController.editBook)
+router.route('/edit-book').post(upload.array('images'), bookController.editBook)
 
 module.exports = router;
