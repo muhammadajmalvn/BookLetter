@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Sidebar from '../sidebar/Sidebar'
+import Sidebar from '../Sidebar/Sidebar'
 import { useDispatch, useSelector } from 'react-redux';
 import { userDetailsFetch, userBlock, deleteUser } from '../../../Redux/Actions/adminActions/adminUserActions'
 import { Box } from '@mui/material'

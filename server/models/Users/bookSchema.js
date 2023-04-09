@@ -15,7 +15,10 @@ const bookSchema = new mongoose.Schema({
   },
   publishedDate: {
     type: Date,
-    required: true
+    required: true,
+    get: function(value) {
+      return value.toLocaleDateString();
+    }
   },
   genre: {
     type: String,
@@ -29,12 +32,16 @@ const bookSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  pages: {
+    type: Number,
+    required: true
+  },
   photo:[],
   copies: [
     {
       id: {
         type: String,
-        unique: true
+        // unique: true
       },
       available: {
         type: Boolean,

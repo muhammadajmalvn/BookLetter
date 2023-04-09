@@ -17,7 +17,11 @@ import {
 
     ADMIN_BOOK_DELETE_REQUEST,
     ADMIN_BOOK_DELETE_SUCCESS,
-    ADMIN_BOOK_DELETE_FAILURE
+    ADMIN_BOOK_DELETE_FAILURE,
+
+    ADMIN_GET_LOCATION_REQUEST,
+    ADMIN_GET_LOCATION_SUCCESS,
+    ADMIN_GET_LOCATION_FAILURE
 } from '../../Constants/adminConstants'
 
 
@@ -67,7 +71,7 @@ export const deleteUserReducer = (state = {}, action) => {
     }
 }
 
-export const getBookReducer = (state={}, action) =>{
+export const getBookReducer = (state = {}, action) => {
     switch (action.type) {
         case ADMIN_BOOK_FETCH_REQUEST:
             return { loading: true }
@@ -75,20 +79,6 @@ export const getBookReducer = (state={}, action) =>{
             return { loading: false, adminBookData: action.payload }
         case ADMIN_BOOK_FETCH_FAILURE:
             return { loading: false, error: action.payload }
-            case ADMIN_BOOK_DELETE_REQUEST:
-            return { loading: true }
-        case ADMIN_BOOK_DELETE_SUCCESS:
-            return { loading: false, adminBookData: action.payload }
-        case ADMIN_BOOK_DELETE_FAILURE:
-            return { loading: false, error: action.payload }
-        default:
-            return state
-    }
-}
-
-
-export const deleteBookReducer = (state={}, action) =>{
-    switch (action.type) {
         case ADMIN_BOOK_DELETE_REQUEST:
             return { loading: true }
         case ADMIN_BOOK_DELETE_SUCCESS:
@@ -101,6 +91,31 @@ export const deleteBookReducer = (state={}, action) =>{
 }
 
 
+export const deleteBookReducer = (state = {}, action) => {
+    switch (action.type) {
+        case ADMIN_BOOK_DELETE_REQUEST:
+            return { loading: true }
+        case ADMIN_BOOK_DELETE_SUCCESS:
+            return { loading: false, adminBookData: action.payload }
+        case ADMIN_BOOK_DELETE_FAILURE:
+            return { loading: false, error: action.payload }
+        default:
+            return state
+    }
+}
+
+export const getLocationReducer = (state = {}, action) => {
+    switch (action.type) {
+        case ADMIN_GET_LOCATION_REQUEST:
+            return { loading: true }
+        case ADMIN_GET_LOCATION_SUCCESS:
+            return { loading: false, location: action.payload }
+            case ADMIN_GET_LOCATION_FAILURE:
+                return { loading: false, error: action.payload }
+        default:
+            return state
+    }
+}
 
 
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import Sidebar from '../sidebar/Sidebar'
+import Sidebar from '../Sidebar/Sidebar'
 const Dashboard = () => {
   return (
     <div style={{ marginLeft: '6%', marginTop: '7%' }}>

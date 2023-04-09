@@ -107,7 +107,7 @@ function Sidebar() {
 
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', position: 'fixed', zIndex: '10' }}>
             <CssBaseline />
             <AppBarWrapper position="fixed" open={open} sx={{ backgroundColor: 'rgb(53, 91, 62)' }}>
                 <Toolbar>

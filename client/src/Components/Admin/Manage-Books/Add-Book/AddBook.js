@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import Sidebar from '../../sidebar/Sidebar'
+import Sidebar from '../../Sidebar/Sidebar'
 import { MDBCol, MDBContainer, MDBInput, MDBRow } from 'mdb-react-ui-kit';
 import { Button } from 'react-bootstrap';
 import { Card } from 'primereact/card';
 import { Box } from '@mui/material';
+import { Alert } from '@mui/material';
 import { useForm } from 'react-hook-form'
 import Loading from '../../../Loading';
 import { useDispatch } from 'react-redux';
@@ -84,12 +85,15 @@ const AddBook = () => {
 
                     <div className="card flex flex-column md:flex-row gap-3">
 
-                        <h1 className='ms-4 mt-2'>Add Book</h1>
+                        <h1 className='text-center mt-2'>Add Book</h1>
                         {loading ? (
-                            <div className="loading-container">
-                            <Loading />
+                            <div className="loading-container text-center ">
+                                <Loading />
                             </div>
                         ) : null}
+                          {
+                        sucess ? <Alert severity="success">Book Added !!!</Alert> : ''
+                    }
                         <form id='addBookForm' onSubmit={handleSubmit(onSubmit)}>
                             <MDBRow className='pt-2 ms-3 me-3 mb-4'>
                                 <MDBCol>

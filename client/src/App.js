@@ -9,10 +9,9 @@ import UserProfile from './Components/User/User Profile/UserProfile'
 import AdminLogin from './Components/Admin/AdminLogin'
 import Dashboard from './Components/Admin/Dashboard/Dashboard'
 import UserManage from './Components/Admin/Manage-User/UserManage'
-import Books from './Components/Admin/Manage-Books/Books'
+import Books from './Components/Admin/Manage-Books/View-Books/Books'
 import AddBook from './Components/Admin/Manage-Books/Add-Book/AddBook'
-
-
+import EditBook from './Components/Admin/Manage-Books/Edit-Book/Edit-Book'
 
 const App = () => {
   const userData = useSelector((state) => state.userLogin.userLoginDetails)
@@ -32,6 +31,7 @@ const App = () => {
           <Route path='/admin/users' exact element={adminData ? <UserManage /> : <AdminLogin />} />
           <Route path='/admin/books' exact element={adminData ? <Books/> : <AdminLogin />} />
           <Route path='/admin/add-book' exact element={adminData ? <AddBook/> : <AdminLogin />} />
+          <Route path='/admin/edit-book' exact element={adminData ? <EditBook/> : <AdminLogin />} />
 
         </Routes>
       </Router>
