@@ -27,7 +27,33 @@ const UserManage = () => {
 
     const [blockedUsers, setBlockedUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [usersPerPage] = useState(10);
+    const [usersPerPage] = useState(5);
+
+    const [sortColumn, setSortColumn] = useState("index");
+    const [sortOrder, setSortOrder] = useState("asc");
+
+    const handleSort = (column) => {
+        if (sortColumn === column) {
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+        } else {
+            setSortColumn(column);
+            setSortOrder("asc");
+        }
+    };
+
+
+    const sortedData = adminUserData?.data?.sort((a, b) => {
+        const sortValueA = a[sortColumn];
+        const sortValueB = b[sortColumn];
+        if (sortValueA < sortValueB) {
+            return sortOrder === "asc" ? -1 : 1;
+        } else if (sortValueA > sortValueB) {
+            return sortOrder === "asc" ? 1 : -1;
+        } else {
+            return 0;
+        }
+    });
+
 
     useEffect(() => {
         dispatch(userDetailsFetch());
@@ -75,7 +101,6 @@ const UserManage = () => {
 
     const totalPages = Math.ceil(adminUserData?.data?.length / usersPerPage);
     const pageItems = [];
-    const pageNumbers = [];
 
     for (let number = 1; number <= totalPages; number++) {
         pageItems.push(
@@ -85,7 +110,7 @@ const UserManage = () => {
         );
     }
 
-    const renderPageNumbers = pageNumbers.map(number => {
+    const renderPageNumbers = pageItems.map(number => {
         return (
             <Pagination.Item key={number} active={number === currentPage} onClick={() => setCurrentPage(number)}>
                 {number}
@@ -93,19 +118,22 @@ const UserManage = () => {
         );
     });
 
+
     return (
         <>
             <Box sx={{ display: 'flex', marginLeft: '6%', marginTop: '6%' }}>
                 <Sidebar />
                 <Box component="main" sx={{ flexGrow: 1, p: 3, mr: 1 }}>
-                    <Table bordered hover striped="columns" variant="dark" responsive>
+                    <Table bordered hover striped="columns" variant="dark " responsive>
                         <thead >
                             <tr>
                                 <th>Sl.No</th>
-                                <th>Firstname</th>
+                                <th onClick={() => handleSort("firstName")}>
+                                    Firstname {sortOrder === "asc" ? <i className="fa fa-arrow-up"></i> : <i className="fa fa-arrow-down"></i>}
+                                </th>
                                 <th>Lastname</th>
-                                <th>Email</th>
-                                <th>Mobile</th>
+                                <th onClick={() => handleSort("email")}>Email {sortOrder === "asc" ? <i className="fa fa-arrow-up"></i> : <i className="fa fa-arrow-down"></i>}</th>
+                                <th onClick={() => handleSort("phone")}>Mobile {sortOrder === "asc" ? <i className="fa fa-arrow-up"></i> : <i className="fa fa-arrow-down"></i>}</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -113,26 +141,36 @@ const UserManage = () => {
                         <tbody>
                             {loading ? <tr><td colSpan="5" className="text-center">Loading...</td></tr> :
                                 error ? <tr><td colSpan="5" className="text-center">{error}</td></tr> :
-                                    currentUsers && currentUsers.map((user, index) => (
+                                    currentUsers &&
+                                    currentUsers.map((user, index) => (
                                         <tr key={index}>
-                                            <td>{index + 1}</td>
+                                            <td>{usersPerPage * (currentPage - 1) + index + 1}</td>
                                             <td>{user.firstName}</td>
                                             <td>{user.lastName}</td>
                                             <td>{user.email}</td>
                                             <td>{user.phone}</td>
-                                        
-                                                <td> <Switch
+                                            <td>
+                                                <Switch
                                                     checked={user.status}
                                                     onChange={() => handleBlockUser(user._id)}
                                                     name="blockUser"
-                                                    inputProps={{ 'aria-label': 'Block User Switch' }}
+                                                    inputProps={{ "aria-label": "Block User Switch" }}
                                                     className={user.status ? "block-switch" : "unblock-switch"}
-                                                /></td>
-                                                  <td><Button className='btn btn-dark' onClick={() => handleDeleteUser(user._id)}><i class="fa-sharp fa-solid fa-trash" style={{ color: 'red', fontSize: '150%' }}></i></Button> </td>
-                                          
+                                                />
+                                            </td>
+                                            <td>
+                                                <Button
+                                                    className="btn btn-dark"
+                                                    onClick={() => handleDeleteUser(user._id)}
+                                                >
+                                                    <i
+                                                        class="fa-sharp fa-solid fa-trash"
+                                                        style={{ color: "red", fontSize: "150%" }}
+                                                    ></i>
+                                                </Button>{" "}
+                                            </td>
                                         </tr>
-                                    ))
-                            }
+                                    ))}
                         </tbody>
                     </Table>
                     <Pagination className="pagination">
