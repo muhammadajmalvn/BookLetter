@@ -21,7 +21,11 @@ import {
 
     ADMIN_GET_LOCATION_REQUEST,
     ADMIN_GET_LOCATION_SUCCESS,
-    ADMIN_GET_LOCATION_FAILURE
+    ADMIN_GET_LOCATION_FAILURE,
+
+    ADMIN_SEARCH_REQUEST,
+    ADMIN_SEARCH_SUCCESS,
+    ADMIN_SEARCH_FAILURE
 } from '../../Constants/adminConstants'
 
 
@@ -110,13 +114,28 @@ export const getLocationReducer = (state = {}, action) => {
             return { loading: true }
         case ADMIN_GET_LOCATION_SUCCESS:
             return { loading: false, location: action.payload }
-            case ADMIN_GET_LOCATION_FAILURE:
-                return { loading: false, error: action.payload }
+        case ADMIN_GET_LOCATION_FAILURE:
+            return { loading: false, error: action.payload }
         default:
             return state
     }
 }
 
+
+export const adminSearchReducer = (state = {}, action) => {
+    switch (action.type) {
+        case ADMIN_SEARCH_REQUEST:
+            return { searchloading: true }
+
+        case ADMIN_SEARCH_SUCCESS:
+            return { searchloading: false, searchresult: action.payload }
+
+        case ADMIN_SEARCH_FAILURE:
+            return { loading: false, searcherror: action.payload }
+        default:
+            return state;
+    }
+}
 
 
 // export const addBookReducer = (state = {}, action) => {

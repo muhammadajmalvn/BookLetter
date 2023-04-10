@@ -24,11 +24,13 @@ const configFormData = {
 }
 
 
-export const adminGetUsersAPI =() => API.get('/users',configToken)
-export const adminUserBlockUnblockAPI = (id) => API.get('/manage-users?id='+id,configToken)
+export const adminGetUsersAPI = () => API.get('/users', configToken)
+export const adminUserBlockUnblockAPI = (id) => API.get('/manage-users?id=' + id, configToken)
 export const adminDeleteUserAPI = (id) => API.get("/delete-user?id=" + id, configToken)
+export const adminSearchAPI = (searchkeyword) => API.post("/search",{searchkeyword}, configToken)
+
 
 export const adminAddBookAPI = (formdata) => API.post("/add-books", formdata, configFormData)
 export const adminGetBooksAPI = () => API.get('/books', configToken)
 export const adminDeleteBookAPI = (id) => API.get("/delete-book?id=" + id, configToken)
-export const adminEditBookAPI = (id,formdata) => API.post('/edit-book?id=' + id,formdata, configFormData)
+export const adminEditBookAPI = (id, formdata) => API.post('/edit-book?id=' + id, formdata, configFormData)

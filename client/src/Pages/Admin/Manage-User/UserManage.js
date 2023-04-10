@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar'
 import { useDispatch, useSelector } from 'react-redux';
-import { userDetailsFetch, userBlock, deleteUser } from '../../../Redux/Actions/adminActions/adminUserActions'
+import { userDetailsFetch, userBlock, deleteUser, adminSearch } from '../../../Redux/Actions/adminActions/adminUserActions'
 import { Box } from '@mui/material'
 import './UserManage.css'
 import Switch from '@mui/material/Switch';
-import { Table } from 'react-bootstrap';
+import { Table, Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import swal from 'sweetalert';
 import Pagination from 'react-bootstrap/Pagination';
@@ -15,7 +15,7 @@ const UserManage = () => {
     const dispatch = useDispatch()
 
     const userDetails = useSelector(state => state.adminControl)
-    const { loading, adminUserData, error } = userDetails
+    let { loading, adminUserData, error } = userDetails
     console.log(userDetails, 'detailssssssss');
     console.log(adminUserData, 'detailssssssss');
 
@@ -31,6 +31,30 @@ const UserManage = () => {
 
     const [sortColumn, setSortColumn] = useState("index");
     const [sortOrder, setSortOrder] = useState("asc");
+
+
+    const [searchkeyword, setSearchKeyword] = useState('')
+    const adminsearch = useSelector((state) => state.adminSearch)
+    let { searchloading, searcherror, searchresult } = adminsearch
+
+    const searchuser = () => {
+        dispatch(adminSearch(searchkeyword))
+
+    }
+    console.log(searchresult, '54556545666666666666');
+    if (searchresult) {
+        adminUserData = searchresult
+
+    }
+    const settingsearch = (e) => {
+        if (e.length == 0) {
+            setSearchKeyword(e)
+            dispatch(adminSearch(''))
+        } else {
+            setSearchKeyword(e)
+        }
+    }
+
 
     const handleSort = (column) => {
         if (sortColumn === column) {
@@ -124,6 +148,16 @@ const UserManage = () => {
             <Box sx={{ display: 'flex', marginLeft: '6%', marginTop: '6%' }}>
                 <Sidebar />
                 <Box component="main" sx={{ flexGrow: 1, p: 3, mr: 1 }}>
+                    <Form style={{ width: "50%" }} className="d-flex mt-2 mb-2">
+                        <Form.Control
+                            type="search"
+                            onChange={(e) => { settingsearch(e.target.value) }}
+                            placeholder="Search"
+                            className="me-2"
+                            aria-label="Search"
+                        />
+                        <Button onClick={searchuser} style={{ backgroundColor: 'rgb(53, 91, 62)' }} >Search</Button>
+                    </Form>
                     <Table bordered hover striped="columns" variant="dark " responsive>
                         <thead >
                             <tr>
