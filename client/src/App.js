@@ -6,12 +6,15 @@ import Signup from './Pages/User/Signup/Signup'
 import Login from './Pages/User/Login/Login'
 import Homepage from './Pages/User/Homepage/Homepage'
 import UserProfile from './Pages/User/UserProfile/UserProfile'
+import BooksView from './Pages/User/BooksView/BooksView'
+
 import AdminLogin from './Pages/Admin/AdminLogin'
 import Dashboard from './Pages/Admin/Dashboard/Dashboard'
 import UserManage from './Pages/Admin/Manage-User/UserManage'
 import Books from './Pages/Admin/Manage-Books/View-Books/Books'
 import AddBook from './Pages/Admin/Manage-Books/Add-Book/AddBook'
 import EditBook from './Pages/Admin/Manage-Books/Edit-Book/Edit-Book'
+import SingleBookView from './Pages/User/SingleBookView/SingleBookView'
 
 const App = () => {
   const userData = useSelector((state) => state.userLogin.userLoginDetails)
@@ -26,6 +29,9 @@ const App = () => {
           <Route path='/signup' element={userData ? <Navigate to='/' /> : <Signup />} />
           <Route path='/login' element={userData ? <Navigate to='/' /> : <Login />} />
           <Route path='/profile' exact element={userData ? <UserProfile /> : <Login />} />
+          <Route path='/books' exact element={<BooksView />} />
+          <Route path='/single-book-view' exact element={<SingleBookView />} />
+
 
           <Route path='/admin' exact element={adminData ? <Dashboard /> : <AdminLogin />} />
           <Route path='/admin/users' exact element={adminData ? <UserManage /> : <AdminLogin />} />

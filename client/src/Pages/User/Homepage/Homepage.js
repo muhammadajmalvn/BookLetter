@@ -3,7 +3,7 @@ import Navbar from '../../../Pages/User/Navbar/Navbar'
 import Banner from '../../../Components/User/Banner';
 import Poster from '../../../Components/User/Poster';
 import orderImg from '../../../public/enquire-n-Order-details-jpg'
-import bannerImg from '../../../public/BannerDemo.png'
+import bannerImg from '../../../public/bannar.jpg'
 
 
 const HomePage = () => {
@@ -13,7 +13,7 @@ const HomePage = () => {
       <div style={{ backgroundColor: '#f2f2f2', minHeight: '100vh' }}>
         <div style={{ backgroundColor: '#fff' }}>
           {/* Banner */}
-          <div style={{ height: 500 }}>
+          <div style={{ height: 650 }}>
             <Banner image={bannerImg} />
           </div>
 

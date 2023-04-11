@@ -11,7 +11,6 @@ const API = axios.create({ baseURL: "http://localhost:5000" })
 
 
 export const userLogin = (email, password) => async (dispatch) => {
-    console.log(email, password, 'inside actionsssss');
     try {
         dispatch({ type: USER_LOGIN_REQUEST });
         const config = {
@@ -21,7 +20,6 @@ export const userLogin = (email, password) => async (dispatch) => {
         }
      
         const { data } = await API.post("/user-login", { email, password }, config);
-        console.log(data, '555555555555555555544444444444444444');
         dispatch({
             type: USER_LOGIN_SUCCESS, payload: data
         })

@@ -83,7 +83,7 @@ const UserManage = () => {
         dispatch(userDetailsFetch());
     }, [dispatch]);
 
-    const handleToggle = (id) => {
+    const handleToggle = async(id) => {
         const updatedUsers = [...blockedUsers];
         const userIndex = updatedUsers.findIndex(user => user === id);
 
@@ -94,7 +94,7 @@ const UserManage = () => {
         }
 
         setBlockedUsers(updatedUsers);
-        dispatch(userBlock(id));
+       await dispatch(userBlock(id));
     }
 
     const handleDeleteUser = async (id) => {
@@ -177,7 +177,7 @@ const UserManage = () => {
                                 error ? <tr><td colSpan="5" className="text-center">{error}</td></tr> :
                                     currentUsers &&
                                     currentUsers.map((user, index) => (
-                                        <tr key={index}>
+                                        <tr key={user.email}>
                                             <td>{usersPerPage * (currentPage - 1) + index + 1}</td>
                                             <td>{user.firstName}</td>
                                             <td>{user.lastName}</td>
@@ -189,7 +189,6 @@ const UserManage = () => {
                                                     onChange={() => handleBlockUser(user._id)}
                                                     name="blockUser"
                                                     inputProps={{ "aria-label": "Block User Switch" }}
-                                                    className={user.status ? "block-switch" : "unblock-switch"}
                                                 />
                                             </td>
                                             <td>
@@ -208,11 +207,11 @@ const UserManage = () => {
                         </tbody>
                     </Table>
                     <Pagination className="pagination">
-                        <Pagination.First onClick={() => setCurrentPage(1)} />
+                        {/* <Pagination.First onClick={() => setCurrentPage(1)} /> */}
                         <Pagination.Prev onClick={() => setCurrentPage(currentPage - 1)} />
                         {renderPageNumbers}
                         <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} />
-                        <Pagination.Last onClick={() => setCurrentPage(pageNumbers.length)} />
+                        {/* <Pagination.Last onClick={() => setCurrentPage(pageNumbers.length)} /> */}
                     </Pagination>
                 </Box>
             </Box>
