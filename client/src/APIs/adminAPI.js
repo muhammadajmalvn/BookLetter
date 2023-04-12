@@ -13,13 +13,13 @@ const config = {
 const configToken = {
     headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + admin?.token
+        Authorization: "Bearer " + admin.token
     }
 }
 const configFormData = {
     headers: {
         "Content-Type": "multipart/form-data",
-        authorization: "Bearer " + admin?.token
+        Authorization: "Bearer " + admin?.token
     }
 }
 
@@ -34,3 +34,4 @@ export const adminAddBookAPI = (formdata) => API.post("/add-books", formdata, co
 export const adminGetBooksAPI = () => API.get('/books', configToken)
 export const adminDeleteBookAPI = (id) => API.get("/delete-book?id=" + id, configToken)
 export const adminEditBookAPI = (id, formdata) => API.post('/edit-book?id=' + id, formdata, configFormData)
+export const adminAddGenreAPI = (genre) => API.post('/add-genre', {genre},configToken);

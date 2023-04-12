@@ -83,7 +83,7 @@ const UserManage = () => {
         dispatch(userDetailsFetch());
     }, [dispatch]);
 
-    const handleToggle = async(id) => {
+    const handleToggle = async (id) => {
         const updatedUsers = [...blockedUsers];
         const userIndex = updatedUsers.findIndex(user => user === id);
 
@@ -94,7 +94,7 @@ const UserManage = () => {
         }
 
         setBlockedUsers(updatedUsers);
-       await dispatch(userBlock(id));
+        await dispatch(userBlock(id));
     }
 
     const handleDeleteUser = async (id) => {
@@ -116,6 +116,8 @@ const UserManage = () => {
                 } else {
                     swal("User deletion cancelled!");
                 }
+                dispatch(userDetailsFetch());
+
             });
     }
 

@@ -1,4 +1,4 @@
-const bookSchema = require('../../models/Users/bookSchema')
+const bookSchema = require('../../models/Books/bookSchema')
 const generateToken = require('../../utils/generateToken')
 
 

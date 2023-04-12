@@ -1,4 +1,4 @@
-const bookSchema = require('../../models/Users/bookSchema')
+const bookSchema = require('../../models/Books/bookSchema')
 const path = require('path')
 const upload = require("../../utils/multer")
 const fs = require('fs')

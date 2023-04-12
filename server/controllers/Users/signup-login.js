@@ -5,7 +5,6 @@ const generateToken = require('../../utils/generateToken')
 
 //SIGNUP POST CONTROLLER
 exports.signupPost = async (req, res) => {
-    // console.log(req.body, 'server posttttttttttttt');
     try {
         let details = {
             firstName, lastName, email, phone, password
@@ -41,7 +40,6 @@ exports.signupPost = async (req, res) => {
 
 //LOGIN POST CONTROLLER
 exports.loginPost = (req, res) => {
-    console.log(req.body);
     try {
         userSchema.findOne({ email: req.body.email }).then((userData) => {
             if (userData) {
@@ -58,20 +56,16 @@ exports.loginPost = (req, res) => {
                                 photo: userData.photo,
                                 address: userData.address
                             }
-                            console.log(details, 'details of user');
                             res.status(200).json(details)
                         } else {
                             res.status(401).json("Incorrect Password")
-                            console.log("Incorrect Password");
                         }
                     })
                 } else {
                     res.status(401).json("User is Blocked")
-                    console.log("User is Blocked");
                 }
             } else {
                 res.status(400).json("User Does Not Exist")
-                console.log("User Does Not Exist");
             }
         })
     } catch (err) {
