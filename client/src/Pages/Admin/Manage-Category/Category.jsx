@@ -6,9 +6,10 @@ import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
-import { adminAddGenreAction } from '../../../Redux/Actions/adminActions/adminGenreActions';
+import { adminAddGenreAction, adminGetAllGenreAction, deleteGenre } from '../../../Redux/Actions/adminActions/adminGenreActions';
 import { useForm } from 'react-hook-form'
-
+import ErrorMessage from '../../Error';
+import Loading from '../../Loading';
 
 
 const Category = () => {
@@ -17,12 +18,44 @@ const Category = () => {
   const [genre, setGenre] = useState('')
   const { register, handleSubmit, formState: { errors } } = useForm()
 
+
+  const genreAdded = useSelector(state => state.adminGenreAdd)
+  const { addLoading, addError, genreAdd } = genreAdded
+
+
+  const adminGenres = useSelector(state => state.adminGenreReducer)
+  const { loading, error, genreData } = adminGenres
   const onSubmit = (data) => {
     dispatch(adminAddGenreAction(genre));
+    dispatch(adminGetAllGenreAction())
   }
   useEffect(() => {
-    // dispatch(adminGetAllCategoryAction())
+    dispatch(adminGetAllGenreAction())
   }, [])
+
+
+  const handleDeleteGenre = async (id) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this genre!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+
+          dispatch(deleteGenre(id));
+          swal("Genre deleted successfully!", {
+            icon: "success",
+          });
+        } else {
+          swal("Genre deletion cancelled!");
+        }
+        dispatch(adminGetAllGenreAction());
+
+      });
+  }
   return (
     <>
       <Box sx={{ display: 'flex', marginLeft: '6%', marginTop: '6%', zIndex: '-10' }}>
@@ -31,6 +64,8 @@ const Category = () => {
         <Box component="main" sx={{ flexGrow: 1, p: 3, mr: 1 }}>
 
           <div className="table-responsive">
+            <p style={{ margin: '0' }}>          {addError ? <ErrorMessage variant='danger'>{addError}</ErrorMessage> : " "} </p>
+            <p style={{ margin: '0' }}>          {loading ? <Loading variant='danger'>{addError}</Loading> : " "} </p>
             <Form id='addgenreform' onSubmit={handleSubmit(onSubmit)} className='ms-5'>
               <p style={{ color: 'red', margin: '0' }}>{errors.genre && "Enter a valid genre"}
               </p>
@@ -52,22 +87,22 @@ const Category = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* { */}
-                {/* adminBookData ? adminBookData.data.map((genre, index) => { */}
-                {/* return ( */}
-                <>
-                  <tr>
-                    <td>{1}</td>
-                    <td>{1}</td>
+                {
+                  genreData ? genreData.data.map((genre, index) => {
+                    return (
+                      <>
+                        <tr>
+                          <td key={index}>{index + 1}</td>
+                          <td>{genre.name}</td>
 
-                    <td>
+                          <td>
 
-                      <Button className='btn btn-dark' onClick={() => handleDeleteBook(book._id)}><i class="fa-sharp fa-solid fa-trash" style={{ color: 'red', fontSize: '150%' }}></i></Button> </td>
-                  </tr>
-                </>
-                {/* ) */}
-                {/* }) : '' */}
-                {/* } */}
+                            <Button className='btn btn-dark' onClick={() => handleDeleteGenre(genre._id)}><i class="fa-sharp fa-solid fa-trash" style={{ color: 'red', fontSize: '150%' }}></i></Button> </td>
+                        </tr>
+                      </>
+                    )
+                  }) : ''
+                }
               </tbody>
             </Table>
           </div>

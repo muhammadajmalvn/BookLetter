@@ -25,7 +25,18 @@ import {
 
     ADMIN_SEARCH_REQUEST,
     ADMIN_SEARCH_SUCCESS,
-    ADMIN_SEARCH_FAILURE
+    ADMIN_SEARCH_FAILURE,
+
+    ADMIN_ADD_GENRE_REQUEST,
+    ADMIN_ADD_GENRE_SUCCESS,
+    ADMIN_ADD_GENRE_FAILURE,
+
+    ADMIN_GENRES_FETCH_REQUEST,
+    ADMIN_GENRES_FETCH_SUCCESS,
+    ADMIN_GENRES_FETCH_FAILURE,
+    ADMIN_GENRES_DELETE_REQUEST,
+    ADMIN_GENRES_DELETE_SUCCESS,
+    ADMIN_GENRES_DELETE_FAILURE
 } from '../../Constants/adminConstants'
 
 
@@ -136,6 +147,46 @@ export const adminSearchReducer = (state = {}, action) => {
             return state;
     }
 }
+
+
+export const adminGenreAddReducer = (state = {}, action) => {
+    switch (action.type) {
+        case ADMIN_ADD_GENRE_REQUEST:
+            return { addLoading: true }
+
+        case ADMIN_ADD_GENRE_SUCCESS:
+            return { addLoading: false, genreAdd: action.payload }
+
+        case ADMIN_ADD_GENRE_FAILURE:
+            return { loading: false, addError: action.payload }
+        default:
+            return state;
+    }
+}
+
+export const adminGenreReducer = (state = {}, action) => {
+    switch (action.type) {
+        case ADMIN_GENRES_FETCH_REQUEST:
+            return { loading: true }
+
+        case ADMIN_GENRES_FETCH_SUCCESS:
+            return { loading: false, genreData: action.payload }
+
+        case ADMIN_GENRES_FETCH_FAILURE:
+            return { loading: false, error: action.payload }
+      
+            case ADMIN_GENRES_DELETE_REQUEST:
+                return { loading: true }
+            case ADMIN_GENRES_DELETE_SUCCESS:
+                return { loading: false, genreData: action.payload }
+            case ADMIN_GENRES_DELETE_FAILURE:
+                return { loading: false, error: action.payload }
+            default:
+                return state
+    }
+}
+
+
 
 
 // export const addBookReducer = (state = {}, action) => {

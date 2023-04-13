@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { adminGetLocation } from '../../../../Redux/Actions/adminActions/adminBookActions';
 import { adminEditBookAPI } from '../../../../APIs/adminAPI';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { adminGetAllGenreAction } from '../../../../Redux/Actions/adminActions/adminGenreActions';
 
 const EditBook = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
@@ -36,6 +37,7 @@ const EditBook = () => {
 
     useEffect(() => {
         dispatch(adminGetLocation())
+        dispatch(adminGetAllGenreAction())
 
         setImages1([location.state.adminBookData.photo])
         setTitle(location.state.adminBookData.title)
@@ -83,7 +85,7 @@ const EditBook = () => {
         adminEditBookAPI(id, formdata).then((data) => {
             console.log(data.data, 'form data response');
 
-     
+
             setLoading(false)
             setSuccess(true)
 
@@ -97,7 +99,11 @@ const EditBook = () => {
                 // setLoading(false)
             })
     }
- 
+
+    const adminGenres = useSelector(state => state.adminGenreReducer)
+    const { genreLoading, error, genreData } = adminGenres
+
+
     const mongoDate = location.state.adminBookData.publishedDate;
     const dateObject = new Date(mongoDate);
     const year = dateObject.getFullYear();
@@ -121,9 +127,9 @@ const EditBook = () => {
                                 <Loading />
                             </div>
                         ) : null}
-                         {
-                        sucess ? <Alert severity="success" >Book Edited !!!</Alert> : ''
-                    }
+                        {
+                            sucess ? <Alert severity="success" >Book Edited !!!</Alert> : ''
+                        }
                         <form id='addBookForm' onSubmit={handleSubmit(onSubmit)}>
                             <MDBRow className='pt-2 ms-3 me-3 mb-4'>
                                 <MDBCol>
@@ -140,20 +146,44 @@ const EditBook = () => {
                                 </MDBCol>
                             </MDBRow>
 
+
                             <MDBRow className='pt-2 ms-3 me-3 mb-4'>
                                 <MDBCol>
-                                    <p style={{ color: 'red', margin: '0' }}>{errors.genre && "Enter a valid Genre"}
-                                    </p>
-                                    {/* <label htmlFor="">Genre</label> */}
-                                    <MDBInput id='form3Example1' label='Genre of Book' defaultValue={location.state.adminBookData.genre} type='text' {...register("genre", { required: true })} onChange={(e) => setGenre(e.target.value)} />
+                                    <p style={{ color: 'red', margin: '0' }}>{errors.genre && "Select a valid Genre"}</p>
+                                    <div className="form-group">
+                                        <select
+                                            {...register("genre", { required: true })}
+                                            value={genre}
+                                            onChange={(e) => setGenre(e.target.value)}
+                                            id="genre"
+                                            className="form-select"
+                                        >
+                                            <option value="" disabled>{location.state.adminBookData.genre}</option>
+                                            {genreData &&
+                                                genreData.data.map((genre) => (
+                                                    <option key={genre._id} value={genre.name}>
+                                                        {genre.name}
+                                                    </option>
+                                                ))}
+                                        </select>
+                                        {errors.genre && (
+                                            <div className="text-danger">Select a valid Genre</div>
+                                        )}
+                                        {!genreData && <div>Loading genres...</div>}
+                                        {genreData && !genreData.data.length && (
+                                            <div className="text-danger">No genres found</div>
+                                        )}
+                                    </div>
                                 </MDBCol>
                                 <MDBCol>
-                                    {/* <label htmlFor="">Publisher</label> */}
-                                    <p style={{ color: 'red', margin: '0' }}>{errors.publisher && "Enter a valid publisher name"}
-                                    </p>
-                                    <MDBInput id='form3Example2' label='Publisher of Book' defaultValue={location.state.adminBookData.publisher} type='text' {...register("publisher", { required: true })} onChange={(e) => setPublisher(e.target.value)} />
+                                    <p style={{ color: 'red', margin: '0' }}>{errors.publisher && "Enter a valid publisher name"}</p>
+                                    <div className="form-outline">
+                                        <MDBInput id='form3Example2' label='Publisher of Book' type='text' defaultValue={location.state.adminBookData.publisher}  {...register("publisher", { required: true })} onChange={(e) => setPublisher(e.target.value)} />
+                                    </div>
                                 </MDBCol>
                             </MDBRow>
+
+
 
                             <MDBRow className='pt-2 ms-3 me-3 mb-4'>
                                 <MDBCol>

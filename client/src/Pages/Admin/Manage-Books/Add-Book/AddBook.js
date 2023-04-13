@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '../../Sidebar/Sidebar'
 import { MDBCol, MDBContainer, MDBInput, MDBRow } from 'mdb-react-ui-kit';
 import { Button } from 'react-bootstrap';
@@ -7,8 +7,9 @@ import { Box } from '@mui/material';
 import { Alert } from '@mui/material';
 import { useForm } from 'react-hook-form'
 import Loading from '../../../Loading';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addBook } from '../../../../Redux/Actions/adminActions/adminBookActions';
+import { adminGetAllGenreAction } from '../../../../Redux/Actions/adminActions/adminGenreActions';
 import { adminAddBookAPI } from '../../../../APIs/adminAPI';
 import { useNavigate } from 'react-router-dom';
 
@@ -44,7 +45,6 @@ const AddBook = () => {
         })
 
 
-        // the form data 
         formdata.append("title", title)
         formdata.append("author", author)
         formdata.append("genre", genre)
@@ -74,6 +74,11 @@ const AddBook = () => {
             })
     }
 
+    const adminGenres = useSelector(state => state.adminGenreReducer)
+    const { genreLoading, error, genreData } = adminGenres
+    useEffect(() => {
+        dispatch(adminGetAllGenreAction())
+    }, [])
     return (
         <>
             <Sidebar />
@@ -91,43 +96,62 @@ const AddBook = () => {
                                 <Loading />
                             </div>
                         ) : null}
-                          {
-                        sucess ? <Alert severity="success">Book Added !!!</Alert> : ''
-                    }
+                        {
+                            sucess ? <Alert severity="success">Book Added !!!</Alert> : ''
+                        }
                         <form id='addBookForm' onSubmit={handleSubmit(onSubmit)}>
                             <MDBRow className='pt-2 ms-3 me-3 mb-4'>
                                 <MDBCol>
                                     <p style={{ color: 'red', margin: '0' }}>{errors.title && "Enter a valid book title"}
                                     </p>
-                                    {/* <label htmlFor="">Title</label> */}
                                     <MDBInput id='form3Example1' label='Title of Book' type='text' {...register("title", { required: true })} onChange={(e) => setTitle(e.target.value)} />
                                 </MDBCol>
                                 <MDBCol>
                                     <p style={{ color: 'red', margin: '0' }}>{errors.author && "Enter a valid Author Name"}
                                     </p>
-                                    {/* <label htmlFor="">Author</label> */}
                                     <MDBInput id='form3Example2' label='Author of Book' type='text' {...register("author", { required: true })} onChange={(e) => setAuthor(e.target.value)} />
                                 </MDBCol>
                             </MDBRow>
 
                             <MDBRow className='pt-2 ms-3 me-3 mb-4'>
                                 <MDBCol>
-                                    <p style={{ color: 'red', margin: '0' }}>{errors.genre && "Enter a valid Genre"}
-                                    </p>
-                                    {/* <label htmlFor="">Genre</label> */}
-                                    <MDBInput id='form3Example1' label='Genre of Book' type='text' {...register("genre", { required: true })} onChange={(e) => setGenre(e.target.value)} />
+                                    <p style={{ color: 'red', margin: '0' }}>{errors.genre && "Select a valid Genre"}</p>
+                                    <div className="form-group">
+                                        <select
+                                            {...register("genre", { required: true })}
+                                            value={genre}
+                                            onChange={(e) => setGenre(e.target.value)}
+                                            id="genre"
+                                            className="form-select"
+                                        >
+                                            <option value="" disabled>Select a Genre</option>
+                                            {genreData &&
+                                                genreData.data.map((genre) => (
+                                                    <option key={genre._id} value={genre.name}>
+                                                        {genre.name}
+                                                    </option>
+                                                ))}
+                                        </select>
+                                        {errors.genre && (
+                                            <div className="text-danger">Select a valid Genre</div>
+                                        )}
+                                        {!genreData && <div>Loading genres...</div>}
+                                        {genreData && !genreData.data.length && (
+                                            <div className="text-danger">No genres found</div>
+                                        )}
+                                    </div>
                                 </MDBCol>
                                 <MDBCol>
-                                    {/* <label htmlFor="">Publisher</label> */}
-                                    <p style={{ color: 'red', margin: '0' }}>{errors.publisher && "Enter a valid publisher name"}
-                                    </p>
-                                    <MDBInput id='form3Example2' label='Publisher of Book' type='text' {...register("publisher", { required: true })} onChange={(e) => setPublisher(e.target.value)} />
+                                    <p style={{ color: 'red', margin: '0' }}>{errors.publisher && "Enter a valid publisher name"}</p>
+                                    <div className="form-outline">
+                                        <MDBInput id='form3Example2' label='Publisher of Book' type='text' {...register("publisher", { required: true })} onChange={(e) => setPublisher(e.target.value)} />
+                                    </div>
                                 </MDBCol>
                             </MDBRow>
 
+
                             <MDBRow className='pt-2 ms-3 me-3 mb-4'>
                                 <MDBCol>
-                                    {/* <label htmlFor="">Price</label> */}
                                     <p style={{ color: 'red', margin: '0' }}>{errors.price && "Enter a valid price"}
                                     </p>
                                     <MDBInput id='form3Example1' type='number' label='Price of Book' {...register("price", { required: true, min: 1 })} onChange={(e) => setPrice(e.target.value)} />
@@ -135,22 +159,17 @@ const AddBook = () => {
                                 <MDBCol>
                                     <p style={{ color: 'red', margin: '0' }}>{errors.pages && "Enter a valid pages"}
                                     </p>
-                                    {/* <label htmlFor="">Pages</label> */}
                                     <MDBInput id='form3Example2' type='number' label='Pages of Book' {...register("pages", { required: true, min: 1 })} onChange={(e) => setPages(e.target.value)} />
                                 </MDBCol>
                             </MDBRow>
                             <MDBRow className='pt-2 ms-4 me-4 mb-4'>
-                                {/* <label htmlFor="">Description</label> */}
                                 <p style={{ color: 'red', margin: '0' }}>{errors.description && "Enter a valid description"}
                                 </p>
                                 <MDBInput id='form3Example2' type='text' label='Description of Book' {...register("description", { required: true })} onChange={(e) => setDescription(e.target.value)} />
                             </MDBRow>
 
                             <MDBRow className='pt-2 ms-4 me-4 mb-4'>
-
-                                {/* <label htmlFor="">Date of Issue</label> */}
                                 <MDBInput id='form3Example2' type='date'  {...register("date", { required: true })} onChange={(e) => setDate(e.target.value)} />
-
                             </MDBRow>
 
                             <MDBRow className='pt-2 ms-3 me-3 mb-4'>
@@ -167,7 +186,6 @@ const AddBook = () => {
                                     <MDBInput id='form3Example2' type='file' {...register("image2", { required: true, minLength: 1 })} onChange={(e) => setImages([...images, e.target.files[0]])} />
                                 </MDBCol>
                             </MDBRow>
-
                             <MDBRow className='pt-2 ms-3 me-3 mb-4'>
                                 <MDBCol>
                                     <label htmlFor="">Image3</label>
@@ -194,5 +212,4 @@ const AddBook = () => {
         </>
     )
 }
-
 export default AddBook

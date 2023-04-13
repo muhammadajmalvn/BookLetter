@@ -39,7 +39,7 @@ const App = () => {
           <Route path='/admin/books' exact element={adminData ? <Books/> : <AdminLogin />} />
           <Route path='/admin/add-book' exact element={adminData ? <AddBook/> : <AdminLogin />} />
           <Route path='/admin/edit-book' exact element={adminData ? <EditBook/> : <AdminLogin />} />
-          <Route path='/admin/category' exact element={adminData ? <Category/> : <AdminLogin />} />
+          <Route path='/admin/genre' exact element={adminData ? <Category/> : <AdminLogin />} />
 
         </Routes>
       </Router>

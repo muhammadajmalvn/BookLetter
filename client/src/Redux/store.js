@@ -3,7 +3,7 @@ import { userSignupReducer } from './Reducers/userReducers/userSignupReducer'
 import { userLoginReducer } from './Reducers/userReducers/userLoginReducer'
 import { userProfileReducer, userImageReducer } from './Reducers/userReducers/userProfileReducer'
 import { adminLoginReducer } from '../Redux/Reducers/adminReducers/adminLoginReducer'
-import { adminControlReducer,getBookReducer,getLocationReducer , adminSearchReducer} from "./Reducers/adminReducers/adminControlReducers"
+import { adminControlReducer,getBookReducer,getLocationReducer , adminSearchReducer,adminGenreAddReducer,adminGenreReducer} from "./Reducers/adminReducers/adminControlReducers"
 import {userGetBookReducer} from './Reducers/userReducers/userBookReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunkMiddleware from 'redux-thunk'
@@ -20,6 +20,8 @@ const rootReducer = combineReducers({
   adminGetAllBooks:getBookReducer,
   adminGetLocation:getLocationReducer,
   adminSearch: adminSearchReducer,
+  adminGenreAdd :adminGenreAddReducer,
+  adminGenreReducer:adminGenreReducer,
 });
 
 

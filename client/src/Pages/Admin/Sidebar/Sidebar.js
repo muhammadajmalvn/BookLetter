@@ -23,7 +23,7 @@ import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import SummarizeIcon from '@mui/icons-material/Summarize';
-
+import CategoryIcon from '@mui/icons-material/Category';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -105,7 +105,6 @@ function Sidebar() {
         setOpen(false);
     };
 
-
     return (
         <Box sx={{ display: 'flex', position: 'fixed', zIndex: '10' }}>
             <CssBaseline />
@@ -124,7 +123,7 @@ function Sidebar() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        LetterBox Admin
+                        Hi LetterBox Admin👋
                     </Typography>
                 </Toolbar>
             </AppBarWrapper>
@@ -143,6 +142,7 @@ function Sidebar() {
                         { name: 'Users', icon: <PeopleAltIcon /> },
                         { name: 'Books', icon: <LibraryBooksIcon /> },
                         { name: 'Add-Book', icon: <BookmarkAddIcon /> },
+                        { name: 'Genres', icon: <CategoryIcon /> },
                         { name: 'Sell Request', icon: <StorefrontIcon /> },
                         { name: 'Report', icon: <SummarizeIcon /> },
 
@@ -175,7 +175,7 @@ function Sidebar() {
                                         text2 === "dashboard" && navigate('/admin')
                                         text2 === "books" && navigate('/admin/books')
                                         text2 === "add-book" && navigate('/admin/add-book')
-
+                                        text2 === "genres" && navigate('/admin/genre')
                                     }} />
                             </ListItemButton>
                         </ListItem>

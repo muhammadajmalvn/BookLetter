@@ -35,3 +35,5 @@ export const adminGetBooksAPI = () => API.get('/books', configToken)
 export const adminDeleteBookAPI = (id) => API.get("/delete-book?id=" + id, configToken)
 export const adminEditBookAPI = (id, formdata) => API.post('/edit-book?id=' + id, formdata, configFormData)
 export const adminAddGenreAPI = (genre) => API.post('/add-genre', {genre},configToken);
+export const adminGetGenresAPI = () => API.get('/genres',configToken);
+export const adminDeleteGenresAPI = (id) => API.get("/delete-genre?id=" + id, configToken)
