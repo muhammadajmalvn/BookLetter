@@ -12,5 +12,6 @@ router.route('/profile').get(protect, userProfile.viewProfile)
 router.route('/profileImageUpdate').post(protect, userProfile.imageUpdate)
 
 router.route('/books').get(userBooks.getAllBooks)
+router.route('/genrebooks').post(userBooks.getGenreBooks)
 
 module.exports = router;

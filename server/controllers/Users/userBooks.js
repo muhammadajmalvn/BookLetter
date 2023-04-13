@@ -14,3 +14,16 @@ exports.getAllBooks = async (req, res) => {
         res.status(500).json(err)
     }
 }
+
+
+exports.getGenreBooks = async (req, res) => {
+    try {
+        bookSchema.find({genre:req.body.genre}).then((data) => {
+            res.status(200).json(data)
+        })
+    }
+    catch (error) {
+        console.log(err, 'Error in fetching books');
+        res.status(500).json(err)
+    }
+}

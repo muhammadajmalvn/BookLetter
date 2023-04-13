@@ -12,6 +12,10 @@ import { useNavigate } from 'react-router-dom';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { userGetBooksAction } from '../../../Redux/Actions/userActions/bookActions'
+import { adminGetAllGenreAction } from '../../../Redux/Actions/adminActions/adminGenreActions';
+import SelfHelpBooks from '../../../Components/User/Books/SelfHelpBooks';
+import KidsBooks from '../../../Components/User/Books/KidsBooks';
+import NovelBooks from '../../../Components/User/Books/NovelBooks';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,30 +56,36 @@ const BooksView = () => {
   const books = useSelector((state) => state.userGetBooks)
   const { booksDataLoading, booksData, booksDataError } = books
 
+  const adminGenres = useSelector(state => state.adminGenreReducer)
+  const { genreLoading, error, genreData } = adminGenres
+
   useEffect(() => {
     dispatch(userGetBooksAction())
+    dispatch(adminGetAllGenreAction())
   }, [])
 
   const [searchTerm, setSearchTerm] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(userBikeSearchAction(searchTerm))
+    dispatch(userBookSearchAction(searchTerm))
   }
 
-  const category = ['Kids', 'Novel', 'India']
   return (
     <>
       <NavBar />
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-        <h1>Books for you</h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <h1>Books Available </h1>
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
         <Box component='form' onSubmit={handleSubmit}
           sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '80%' }}
-
         >
-
           <TextField
             label="Search"
             name='search'
@@ -92,7 +102,6 @@ const BooksView = () => {
                 </InputAdornment>
               ),
             }}
-            helperText='enter the text here..'
           />
         </Box>
       </Box>
@@ -101,11 +110,12 @@ const BooksView = () => {
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs aria-label="basic tabs example" value={value} onChange={handleChange} centered>
-            {/* <Tab label="All Books" /> */}
             <Tabs aria-label="basic tabs example" value={value} onChange={handleChange} centered>
-              {category.map((data, index) => (
-                <Tab key={index} label={data} />
-              ))}
+              <Tab label="All Books" />
+              {genreData &&
+                genreData.data.map((data, index) => (
+                  <Tab key={index} label={data.name} />
+                ))}
             </Tabs>
           </Tabs>
         </Box>
@@ -113,10 +123,13 @@ const BooksView = () => {
           <AllBooks />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          {/* <PriceAscSortBikes priceAsc={bikesData} /> */}
+          <SelfHelpBooks />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          {/* <PriceDescSortBikes priceDesc={bikesData} /> */}
+          <KidsBooks />
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <NovelBooks />
         </TabPanel>
       </Box>
     </>
