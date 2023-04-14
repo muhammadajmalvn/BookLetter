@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar'
 import { useDispatch, useSelector } from 'react-redux';
-import { userDetailsFetch, userBlock, deleteUser, adminSearch } from '../../../Redux/Actions/adminActions/adminUserActions'
+import { userDetailsFetch, deleteUser, adminSearch, userBlockUnblock } from '../../../Redux/Actions/adminActions/adminUserActions'
 import { Box } from '@mui/material'
 import './UserManage.css'
 import Switch from '@mui/material/Switch';
@@ -9,6 +9,7 @@ import { Table, Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import swal from 'sweetalert';
 import Pagination from 'react-bootstrap/Pagination';
+import { userLogout } from '../../../Redux/Actions/userActions/LoginActions';
 
 
 const UserManage = () => {
@@ -20,9 +21,12 @@ const UserManage = () => {
     console.log(adminUserData, 'detailssssssss');
 
     const handleBlockUser = async (id) => {
-        console.log(id);
-        dispatch(userBlock(id));
-        dispatch(userDetailsFetch());
+        dispatch(userBlockUnblock(id));
+        setTimeout(() => {
+            dispatch(userDetailsFetch());
+            dispatch(userLogout())
+        }, 1000)
+
     }
 
     const [blockedUsers, setBlockedUsers] = useState([]);
@@ -41,7 +45,6 @@ const UserManage = () => {
         dispatch(adminSearch(searchkeyword))
 
     }
-    console.log(searchresult, '54556545666666666666');
     if (searchresult) {
         adminUserData = searchresult
 

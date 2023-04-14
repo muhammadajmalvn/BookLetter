@@ -15,7 +15,6 @@ exports.getUsers = async (req, res) => {
 exports.blockUser = async (req, res) => {
     try {
         const result = await userSchema.findOne({ _id: req.query.id })
-        console.log(result, 'stausssssssssssss');
         await userSchema.updateOne({ _id: req.query.id }, { $set: { status: (!result.status) } })
         const data = await userSchema.find()
         res.status(200).json(data)
@@ -39,7 +38,7 @@ exports.deleteUser = async (req, res) => {
 
 exports.searchUser = async (req, res) => {
     try {
-      let username = req.body.searchkeyword;
+      let username = req.body.searchTerm;
       console.log(username,'55555');
       userSchema.find({
         $or: [

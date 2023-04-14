@@ -19,9 +19,7 @@ import Category from './Pages/Admin/Manage-Category/Category'
 
 const App = () => {
   const userData = useSelector((state) => state.userLogin.userLoginDetails)
-  console.log(userData, 'userDataaaaaaaa');
   const adminData = useSelector((state) => state.adminLogin.adminLoginDetails)
-  console.log(adminData, 'admindataaaaaa');
   return (
     <div>
       <Router>

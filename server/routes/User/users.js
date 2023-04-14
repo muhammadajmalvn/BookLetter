@@ -13,5 +13,7 @@ router.route('/profileImageUpdate').post(protect, userProfile.imageUpdate)
 
 router.route('/books').get(userBooks.getAllBooks)
 router.route('/genrebooks').post(userBooks.getGenreBooks)
+router.route('/search-book').post(userBooks.searchBook)
+
 
 module.exports = router;

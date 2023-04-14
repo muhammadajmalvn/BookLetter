@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { userGetBooksAction } from '../../../Redux/Actions/userActions/bookActions'
+import { userBookSearchAction } from '../../../Redux/Actions/userActions/bookActions'
 import { adminGetAllGenreAction } from '../../../Redux/Actions/adminActions/adminGenreActions';
 import SelfHelpBooks from '../../../Components/User/Books/SelfHelpBooks';
 import KidsBooks from '../../../Components/User/Books/KidsBooks';
@@ -53,14 +53,10 @@ const BooksView = () => {
     setValue(newValue);
   };
 
-  const books = useSelector((state) => state.userGetBooks)
-  const { booksDataLoading, booksData, booksDataError } = books
-
   const adminGenres = useSelector(state => state.adminGenreReducer)
   const { genreLoading, error, genreData } = adminGenres
 
   useEffect(() => {
-    dispatch(userGetBooksAction())
     dispatch(adminGetAllGenreAction())
   }, [])
 
@@ -70,6 +66,8 @@ const BooksView = () => {
     e.preventDefault()
     dispatch(userBookSearchAction(searchTerm))
   }
+  const books = useSelector((state) => state.userGetBooks)
+  let { loading, booksData, Dataerror } = books
 
   return (
     <>
@@ -120,7 +118,7 @@ const BooksView = () => {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <AllBooks />
+          <AllBooks booksData={booksData} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <SelfHelpBooks />

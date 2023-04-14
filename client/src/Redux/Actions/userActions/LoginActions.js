@@ -4,7 +4,6 @@ import {
     USER_LOGIN_FAILURE,
     USER_LOGOUT
 } from '../../Constants/userConstants'
-
 import axios from 'axios'
 
 const API = axios.create({ baseURL: "http://localhost:5000" })
@@ -18,7 +17,7 @@ export const userLogin = (email, password) => async (dispatch) => {
                 "Content-Type": "application/json",
             }
         }
-     
+
         const { data } = await API.post("/user-login", { email, password }, config);
         dispatch({
             type: USER_LOGIN_SUCCESS, payload: data
@@ -27,7 +26,7 @@ export const userLogin = (email, password) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_LOGIN_FAILURE,
-            payload:  error.response && error.response.message ? error.response.message : error.response.data
+            payload: error.response && error.response.message ? error.response.message : error.response.data
         })
         console.log(error.response.data);
     }
@@ -36,7 +35,7 @@ export const userLogin = (email, password) => async (dispatch) => {
 
 export const userLogout = () => async (dispatch) => {
     try {
-        localStorage.removeItem("userInfo")
+        localStorage.removeItem("user-login")
         dispatch({ type: USER_LOGOUT });
     } catch (error) {
         console.log(error);

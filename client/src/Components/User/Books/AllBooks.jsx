@@ -11,15 +11,18 @@ import { userGetBooksAction } from '../../../Redux/Actions/userActions/bookActio
 import Loading from '../../../Pages/Loading'
 import Button from './BookingButton'
 
-function AllBooks() {
+function AllBooks({ booksData }) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const books = useSelector((state) => state.userGetBooks)
-    const { booksDataLoading, booksData, booksDataError } = books
-
+    const book = useSelector((state) => state.userGetBooks)
+    let { booksDataLoading, books, booksDataError } = book
+    //  if(searchbooks){
+    //     booksData = searchbooks
+    //  }
     useEffect(() => {
         dispatch(userGetBooksAction())
     }, [])
+
 
     return (
         <>
