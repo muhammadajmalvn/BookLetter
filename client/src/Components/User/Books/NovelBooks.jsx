@@ -40,7 +40,7 @@ function NovelBooks() {
                                                 width="140"
                                                 image={data.photo[0]}
                                                 alt={data.title}
-                                                onClick={(e) => navigate(`/single-book-view`, { state: { data, title: data.title } })}
+                                                onClick={(e) => navigate(`/single-book-view`, { state: { booksData, bookId: data._id } })}
                                             />
                                             <CardContent>
 
@@ -51,7 +51,7 @@ function NovelBooks() {
                                             </CardContent>
                                         </CardActionArea>
                                         <CardActions>
-                                            <Button title={data.title} />
+                                            <Button bookId={data._id}/>
                                         </CardActions>
                                     </Card>
                                 )

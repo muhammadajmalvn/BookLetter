@@ -118,7 +118,7 @@ const BooksView = () => {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <AllBooks booksData={booksData} />
+          <AllBooks allBooks={booksData} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <SelfHelpBooks />

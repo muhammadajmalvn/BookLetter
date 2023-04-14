@@ -4,7 +4,6 @@ exports.addgenre = async (req, res) => {
     const name = req.body.genre;
     try {
         genreSchema.find({ name: name }).then((genre) => {
-            console.log(genre, '4444');
             if (genre.length > 0) {
                 console.log('Genre already exists');
                 res.status(500).json("Genre Already Exists")

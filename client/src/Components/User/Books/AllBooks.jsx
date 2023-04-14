@@ -11,14 +11,13 @@ import { userGetBooksAction } from '../../../Redux/Actions/userActions/bookActio
 import Loading from '../../../Pages/Loading'
 import Button from './BookingButton'
 
-function AllBooks({ booksData }) {
+function AllBooks({ allBooks }) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const book = useSelector((state) => state.userGetBooks)
-    let { booksDataLoading, books, booksDataError } = book
-    //  if(searchbooks){
-    //     booksData = searchbooks
-    //  }
+    let { booksDataLoading, booksData, booksDataError } = book
+
+
     useEffect(() => {
         dispatch(userGetBooksAction())
     }, [])
@@ -30,7 +29,7 @@ function AllBooks({ booksData }) {
                 <div className='d-flex flex-wrap justify-content-center  '>
                     {
                         booksDataLoading ? <Loading /> :
-                            booksData ? booksData.map((data, index) => {
+                        allBooks ? allBooks.map((data, index) => {
                                 return (
                                     <Card key={index} sx={{ height: 350, width: 350, m: 3, boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)' }}>
                                         <CardActionArea>
@@ -43,18 +42,18 @@ function AllBooks({ booksData }) {
                                                 width="140"
                                                 image={data.photo[0]}
                                                 alt={data.title}
-                                                onClick={(e) => navigate(`/single-book-view`, { state: { data, title: data.title } })}
+                                                onClick={(e) => navigate(`/single-book-view`, { state: { booksData, bookId: data._id } })}
                                             />
                                             <CardContent>
 
                                                 <Typography variant="h7" color="text.secondary" fontWeight="bold" textAlign='center'>
-                                                    Rent Now @ Price : {data.price} /hr
+                                                    Rent Now @ Price : {data.price} /day
                                                 </Typography>
 
                                             </CardContent>
                                         </CardActionArea>
                                         <CardActions>
-                                            <Button title={data.title} />
+                                            <Button bookId={data._id} />
                                         </CardActions>
                                     </Card>
                                 )
