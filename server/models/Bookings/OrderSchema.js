@@ -17,10 +17,10 @@ const orderSchema = new mongoose.Schema({
     },
     bookedTimePeriod: {
         startDate: {
-            type: Date
+            type: String
         },
         endDate: {
-            type: Date
+            type: String
         }
     },
     address: {

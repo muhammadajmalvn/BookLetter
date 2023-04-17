@@ -15,7 +15,7 @@ export const Booking = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { booksData } = location.state;
-  const clickedBook = booksData.find((book) => book.id === location.state.bookId)
+  const clickedBook = booksData?.find((book) => book.id === location.state.bookId)
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [totalDays, setTotalDays] = useState(0)
