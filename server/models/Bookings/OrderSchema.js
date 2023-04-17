@@ -6,7 +6,7 @@ const addressSchema = new mongoose.Schema({
     addressLine2: { type: String, required: true },
     state: { type: String, required: true },
     postcode: { type: Number, required: true },
-    phoneNumber: { type: Number, required: true}
+    phoneNumber: { type: Number, required: true }
 });
 const orderSchema = new mongoose.Schema({
     bookId: {
@@ -37,8 +37,8 @@ const orderSchema = new mongoose.Schema({
         type: String
     },
     status: {
-        type:String,
-        default:'placed',
+        type: String,
+        default: 'placed',
     }
 }, {
     timestamps: true

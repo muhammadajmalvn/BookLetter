@@ -4,17 +4,20 @@ import {
     MDBCardBody,
     MDBCol,
     MDBContainer,
+    MDBCardImage,
     MDBRow
 } from "mdb-react-ui-kit";
 import NavBar from '../Navbar/Navbar'
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderedBooksAction } from '../../../Redux/Actions/userActions/orderActions';
+import { Button } from '@mui/material';
 
 const OrderedBooks = () => {
     const dispatch = useDispatch()
     const userId = JSON.parse(localStorage.getItem("user-login")).id
-    const orderedBikes = useSelector((state) => state.getorderedBooks)
-    console.log(orderedBikes,'orderssssssssssssssss');
+    const Books = useSelector((state) => state.getorderedBooks)
+    const { loading, orderedBooks, error } = Books
+    console.log(orderedBooks);
 
     useEffect(() => {
         dispatch(getOrderedBooksAction(userId))
@@ -30,107 +33,88 @@ const OrderedBooks = () => {
                             {/* <p className="lead fw-bold mb-5" style={{ color: "#f37a27" }}>
                                Your Orders
                             </p> */}
+                            {orderedBooks?.map((book) => {
+                                return (
+                                    <MDBCard className="border-top border-bottom border-3 border-color-custom ">
+                                        <MDBCardBody className="p-5">
+                                            <MDBRow>
+                                                <MDBCol className="mb-3">
+                                                    <p className="small text-muted mb-1">Date</p>
+                                                    <p>{new Date(book.createdAt).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                                                </MDBCol>
+                                                <MDBCol className="mb-3">
+                                                    <p className="small text-muted mb-1">Order No.</p>
+                                                    <p>{book._id}</p>
+                                                </MDBCol>
+                                            </MDBRow>
 
-                            <MDBCard className="border-top border-bottom border-3 border-color-custom">
-                                <MDBCardBody className="p-5">
+                                            <div
+                                                className="mx-n5 px-5 py-4"
+                                                style={{ backgroundColor: "#f2f2f2" }}
+                                            >
+                                                <MDBRow>
+                                                    <MDBCardImage src={book.photo} alt="Card image" className='w-25 h-25 ' />
+                                                </MDBRow>
+                                                <br />
+                                                <MDBRow>
+                                                    <MDBCol md="8" lg="9">
+                                                        <p>{book.title}</p>
+                                                    </MDBCol>
+                                                    <MDBCol md="4" lg="3">
+                                                        <p>Rs {book.totalAmount}</p>
+                                                    </MDBCol>
+                                                </MDBRow>
+                                                <MDBRow>
+                                                    <MDBCol md="8" lg="9">
+                                                        <p className="mb-0">Shipping</p>
+                                                    </MDBCol>
+                                                    <MDBCol md="4" lg="3">
+                                                        <p className="mb-0">Free</p>
+                                                    </MDBCol>
+                                                </MDBRow>
+                                            </div>
+                                            <MDBRow className="my-4">
+                                                <MDBCol md="4" className="offset-md-8 col-lg-3 offset-lg-9">
+                                                    <p
+                                                        className="lead fw-bold mb-0"
+                                                        style={{ color: "#f37a27" }}
+                                                    >
+                                                        Rs {book.totalAmount}
+                                                    </p>
+                                                </MDBCol>
+                                            </MDBRow>
 
-
-                                    <MDBRow>
-                                        <MDBCol className="mb-3">
-                                            <p className="small text-muted mb-1">Date</p>
-                                            <p>10 April 2021</p>
-                                        </MDBCol>
-                                        <MDBCol className="mb-3">
-                                            <p className="small text-muted mb-1">Order No.</p>
-                                            <p>012j1gvs356c</p>
-                                        </MDBCol>
-                                    </MDBRow>
-
-                                    <div
-                                        className="mx-n5 px-5 py-4"
-                                        style={{ backgroundColor: "#f2f2f2" }}
-                                    >
-                                        <MDBRow>
-                                            <MDBCol md="8" lg="9">
-                                                <p>BEATS Solo 3 Wireless Headphones</p>
-                                            </MDBCol>
-                                            <MDBCol md="4" lg="3">
-                                                <p>£299.99</p>
-                                            </MDBCol>
-                                        </MDBRow>
-                                        <MDBRow>
-                                            <MDBCol md="8" lg="9">
-                                                <p className="mb-0">Shipping</p>
-                                            </MDBCol>
-                                            <MDBCol md="4" lg="3">
-                                                <p className="mb-0">£33.00</p>
-                                            </MDBCol>
-                                        </MDBRow>
-                                    </div>
-                                    <MDBRow className="my-4">
-                                        <MDBCol md="4" className="offset-md-8 col-lg-3 offset-lg-9">
                                             <p
-                                                className="lead fw-bold mb-0"
+                                                className="lead fw-bold mb-4 pb-2"
                                                 style={{ color: "#f37a27" }}
                                             >
-                                                £262.99
+                                                Order Status
                                             </p>
-                                        </MDBCol>
-                                    </MDBRow>
 
-                                    <p
-                                        className="lead fw-bold mb-4 pb-2"
-                                        style={{ color: "#f37a27" }}
-                                    >
-                                        Tracking Order
-                                    </p>
+                                            <MDBRow>
+                                                <MDBCol lg="12">
+                                                    <li className="list-inline-item items-list">
+                                                        <p className="py-1 px-2 rounded text-white" style={{ backgroundColor: book.status === 'placed' ? '#f37a27' : book.status === 'shipped' ? '#ebebeb' : book.status === 'delivered' ? '#4caf50' : '#f37a27' }}>
+                                                            {book.status}
+                                                        </p>
+                                                    </li>
+                                                    {book.status === "delivered" && (
+                                                        <button
+                                                            className="btn btn-primary"
+                                                            onClick={() => {
+                                                                // Add code here to handle return button click
+                                                            }}
+                                                        >
+                                                            Return
+                                                        </button>
+                                                    )}
+                                                </MDBCol>
+                                            </MDBRow>
+                                        </MDBCardBody>
+                                    </MDBCard>
 
-                                    <MDBRow>
-                                        <MDBCol lg="12">
-                                            <div className="horizontal-timeline">
-                                                <ul className="list-inline items d-flex justify-content-between">
-                                                    <li className="list-inline-item items-list">
-                                                        <p
-                                                            className="py-1 px-2 rounded text-white"
-                                                            style={{ backgroundColor: "#f37a27" }}
-                                                        >
-                                                            Ordered
-                                                        </p>
-                                                    </li>
-                                                    <li className="list-inline-item items-list">
-                                                        <p
-                                                            className="py-1 px-2 rounded text-white"
-                                                            style={{ backgroundColor: "#f37a27" }}
-                                                        >
-                                                            Shipped
-                                                        </p>
-                                                    </li>
-                                                    <li className="list-inline-item items-list">
-                                                        <p
-                                                            className="py-1 px-2 rounded text-white"
-                                                            style={{ backgroundColor: "#f37a27" }}
-                                                        >
-                                                            On the way
-                                                        </p>
-                                                    </li>
-                                                    <li
-                                                        className="list-inline-item items-list text-end"
-                                                        style={{ marginRight: "-8px" }}
-                                                    >
-                                                        <p style={{ marginRight: "-8px" }}>Delivered</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </MDBCol>
-                                    </MDBRow>
-                                    <p className="mt-4 pt-2 mb-0">
-                                        Want any help?{" "}
-                                        <a href="#!" style={{ color: "#f37a27" }}>
-                                            Please contact us
-                                        </a>
-                                    </p>
-                                </MDBCardBody>
-                            </MDBCard>
+                                )
+                            })}
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>

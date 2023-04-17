@@ -10,7 +10,7 @@ export const userGetOrderedBooksReducer = (state = {}, action) => {
         case USER_GET_ORDERED_BOOKS_REQUEST:
             return { loading: true }
         case USER_GET_ORDERED_BOOKS_SUCCESS:
-            return { loading: false, orderedBikes: action.payload }
+            return { loading: false, orderedBooks: action.payload }
         case USER_GET_ORDERED_BOOKS_FAILURE:
             return { loading: false, error: action.payload }
         default:

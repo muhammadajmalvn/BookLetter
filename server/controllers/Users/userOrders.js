@@ -1,28 +1,28 @@
 const orderSchema = require('../../models/Bookings/OrderSchema')
 const bookSchema = require('../../models/Books/bookSchema')
-
+const mongoose = require('mongoose');
 
 exports.getOrders = async (req, res) => {
     try {
-        const userId = req.query.id;
-        const orders = await orderSchema
-            .aggregate(
-                [{
-                    $match: {
-                        userId: userId,
-                    }
-                }, {
-                    $lookup: {
-                        from: 'books',
-                        localField: 'bookId',
-                        foreignField: '_id',
-                        as: 'bookData'
+        const userId = new mongoose.Types.ObjectId(req.query.id);
+        const bookOrders = await orderSchema.aggregate(
+            [
+                { $match: { userId: userId } },
+
+                {
+                    '$lookup': {
+                        'from': 'books',
+                        'localField': 'bookId',
+                        'foreignField': '_id',
+                        'as': 'bookData'
                     }
                 },
                 {
                     $project: {
                         bookingId: '$_id',
                         status: 1,
+                        createdAt: 1,
+                        updatedAt: 1,
                         title: {
                             $arrayElemAt: [
                                 '$bookData.title',
@@ -35,7 +35,7 @@ exports.getOrders = async (req, res) => {
                                 0
                             ]
                         },
-                        rentPerHour: {
+                        rentPerDay: {
                             $arrayElemAt: [
                                 '$bookData.price',
                                 0
@@ -58,11 +58,13 @@ exports.getOrders = async (req, res) => {
                         status: 1,
                         title: 1,
                         description: 1,
-                        rentPerHour: 1,
+                        rentPerDay: 1,
                         address: 1,
                         totalAmount: 1,
                         totalDays: 1,
                         bookedTimePeriod: 1,
+                        createdAt: 1,
+                        updatedAt: 1,
                         photo: {
                             $arrayElemAt: [
                                 '$photo',
@@ -71,13 +73,14 @@ exports.getOrders = async (req, res) => {
                         }
                     }
                 }
-                ]
+            ]
 
-            )
-        console.log(orders, 'orderssss');
-        res.status(200).json(orders)
+        )
+        // console.log(bookOrders, 'orderssss');
+        res.status(200).json(bookOrders)
     } catch (error) {
-        res.json(400).json("error while getting data from the orders")
+        res.status(400).json("error while getting data from the orders")
+        throw error;
 
     }
 }
