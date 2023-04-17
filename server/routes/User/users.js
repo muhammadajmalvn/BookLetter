@@ -5,6 +5,8 @@ const { protect } = require('../../utils/verifyToken')
 const userProfile = require('../../controllers/Users/userProfile')
 const userBooks = require('../../controllers/Users/userBooks')
 const userBooking = require('../../controllers/Users/userBooking')
+const userOrders = require('../../controllers/Users/userOrders')
+
 router.post('/user-signup', userSignupLogin.signupPost)
 router.post('/user-login', userSignupLogin.loginPost)
 
@@ -16,5 +18,6 @@ router.route('/genrebooks').post(userBooks.getGenreBooks)
 router.route('/search-book').post(userBooks.searchBook)
 
 router.route('/booking-book').post(userBooking.booking)
+router.route('/orders').get(protect,userOrders.getOrders)
 
 module.exports = router;

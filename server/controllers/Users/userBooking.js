@@ -6,9 +6,7 @@ const Stripe = require("stripe")
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 
 exports.booking = async (req, res) => {
-    // console.log(req.body.bookingData);
     const { userName, userId, bookId, bookData, totalAmount, totalDays, address, bookedTimePeriod } = req.body.bookingData
-    // console.log(userId, bookId, bookData, totalAmount, totalDays, address, bookedTimePeriod );
     if (bookData.quantity >= 1) {
     const session = await stripe.checkout.sessions.create({
         line_items: [

@@ -17,6 +17,7 @@ import EditBook from './Pages/Admin/Manage-Books/Edit-Book/Edit-Book'
 import SingleBookView from './Pages/User/SingleBookView/SingleBookView'
 import Category from './Pages/Admin/Manage-Category/Category'
 import { Booking } from './Pages/User/Booking/Booking'
+import OrderedBooks from './Pages/User/Booking/OrderedBooks'
 
 const App = () => {
   const userData = useSelector((state) => state.userLogin.userLoginDetails)
@@ -31,16 +32,17 @@ const App = () => {
           <Route path='/profile' exact element={userData ? <UserProfile /> : <Login />} />
           <Route path='/books' exact element={<BooksView />} />
           <Route path='/single-book-view' exact element={<SingleBookView />} />
-          <Route path='/booking' exact element={userData?<Booking />:<Login/>} />
+          <Route path='/booking' exact element={userData ? <Booking /> : <Login />} />
+          <Route path='/ordered-book' exact element={userData ? <OrderedBooks /> : <Login />} />
 
 
           <Route path='/admin' exact element={adminData ? <Dashboard /> : <AdminLogin />} />
           <Route path='/admin/users' exact element={adminData ? <UserManage /> : <AdminLogin />} />
-          <Route path='/admin/books' exact element={adminData ? <Books/> : <AdminLogin />} />
-          <Route path='/admin/add-book' exact element={adminData ? <AddBook/> : <AdminLogin />} />
-          <Route path='/admin/edit-book' exact element={adminData ? <EditBook/> : <AdminLogin />} />
-          <Route path='/admin/genre' exact element={adminData ? <Category/> : <AdminLogin />} />
-
+          <Route path='/admin/books' exact element={adminData ? <Books /> : <AdminLogin />} />
+          <Route path='/admin/add-book' exact element={adminData ? <AddBook /> : <AdminLogin />} />
+          <Route path='/admin/edit-book' exact element={adminData ? <EditBook /> : <AdminLogin />} />
+          <Route path='/admin/genre' exact element={adminData ? <Category /> : <AdminLogin />} />
+          <Route path='/admin/genre' exact element={adminData ? <Category /> : <AdminLogin />} />
         </Routes>
       </Router>
     </div>
