@@ -58,7 +58,7 @@ const Books = () => {
                   <th>Title</th>
                   <th>Author</th>
                   <th>Genre</th>
-                  <th>Book ID</th>
+                  <th>Quantity</th>
                   <th>Publisher</th>
                   <th>Price per Day</th>
                   <th>Edit/Delete Book</th>
@@ -74,7 +74,7 @@ const Books = () => {
                           <td>{book.title}</td>
                           <td>{book.author}</td>
                           <td>{book.genre}</td>
-                          <td>{book.copies[0]._id}</td>
+                          <td>{book.quantity}</td>
                           <td>{book.publisher}</td>
                           <td>{book.price}</td>
                           <td><Button className='btn btn-dark' onClick={(e) => { navigate('/admin/edit-book', { state: { adminBookData: book } }) }}><i class="fa-sharp fa-solid fa-pen" style={{ color: 'cyan', fontSize: '150%' }}></i></Button>

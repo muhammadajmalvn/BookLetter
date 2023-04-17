@@ -110,7 +110,7 @@ const SingleBookView = () => {
                   style={{ width: "100%", backgroundColor: '#fed250' }}
                   onClick={() => {
 
-                    navigate('/booking-summary', { state: { booksData, bookId } })
+                    navigate('/booking', { state: { booksData, bookId } })
 
                   }}
                 >Book Now</BookingButton>{' '}

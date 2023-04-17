@@ -16,6 +16,7 @@ import AddBook from './Pages/Admin/Manage-Books/Add-Book/AddBook'
 import EditBook from './Pages/Admin/Manage-Books/Edit-Book/Edit-Book'
 import SingleBookView from './Pages/User/SingleBookView/SingleBookView'
 import Category from './Pages/Admin/Manage-Category/Category'
+import { Booking } from './Pages/User/Booking/Booking'
 
 const App = () => {
   const userData = useSelector((state) => state.userLogin.userLoginDetails)
@@ -30,6 +31,7 @@ const App = () => {
           <Route path='/profile' exact element={userData ? <UserProfile /> : <Login />} />
           <Route path='/books' exact element={<BooksView />} />
           <Route path='/single-book-view' exact element={<SingleBookView />} />
+          <Route path='/booking' exact element={userData?<Booking />:<Login/>} />
 
 
           <Route path='/admin' exact element={adminData ? <Dashboard /> : <AdminLogin />} />

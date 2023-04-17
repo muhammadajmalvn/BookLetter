@@ -4,7 +4,7 @@ const userSignupLogin = require('../../controllers/Users/signup-login')
 const { protect } = require('../../utils/verifyToken')
 const userProfile = require('../../controllers/Users/userProfile')
 const userBooks = require('../../controllers/Users/userBooks')
-
+const userBooking = require('../../controllers/Users/userBooking')
 router.post('/user-signup', userSignupLogin.signupPost)
 router.post('/user-login', userSignupLogin.loginPost)
 
@@ -15,5 +15,6 @@ router.route('/books').get(userBooks.getAllBooks)
 router.route('/genrebooks').post(userBooks.getGenreBooks)
 router.route('/search-book').post(userBooks.searchBook)
 
+router.route('/booking-book').post(userBooking.booking)
 
 module.exports = router;

@@ -10,7 +10,7 @@ const upload = require('../../utils/multer')
 /* GET home page. */
 router.post('/', loginController.adminLogin)
 
-router.route('/users').get(userController.getUsers)
+router.route('/users').get(protect,userController.getUsers)
 router.route('/manage-users').get(userController.blockUser)
 router.route('/delete-user').get(userController.deleteUser)
 router.route('/search').post(userController.searchUser)

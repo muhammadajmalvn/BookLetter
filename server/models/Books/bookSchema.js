@@ -37,6 +37,11 @@ const bookSchema = new mongoose.Schema({
     required: true
   },
   photo:[],
+  quantity:{
+    type: Number,
+    required: true,
+    default:1
+  },
   copies: [
     {
       id: {

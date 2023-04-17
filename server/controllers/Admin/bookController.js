@@ -4,6 +4,7 @@ const upload = require("../../utils/multer")
 const fs = require('fs')
 const cloudinary = require('../../utils/cloudinary')
 const { v4: uuidv4 } = require('uuid');
+const { title } = require('process')
 
 
 exports.addBook = async (req, res) => {
@@ -23,38 +24,49 @@ exports.addBook = async (req, res) => {
             }
 
 
-
             let photo = []
 
             for (let i = 0; i < urls.length; i++) {
                 photo.push(urls[i])
             }
 
-            const copies = {
-                id: uuidv4(),
-                available: true
+            let books = await bookSchema.findOne({ title: req.body.title })
+            console.log(books,'copy found');
+            if (books) {
+                const copy = {
+                    id: uuidv4(),
+                    available: true
+                }
+                bookSchema.updateOne({ title: req.body.title }, { $inc: { quantity: 1 }, $push: { copies: copy } }).then((data) => {
+                    res.status(200).json(data)
+                })
             }
+            else {
+                const copies = {
+                    id: uuidv4(),
+                    available: true
+                }
 
-            let bookDetails = {
-                title: req.body.title,
-                author: req.body.author,
-                publisher: req.body.publisher,
-                price: req.body.price,
-                genre: req.body.genre,
-                pages: req.body.pages,
-                publishedDate: req.body.date,
-                description: req.body.description,
-                copies: copies,
-                photo
+                let bookDetails = {
+                    title: req.body.title,
+                    author: req.body.author,
+                    publisher: req.body.publisher,
+                    price: req.body.price,
+                    genre: req.body.genre,
+                    pages: req.body.pages,
+                    publishedDate: req.body.date,
+                    description: req.body.description,
+                    copies: copies,
+                    photo
 
+                }
+                console.log(bookDetails, 'hfhfhfffh');
+
+                bookSchema.create(bookDetails).then((data) => {
+                    console.log('book data', data);
+                    res.status(200).json(data)
+                })
             }
-            console.log(bookDetails, 'hfhfhfffh');
-
-            bookSchema.create(bookDetails).then((data) => {
-                console.log('book data', data);
-                res.status(200).json(data)
-            })
-
 
         } else {
             res.status(405).json({
@@ -116,6 +128,7 @@ exports.editBook = async (req, res) => {
                     console.log(urls[i].url, 'url for the add bike');
                 }
 
+
                 bookSchema.updateOne(
                     { _id: req.query.id },
                     {
@@ -162,8 +175,8 @@ exports.editBook = async (req, res) => {
             }
         }
     }
-    catch(error) {
-        console.log('Error:',error);
+    catch (error) {
+        console.log('Error:', error);
         res.status(500).json(error);
     }
 }
