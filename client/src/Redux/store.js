@@ -8,6 +8,8 @@ import {userGetBookReducer} from './Reducers/userReducers/userBookReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunkMiddleware from 'redux-thunk'
 import { userGetOrderedBooksReducer } from "./Reducers/userReducers/userOrderReducer";
+import { adminGetOrdersReducer } from "./Reducers/adminReducers/adminOrderReducer";
+
 
 const rootReducer = combineReducers({
   userSignup: userSignupReducer,
@@ -24,6 +26,7 @@ const rootReducer = combineReducers({
   adminSearch: adminSearchReducer,
   adminGenreAdd :adminGenreAddReducer,
   adminGenreReducer:adminGenreReducer,
+  adminOrderReducer :adminGetOrdersReducer,
 });
 
 

@@ -26,7 +26,9 @@ const orderSchema = new mongoose.Schema({
     address: {
         type: addressSchema
     },
-
+    copyId:{
+        type: mongoose.Schema.Types.ObjectId
+    },
     totalDays: {
         type: Number
     },

@@ -106,14 +106,7 @@ const SingleBookView = () => {
 
 
                 <div className='description mt-2 ms-4' style={{ width: '22rem' }}>Description:&nbsp;&nbsp;{clickedBook.description}</div>
-                <BookingButton variant="warning" className='mt-3 ms-2 me-2'
-                  style={{ width: "100%", backgroundColor: '#fed250' }}
-                  onClick={() => {
-
-                    navigate('/booking', { state: { booksData, bookId } })
-
-                  }}
-                >Book Now</BookingButton>{' '}
+                <BookingButton bookId={clickedBook._id} />
               </div>
             </div>
           </Card.Body>

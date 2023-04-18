@@ -4,7 +4,6 @@ import { Box, Button, Checkbox, Container, FormControl, FormControlLabel, InputL
 import { useLocation } from 'react-router-dom';
 import moment from "moment"
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { DatePicker } from "antd"
 import StripePayButton from '../../../Components/User/Buttons/StripePayButton';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -12,10 +11,9 @@ const { RangePicker } = DatePicker
 
 export const Booking = () => {
 
-  const dispatch = useDispatch();
   const location = useLocation();
   const { booksData } = location.state;
-  const clickedBook = booksData?.find((book) => book.id === location.state.bookId)
+  const clickedBook = booksData?.find((book) => book._id === location.state.bookId)
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [totalDays, setTotalDays] = useState(0)

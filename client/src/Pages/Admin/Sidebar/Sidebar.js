@@ -24,6 +24,8 @@ import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import CategoryIcon from '@mui/icons-material/Category';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -143,6 +145,7 @@ function Sidebar() {
                         { name: 'Books', icon: <LibraryBooksIcon /> },
                         { name: 'Add-Book', icon: <BookmarkAddIcon /> },
                         { name: 'Genres', icon: <CategoryIcon /> },
+                        { name: 'Orders', icon: <LocalShippingIcon /> },
                         { name: 'Sell Request', icon: <StorefrontIcon /> },
                         { name: 'Report', icon: <SummarizeIcon /> },
 
@@ -176,6 +179,8 @@ function Sidebar() {
                                         text2 === "books" && navigate('/admin/books')
                                         text2 === "add-book" && navigate('/admin/add-book')
                                         text2 === "genres" && navigate('/admin/genre')
+                                        text2 === "orders" && navigate('/admin/orders')
+
                                     }} />
                             </ListItemButton>
                         </ListItem>

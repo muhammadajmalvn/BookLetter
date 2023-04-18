@@ -35,7 +35,7 @@ const OrderedBooks = () => {
                             </p> */}
                             {orderedBooks?.map((book) => {
                                 return (
-                                    <MDBCard className="border-top border-bottom border-3 border-color-custom ">
+                                    <MDBCard className="border-top border-bottom border-3 border-color-custom mt-3 ">
                                         <MDBCardBody className="p-5">
                                             <MDBRow>
                                                 <MDBCol className="mb-3">

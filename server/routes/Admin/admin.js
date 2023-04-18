@@ -4,6 +4,7 @@ const loginController = require('../../controllers/Admin/loginController')
 const userController = require('../../controllers/Admin/userController');
 const bookController = require('../../controllers/Admin/bookController');
 const genreController = require('../../controllers/Admin/genreController');
+const ordersController = require('../../controllers/Admin/ordersController');
 const { protect } = require('../../utils/verifyToken')
 const upload = require('../../utils/multer')
 
@@ -24,5 +25,6 @@ router.route('/add-genre').post(protect,genreController.addgenre)
 router.route('/genres').get(protect,genreController.getAllGenres)
 router.route('/delete-genre').get(protect,genreController.deleteGenre)
 
-
+router.route('/orders').get(protect,ordersController.getAllOrders)
+router.route('/order-status').post(protect,ordersController.changeOrderStatus)
 module.exports = router;
