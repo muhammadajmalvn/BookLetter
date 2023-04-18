@@ -72,10 +72,13 @@ function Login() {
                 <MDBInput wrapperClass='mb-3' label='Password' id='formControlLg' type='password' size="lg"  {...register("password", { required: true })} onChange={(e) => setPassword(e.target.value)} />
                 <MDBBtn className="px-5" size='lg' style={{ backgroundColor: '#355B3E', width: '100%' }}>Login</MDBBtn>
               </form>
-              <Link to={'/signup'}>
-                <p className="mb-5 pb-lg-2" style={{ color: '#393f81' }}>Don't have an account? <a style={{ color: '#393f81' }}>Register here</a></p>
-              </Link>
 
+              <Link to={'/signup'}>
+                <p className="pb-lg-2" style={{ color: '#393f81' }}>Don't have an account? <a style={{ color: '#393f81' }}>Register here</a></p>
+              </Link>
+              <Link to={'/otp-login'}>
+                <p className="pb-lg-2" style={{ color: '#393f81' }}> <a style={{ color: '#393f81' }}>or Login with OTP</a></p>
+              </Link>
               <div className='d-flex flex-row justify-content-start'>
                 <a href="#!" className="small text-muted me-1">Terms of use.</a>
                 <a href="#!" className="small text-muted">Privacy policy</a>

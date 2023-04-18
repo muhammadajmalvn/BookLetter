@@ -9,6 +9,7 @@ const userOrders = require('../../controllers/Users/userOrders')
 
 router.post('/user-signup', userSignupLogin.signupPost)
 router.post('/user-login', userSignupLogin.loginPost)
+router.post('/otp-login', userSignupLogin.otpLoginPost)
 
 router.route('/profile').get(protect, userProfile.viewProfile)
 router.route('/profileImageUpdate').post(protect, userProfile.imageUpdate)

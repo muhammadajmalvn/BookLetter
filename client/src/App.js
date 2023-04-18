@@ -18,6 +18,7 @@ import SingleBookView from './Pages/User/SingleBookView/SingleBookView'
 import Category from './Pages/Admin/Manage-Category/Category'
 import { Booking } from './Pages/User/Booking/Booking'
 import OrderedBooks from './Pages/User/Booking/OrderedBooks'
+import OtpLogin from './Pages/User/OTP-Login/OtpLogin'
 
 const App = () => {
   const userData = useSelector((state) => state.userLogin.userLoginDetails)
@@ -29,6 +30,7 @@ const App = () => {
           <Route path='/' exact element={<Homepage />} />
           <Route path='/signup' element={userData ? <Navigate to='/' /> : <Signup />} />
           <Route path='/login' element={userData ? <Navigate to='/' /> : <Login />} />
+          <Route path='/otp-login' element={userData ? <Navigate to='/' /> : <OtpLogin />} />
           <Route path='/profile' exact element={userData ? <UserProfile /> : <Login />} />
           <Route path='/books' exact element={<BooksView />} />
           <Route path='/single-book-view' exact element={<SingleBookView />} />

@@ -32,6 +32,28 @@ export const userLogin = (email, password) => async (dispatch) => {
     }
 }
 
+export const userOtpLoginAction = (phone) => async (dispatch) => {
+    dispatch({
+        type: USER_LOGIN_REQUEST
+    })
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
+    const { data } = await API.post("/otp-login", { phone }, config);
+    dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: data
+    })
+    localStorage.setItem("user-login", JSON.stringify(data.data))
+        .catch((error) => {
+            dispatch({
+                type: USER_LOGIN_FAILURE,
+                payload: error.response
+            })
+        })
+}
 
 export const userLogout = () => async (dispatch) => {
     try {

@@ -72,3 +72,39 @@ exports.loginPost = (req, res) => {
         console.log("Error: " + err);
     }
 }
+
+exports.otpLoginPost = (req, res) => {
+    try {
+        userSchema.findOne({ phone: req.body.phone }).then((userData) => {
+            if (userData) {
+                if (userData.status) {
+
+                    const { id, firstName, lastName, email, status, phone, photo } = userData
+
+                    const result = {
+                        id, 
+                        firstName,
+                        lastName,
+                        email,
+                        phone,
+                        photo,
+                        status,
+                        token: generateToken(id)
+                    }
+                    console.log(result, 'result otp');
+
+                    res.status(200).json(result)
+                } else {
+                    res.json(400).json("Account suspended Temporarily")
+                }
+            } else {
+                res.status(400).json("phone number not registred")
+            }
+        })
+            .catch((error) => {
+                res.json(error)
+            })
+    } catch (error) {
+
+    }
+}
