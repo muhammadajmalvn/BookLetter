@@ -54,7 +54,7 @@ function NavBar() {
 
               </NavLink>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <NavLink
                 exact
                 to="/sell"
@@ -64,7 +64,7 @@ function NavBar() {
               >
                 <i class="fa-brands fa-sellcast"></i>
               </NavLink>
-            </li>
+            </li> */}
             <li className="nav-item">
               <NavLink
                 exact
@@ -73,7 +73,7 @@ function NavBar() {
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
-                <i class="fa-solid fa-phone"></i>
+                <i class="fa-solid fa-bag-shopping"></i>
 
               </NavLink>
             </li>
@@ -84,7 +84,7 @@ function NavBar() {
                   className="nav-links"
                   onClick={logOut}
                 >
-                <i class="fa-solid fa-power-off"></i>
+                  <i class="fa-solid fa-power-off"></i>
                 </a> :
                 <NavLink
                   exact
