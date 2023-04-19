@@ -71,8 +71,8 @@ const Orders = () => {
                                                     <td>{order.title}</td>
                                                     {/* <td>{order.bookingId.substr(-5)}</td> */}
                                                     {/* <td>{order.copyId?.substr(-5)}</td> */}
-                                                    <td>{order.bookedTimePeriod.startDate}</td>
-                                                    <td>{order.bookedTimePeriod.endDate}</td>
+                                                    <td>{new Date(order.bookedTimePeriod.startDate).toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}</td>
+                                                    <td>{new Date(order.bookedTimePeriod.endDate).toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}</td>
                                                     <td>{order.address.addressLine1} <br />
                                                         {order.address.addressLine2}<br />
                                                         {order.address.postcode}<br />

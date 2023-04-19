@@ -11,7 +11,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { useState } from 'react';
 import BookingButton from '../../../Components/User/Books/BookingButton';
-
+import Footer from '../Footer/Footer'
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -112,6 +112,8 @@ const SingleBookView = () => {
           </Card.Body>
         </Card>
       </Box>
+      <br /><br /><br />
+      <Footer />
     </>
   );
 }

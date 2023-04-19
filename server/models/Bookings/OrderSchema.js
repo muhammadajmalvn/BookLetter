@@ -17,16 +17,16 @@ const orderSchema = new mongoose.Schema({
     },
     bookedTimePeriod: {
         startDate: {
-            type: String
+            type: Date
         },
         endDate: {
-            type: String
+            type: Date
         }
     },
     address: {
         type: addressSchema
     },
-    copyId:{
+    copyId: {
         type: mongoose.Schema.Types.ObjectId
     },
     totalDays: {

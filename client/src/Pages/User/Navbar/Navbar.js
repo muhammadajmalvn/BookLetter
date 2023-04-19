@@ -54,17 +54,7 @@ function NavBar() {
 
               </NavLink>
             </li>
-            {/* <li className="nav-item">
-              <NavLink
-                exact
-                to="/sell"
-                activeClassName="active"
-                className="nav-links"
-                onClick={click ? handleClick : null}
-              >
-                <i class="fa-brands fa-sellcast"></i>
-              </NavLink>
-            </li> */}
+
             <li className="nav-item">
               <NavLink
                 exact
@@ -75,6 +65,17 @@ function NavBar() {
               >
                 <i class="fa-solid fa-bag-shopping"></i>
 
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                exact
+                to="/sell-books"
+                activeClassName="active"
+                className="nav-links"
+                onClick={click ? handleClick : null}
+              >
+                <i class="fa-brands fa-sellcast"></i>
               </NavLink>
             </li>
             <li className="nav-item">

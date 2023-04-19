@@ -6,10 +6,12 @@ import moment from "moment"
 import { useEffect } from 'react';
 import { DatePicker } from "antd"
 import StripePayButton from '../../../Components/User/Buttons/StripePayButton';
+import Footer from '../Footer/Footer';
+
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const { RangePicker } = DatePicker
 
-export const Booking = () => {
+const Booking = () => {
 
   const location = useLocation();
   const { booksData } = location.state;
@@ -185,6 +187,8 @@ export const Booking = () => {
           </Container>
         </Container>
       </Container>
+      <Footer/>
     </>
   )
 }
+export default Booking

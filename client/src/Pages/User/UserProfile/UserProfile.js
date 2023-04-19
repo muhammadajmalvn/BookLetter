@@ -10,6 +10,7 @@ import { getUserProfile } from '../../../Redux/Actions/userActions/profileAction
 import Loading from '../../Loading';
 import ErrorMessage from '../../Error';
 import { userImageAction } from '../../../Redux/Actions/userActions/profileActions';
+import Footer from '../Footer/Footer';
 
 const UserProfile = () => {
   const profileData = useSelector((state) => state.userLogin.userLoginDetails);
@@ -183,9 +184,10 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-
         </div>
       </div>
+      <br />
+      <Footer />
     </>
   )
 }

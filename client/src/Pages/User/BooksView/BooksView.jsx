@@ -16,6 +16,7 @@ import { adminGetAllGenreAction } from '../../../Redux/Actions/adminActions/admi
 import SelfHelpBooks from '../../../Components/User/Books/SelfHelpBooks';
 import KidsBooks from '../../../Components/User/Books/KidsBooks';
 import NovelBooks from '../../../Components/User/Books/NovelBooks';
+import Footer from '../Footer/Footer';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -130,6 +131,8 @@ const BooksView = () => {
           <NovelBooks />
         </TabPanel>
       </Box>
+      <br /><br />
+      <Footer />
     </>
   )
 }

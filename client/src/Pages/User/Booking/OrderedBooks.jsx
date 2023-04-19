@@ -11,6 +11,7 @@ import NavBar from '../Navbar/Navbar'
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderedBooksAction } from '../../../Redux/Actions/userActions/orderActions';
 import { Button } from '@mui/material';
+import Footer from '../Footer/Footer';
 
 const OrderedBooks = () => {
     const dispatch = useDispatch()
@@ -22,6 +23,8 @@ const OrderedBooks = () => {
     useEffect(() => {
         dispatch(getOrderedBooksAction(userId))
     }, [])
+
+    const today = new Date().toISOString()
 
     return (
         <>
@@ -93,21 +96,44 @@ const OrderedBooks = () => {
 
                                             <MDBRow>
                                                 <MDBCol lg="12">
-                                                    <li className="list-inline-item items-list">
-                                                        <p className="py-1 px-2 rounded text-white" style={{ backgroundColor: book.status === 'placed' ? '#f37a27' : book.status === 'shipped' ? '#ebebeb' : book.status === 'delivered' ? '#4caf50' : '#f37a27' }}>
+                                                    <li className="list-inline-item items-list ">
+                                                        <div className="py-1 px-2 rounded text-white" style={{ backgroundColor: book.status === 'placed' ? '#f37a27' : book.status === 'shipped' ? 'blue' : book.status === 'delivered' ? '#4caf50' : '#f37a27' }}>
                                                             {book.status}
-                                                        </p>
+                                                        </div>
+
                                                     </li>
-                                                    {book.status === "delivered" && (
-                                                        <button
-                                                            className="btn btn-primary"
-                                                            onClick={() => {
-                                                                // Add code here to handle return button click
-                                                            }}
-                                                        >
-                                                            Return
-                                                        </button>
-                                                    )}
+                                                    <br /><br />
+                                                    <div className='d-flex justify-content-between'>
+                                                        <div>
+                                                            {book.bookedTimePeriod.endDate <= today && book.status === "delivered" && (
+
+                                                                <button
+                                                                    className="btn btn-sm btn-primary"
+                                                                    onClick={() => {
+                                                                        // Add code here to handle return button click
+                                                                    }}
+                                                                >
+                                                                    Extend Validity
+                                                                </button>
+
+                                                            )}
+                                                        </div>
+                                                        <div>
+                                                            {book.status === "delivered" && (
+
+                                                                <button
+                                                                    className="btn btn-sm btn-danger"
+                                                                    onClick={() => {
+                                                                        // Add code here to handle return button click
+                                                                    }}
+                                                                >
+                                                                    Return
+                                                                </button>
+
+                                                            )}
+                                                        </div>
+
+                                                    </div>
                                                 </MDBCol>
                                             </MDBRow>
                                         </MDBCardBody>
@@ -119,6 +145,7 @@ const OrderedBooks = () => {
                     </MDBRow>
                 </MDBContainer>
             </section>
+            <Footer />
         </>
     )
 }

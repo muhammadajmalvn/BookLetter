@@ -6,8 +6,16 @@ const Stripe = require("stripe")
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 
 exports.booking = async (req, res) => {
-    const { userName, userId, bookId, bookData, totalAmount, totalDays, address, bookedTimePeriod } = req.body.bookingData
-    console.log(bookData);
+    let { userName, userId, bookId, bookData, totalAmount, totalDays, address, bookedTimePeriod } = req.body.bookingData
+
+    const [day1, month1, year1] = bookedTimePeriod.startDate.split(" ");
+    const date1 = new Date(`${year1}-${month1}-${day1}`);
+    bookedTimePeriod.startDate = new Date(date1.toISOString());
+
+    const [day2, month2, year2] = bookedTimePeriod.endDate.split(" ");
+    const date2 = new Date(`${year2}-${month2}-${day2}`);
+    bookedTimePeriod.endDate = new Date(date2.toISOString());
+
     if (bookData.quantity > 0) {
         const session = await stripe.checkout.sessions.create({
             line_items: [

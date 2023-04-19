@@ -3,8 +3,8 @@ import { userSignupReducer } from './Reducers/userReducers/userSignupReducer'
 import { userLoginReducer } from './Reducers/userReducers/userLoginReducer'
 import { userProfileReducer, userImageReducer } from './Reducers/userReducers/userProfileReducer'
 import { adminLoginReducer } from '../Redux/Reducers/adminReducers/adminLoginReducer'
-import { adminControlReducer,getBookReducer,getLocationReducer , adminSearchReducer,adminGenreAddReducer,adminGenreReducer} from "./Reducers/adminReducers/adminControlReducers"
-import {userGetBookReducer} from './Reducers/userReducers/userBookReducer'
+import { adminControlReducer, getBookReducer, getLocationReducer, adminSearchReducer, adminGenreAddReducer, adminGenreReducer } from "./Reducers/adminReducers/adminControlReducers"
+import { userGetBookReducer } from './Reducers/userReducers/userBookReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunkMiddleware from 'redux-thunk'
 import { userGetOrderedBooksReducer } from "./Reducers/userReducers/userOrderReducer";
@@ -16,21 +16,21 @@ const rootReducer = combineReducers({
   userLogin: userLoginReducer,
   userProfile: userProfileReducer,
   userImageUpload: userImageReducer,
-  userGetBooks :userGetBookReducer,
-  getorderedBooks:userGetOrderedBooksReducer,
+  userGetBooks: userGetBookReducer,
+  getorderedBooks: userGetOrderedBooksReducer,
 
   adminLogin: adminLoginReducer,
   adminControl: adminControlReducer,
-  adminGetAllBooks:getBookReducer,
-  adminGetLocation:getLocationReducer,
+  adminGetAllBooks: getBookReducer,
+  adminGetLocation: getLocationReducer,
   adminSearch: adminSearchReducer,
-  adminGenreAdd :adminGenreAddReducer,
-  adminGenreReducer:adminGenreReducer,
-  adminOrderReducer :adminGetOrdersReducer,
+  adminGenreAdd: adminGenreAddReducer,
+  adminGenreReducer: adminGenreReducer,
+  adminOrderReducer: adminGetOrdersReducer,
 });
 
 
-let userData = JSON.parse(localStorage.getItem('userInfo'))
+let userData = JSON.parse(localStorage.getItem('user-login'))
 
 const initialState = {
   userLogin: { userinfo: userData }

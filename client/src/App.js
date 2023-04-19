@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner';
+import NotFound from './Pages/NotFound';
 
 
 const Signup = lazy(() => import('./Pages/User/Signup/Signup'))
@@ -10,6 +11,7 @@ const Login = lazy(() => import('./Pages/User/Login/Login'))
 const Homepage = lazy(() => import('./Pages/User/Homepage/Homepage'))
 const UserProfile = lazy(() => import('./Pages/User/UserProfile/UserProfile'))
 const BooksView = lazy(() => import('./Pages/User/BooksView/BooksView'))
+const SellBooks = lazy(() => import('./Pages/User/Selling/SellBooks'))
 
 const AdminLogin = lazy(() => import('./Pages/Admin/AdminLogin'))
 const Dashboard = lazy(() => import('./Pages/Admin/Dashboard/Dashboard'))
@@ -46,7 +48,8 @@ const App = () => {
             <Route path='/single-book-view' exact element={<SingleBookView />} />
             <Route path='/booking' exact element={userData ? <Booking /> : <Login />} />
             <Route path='/ordered-book' exact element={userData ? <OrderedBooks /> : <Login />} />
-
+            <Route path='/sell-books' exact element={userData ? <SellBooks /> : <Login />} />
+            <Route path='*' element={<NotFound />} />
 
             <Route path='/admin' exact element={adminData ? <Dashboard /> : <AdminLogin />} />
             <Route path='/admin/users' exact element={adminData ? <UserManage /> : <AdminLogin />} />
