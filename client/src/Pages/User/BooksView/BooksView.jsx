@@ -11,8 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { userBookSearchAction } from '../../../Redux/Actions/userActions/bookActions'
-import { adminGetAllGenreAction } from '../../../Redux/Actions/adminActions/adminGenreActions';
+import { userBookSearchAction, userGetAllGenreAction } from '../../../Redux/Actions/userActions/bookActions'
 import SelfHelpBooks from '../../../Components/User/Books/SelfHelpBooks';
 import KidsBooks from '../../../Components/User/Books/KidsBooks';
 import NovelBooks from '../../../Components/User/Books/NovelBooks';
@@ -54,11 +53,11 @@ const BooksView = () => {
     setValue(newValue);
   };
 
-  const adminGenres = useSelector(state => state.adminGenreReducer)
-  const { genreLoading, error, genreData } = adminGenres
+  const userGenres = useSelector(state => state.userGenreReducer)
+  const { genreLoading, error, genreData } = userGenres
 
   useEffect(() => {
-    dispatch(adminGetAllGenreAction())
+    dispatch(userGetAllGenreAction())
   }, [])
 
   const [searchTerm, setSearchTerm] = useState('')

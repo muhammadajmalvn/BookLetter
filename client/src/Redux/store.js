@@ -4,7 +4,7 @@ import { userLoginReducer } from './Reducers/userReducers/userLoginReducer'
 import { userProfileReducer, userImageReducer } from './Reducers/userReducers/userProfileReducer'
 import { adminLoginReducer } from '../Redux/Reducers/adminReducers/adminLoginReducer'
 import { adminControlReducer, getBookReducer, getLocationReducer, adminSearchReducer, adminGenreAddReducer, adminGenreReducer } from "./Reducers/adminReducers/adminControlReducers"
-import { userGetBookReducer } from './Reducers/userReducers/userBookReducer'
+import { userGenreReducer, userGetBookReducer } from './Reducers/userReducers/userBookReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunkMiddleware from 'redux-thunk'
 import { userGetOrderedBooksReducer } from "./Reducers/userReducers/userOrderReducer";
@@ -17,6 +17,7 @@ const rootReducer = combineReducers({
   userProfile: userProfileReducer,
   userImageUpload: userImageReducer,
   userGetBooks: userGetBookReducer,
+  userGenreReducer: userGenreReducer,
   getorderedBooks: userGetOrderedBooksReducer,
 
   adminLogin: adminLoginReducer,

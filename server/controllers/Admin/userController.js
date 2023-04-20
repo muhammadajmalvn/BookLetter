@@ -24,10 +24,8 @@ exports.blockUnblockUser = async (req, res) => {
 }
 
 exports.deleteUser = async (req, res) => {
-  console.log('hiii');
   try {
     await userSchema.deleteOne({ _id: req.query.id })
-    // const data = await userSchema.find()
     res.status(200).json('User deleted')
   } catch (err) {
     res.status(500).json('Internal Server Error')

@@ -22,14 +22,13 @@ function AllBooks({ allBooks }) {
         dispatch(userGetBooksAction())
     }, [])
 
-
     return (
         <>
             <Box>
                 <div className='d-flex flex-wrap justify-content-center  '>
                     {
                         booksDataLoading ? <Loading /> :
-                        allBooks ? allBooks.map((data, index) => {
+                            allBooks ? allBooks.data.map((data, index) => {
                                 return (
                                     <Card key={index} sx={{ height: 350, width: 350, m: 3, boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)' }}>
                                         <CardActionArea>
