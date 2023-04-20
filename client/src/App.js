@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner';
 import NotFound from './Pages/NotFound';
+import Validityext from './Pages/User/Booking/Validityext';
 
 
 const Signup = lazy(() => import('./Pages/User/Signup/Signup'))
@@ -49,6 +50,7 @@ const App = () => {
             <Route path='/booking' exact element={userData ? <Booking /> : <Login />} />
             <Route path='/ordered-book' exact element={userData ? <OrderedBooks /> : <Login />} />
             <Route path='/sell-books' exact element={userData ? <SellBooks /> : <Login />} />
+            <Route path='/validity-extend' exact element={userData ? <Validityext /> : <Login />} />
             <Route path='*' element={<NotFound />} />
 
             <Route path='/admin' exact element={adminData ? <Dashboard /> : <AdminLogin />} />

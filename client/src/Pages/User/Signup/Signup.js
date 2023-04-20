@@ -107,7 +107,7 @@ function Signup() {
               <Link to={'/login'}>
                 <p className="mb-5 pb-lg-2" style={{ color: '#393f81' }}>Already have an account? <a style={{ color: '#393f81' }}>Login here</a></p>
               </Link>
-            </MDBCardBody>
+            </MDBCardBody>  
           </MDBCol>
 
         </MDBRow>

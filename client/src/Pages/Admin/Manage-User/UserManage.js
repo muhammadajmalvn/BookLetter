@@ -15,10 +15,14 @@ import { userLogout } from '../../../Redux/Actions/userActions/LoginActions';
 const UserManage = () => {
     const dispatch = useDispatch()
 
+    
+    useEffect(() => {
+        dispatch(userDetailsFetch());
+    }, [dispatch]);
+    
     const userDetails = useSelector(state => state.adminControl)
     let { loading, adminUserData, error } = userDetails
-    console.log(userDetails, 'detailssssssss');
-    console.log(adminUserData, 'detailssssssss');
+   
 
     const handleBlockUser = async (id) => {
         dispatch(userBlockUnblock(id));
@@ -43,11 +47,9 @@ const UserManage = () => {
 
     const searchuser = () => {
         dispatch(adminSearch(searchkeyword))
-
     }
     if (searchresult) {
         adminUserData = searchresult
-
     }
     const settingsearch = (e) => {
         if (e.length == 0) {
@@ -82,9 +84,6 @@ const UserManage = () => {
     });
 
 
-    useEffect(() => {
-        dispatch(userDetailsFetch());
-    }, [dispatch]);
 
     const handleToggle = async (id) => {
         const updatedUsers = [...blockedUsers];

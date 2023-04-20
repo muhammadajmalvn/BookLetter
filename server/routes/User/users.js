@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userSignupLogin = require('../../controllers/Users/signup-login')
-const { protect } = require('../../utils/verifyToken')
+const { protect } = require('../../Middlewares/verifyToken')
 const userProfile = require('../../controllers/Users/userProfile')
 const userBooks = require('../../controllers/Users/userBooks')
 const userBooking = require('../../controllers/Users/userBooking')
@@ -20,5 +20,6 @@ router.route('/search-book').post(userBooks.searchBook)
 
 router.route('/booking-book').post(userBooking.booking)
 router.route('/orders').get(protect,userOrders.getOrders)
+router.route('/return').post(protect,userOrders.returnOrder)
 
 module.exports = router;

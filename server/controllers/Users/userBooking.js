@@ -39,7 +39,7 @@ exports.booking = async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: 'http://localhost:3000/ordered-book',
+            success_url: 'http://localhost:3000/profile',
             cancel_url: 'http://localhost:4242/cancel',
         })
 

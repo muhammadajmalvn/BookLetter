@@ -84,3 +84,14 @@ exports.getOrders = async (req, res) => {
 
     }
 }
+
+exports.returnOrder =async(req,res)=>{
+    console.log('hoooooooooooooooo');
+    try {
+        await orderSchema.updateOne({ _id: req.body.orderId }
+            , { $set: { status: 'returned' } })
+        res.status(200).json('Updated order status')
+    } catch (e) {
+        res.status(500).json("Error updating")
+    }
+}

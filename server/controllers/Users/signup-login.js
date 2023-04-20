@@ -22,7 +22,6 @@ exports.signupPost = async (req, res) => {
                         firstName: result.firstName,
                         lastName: result.lastName,
                         email: result.email,
-                        token: generateToken(result.id)
                     }
                     res.status(201).json(details)
                     console.log(result);

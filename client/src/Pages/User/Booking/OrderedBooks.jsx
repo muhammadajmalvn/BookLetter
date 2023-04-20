@@ -9,17 +9,27 @@ import {
 } from "mdb-react-ui-kit";
 import NavBar from '../Navbar/Navbar'
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrderedBooksAction } from '../../../Redux/Actions/userActions/orderActions';
+import { getOrderedBooksAction, userOrderReturnAction } from '../../../Redux/Actions/userActions/orderActions';
 import { Button } from '@mui/material';
 import Footer from '../Footer/Footer';
+import { useNavigate } from 'react-router-dom';
 
 const OrderedBooks = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+  
+
     const userId = JSON.parse(localStorage.getItem("user-login")).id
     const Books = useSelector((state) => state.getorderedBooks)
     const { loading, orderedBooks, error } = Books
     console.log(orderedBooks);
 
+    const handleReturn = (orderId) => {
+        dispatch(userOrderReturnAction(orderId));
+        dispatch(getOrderedBooksAction(userId))
+    };
+    
     useEffect(() => {
         dispatch(getOrderedBooksAction(userId))
     }, [])
@@ -109,9 +119,7 @@ const OrderedBooks = () => {
 
                                                                 <button
                                                                     className="btn btn-sm btn-primary"
-                                                                    onClick={() => {
-                                                                        // Add code here to handle return button click
-                                                                    }}
+                                                                    onClick={(e) => navigate('/validity-extend', { state: { orderedBooks, orderId: book._id } })}
                                                                 >
                                                                     Extend Validity
                                                                 </button>
@@ -123,9 +131,9 @@ const OrderedBooks = () => {
 
                                                                 <button
                                                                     className="btn btn-sm btn-danger"
-                                                                    onClick={() => {
-                                                                        // Add code here to handle return button click
-                                                                    }}
+                                                                    onClick={ ()=>
+                                                                        handleReturn(book._id)
+                                                                    }
                                                                 >
                                                                     Return
                                                                 </button>
