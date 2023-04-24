@@ -7,10 +7,11 @@ const config = {
         "Content-Type": "application/json",
     }
 }
+
 const configToken = {
     headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + user.token
+        Authorization: "Bearer " + user?.token
     }
 }
 

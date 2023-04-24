@@ -25,7 +25,7 @@ export const userGetBooksAction = () => async (dispatch) => {
         userGetBooksAPI().then((data) => {
             dispatch({
                 type: USER_GET_BOOKS_SUCCESS,
-                payload: data
+                payload: data.data
             })
         }).catch((error) => {
             dispatch({
@@ -50,7 +50,7 @@ export const userGetGenreBooksAction = (genre) => async (dispatch) => {
         userGetGenreBooksAPI(genre).then((data) => {
             dispatch({
                 type: USER_GET_GENRE_BOOKS_SUCCESS,
-                payload: data
+                payload: data.data
             })
         })
             .catch((error) => {

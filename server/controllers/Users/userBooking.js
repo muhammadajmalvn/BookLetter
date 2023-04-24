@@ -6,7 +6,7 @@ const Stripe = require("stripe")
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 
 exports.booking = async (req, res) => {
-    let { userName, userId, bookId, bookData, totalAmount, totalDays, address, bookedTimePeriod } = req.body.bookingData
+    let { userId, bookId, bookData, totalAmount, totalDays, address, bookedTimePeriod } = req.body.bookingData
 
     const [day1, month1, year1] = bookedTimePeriod.startDate.split(" ");
     const date1 = new Date(`${year1}-${month1}-${day1}`);
@@ -16,7 +16,7 @@ exports.booking = async (req, res) => {
     const date2 = new Date(`${year2}-${month2}-${day2}`);
     bookedTimePeriod.endDate = new Date(date2.toISOString());
 
-    if (bookData.quantity > 0) {
+    // if (bookData.quantity > 0) {
         const session = await stripe.checkout.sessions.create({
             line_items: [
                 {
@@ -67,7 +67,7 @@ exports.booking = async (req, res) => {
 
 
             await bookSchema.updateOne(
-                { _id: bookId, "copies.id": copyId },
+                { _id: bookId, "copies.$.id": copyId },
                 { $set: { "copies.$.available": false } }
             );
             const book = await bookSchema.findOneAndUpdate({ _id: bookId }, { $inc: { quantity: -1 }, $push: { bookedTimePeriod: bookedTimePeriod } })
@@ -81,7 +81,7 @@ exports.booking = async (req, res) => {
             console.error(err);
             res.status(500).send('Server error');
         }
-    } else {
-        res.status(500).send('Book is not available in stock')
-    }
+    // } else {
+    //     res.status(500).send('Book is not available in stock')
+    // }
 }

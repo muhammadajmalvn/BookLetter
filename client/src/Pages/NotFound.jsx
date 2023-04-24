@@ -21,7 +21,7 @@ function NotFound() {
                         <Typography variant="h6">
                             The page you’re looking for doesn’t exist.
                         </Typography>
-                        <Button variant="contained" href='/'>Back Home</Button>
+                        <Button onClick={() => window.history.go(-1)}>Return to previous page..!</Button>
                     </Grid>
                     <Grid xs={6}>
                         <img

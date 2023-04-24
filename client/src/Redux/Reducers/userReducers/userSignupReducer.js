@@ -8,7 +8,6 @@ import {
 const initialState = {};
 
 export const userSignupReducer = (state = initialState, action) => {
-    console.log(action, 'output from server inside reducer');
     switch (action.type) {
         case USER_SIGNUP_REQUEST:
             return { loading: true }

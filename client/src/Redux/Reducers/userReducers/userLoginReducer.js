@@ -8,7 +8,6 @@ import {
 
 
 export const userLoginReducer = (state = {}, action) => {
-    console.log(action, 'output from server inside reducer');
     switch (action.type) {
         case USER_LOGIN_REQUEST:
             return { loading: true }

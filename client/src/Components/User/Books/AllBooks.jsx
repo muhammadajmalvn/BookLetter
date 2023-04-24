@@ -17,7 +17,6 @@ function AllBooks({ allBooks }) {
     const book = useSelector((state) => state.userGetBooks)
     let { booksDataLoading, booksData, booksDataError } = book
 
-
     useEffect(() => {
         dispatch(userGetBooksAction())
     }, [])
@@ -28,35 +27,36 @@ function AllBooks({ allBooks }) {
                 <div className='d-flex flex-wrap justify-content-center  '>
                     {
                         booksDataLoading ? <Loading /> :
-                            allBooks ? allBooks.data.map((data, index) => {
-                                return (
-                                    <Card key={index} sx={{ height: 350, width: 350, m: 3, boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)' }}>
-                                        <CardActionArea>
-                                            <Typography gutterBottom variant="h6" textAlign='center' >
-                                                {data.title}
-                                            </Typography>
-                                            <CardMedia
-                                                component="img"
-                                                height="180"
-                                                width="140"
-                                                image={data.photo[0]}
-                                                alt={data.title}
-                                                onClick={(e) => navigate(`/single-book-view`, { state: { booksData, bookId: data._id } })}
-                                            />
-                                            <CardContent>
-
-                                                <Typography variant="h7" color="text.secondary" fontWeight="bold" textAlign='center'>
-                                                    Rent Now @ Price : {data.price} /day
+                            allBooks ? allBooks.filter((data) => data.quantity >= 1)
+                                .map((data, index) => {
+                                    return (
+                                        <Card key={index} sx={{ height: 350, width: 350, m: 3, boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)' }}>
+                                            <CardActionArea>
+                                                <Typography gutterBottom variant="h6" textAlign='center' >
+                                                    {data.title}
                                                 </Typography>
+                                                <CardMedia
+                                                    component="img"
+                                                    height="180"
+                                                    width="140"
+                                                    image={data.photo[0]}
+                                                    alt={data.title}
+                                                    onClick={(e) => navigate(`/single-book-view`, { state: { booksData, bookId: data._id } })}
+                                                />
+                                                <CardContent>
 
-                                            </CardContent>
-                                        </CardActionArea>
-                                        <CardActions>
-                                            <Button bookId={data._id} />
-                                        </CardActions>
-                                    </Card>
-                                )
-                            }) : ""
+                                                    <Typography variant="h7" color="text.secondary" fontWeight="bold" textAlign='center'>
+                                                        Rent Now @ Price : {data.price} /day
+                                                    </Typography>
+
+                                                </CardContent>
+                                            </CardActionArea>
+                                            <CardActions>
+                                                <Button bookId={data._id} />
+                                            </CardActions>
+                                        </Card>
+                                    )
+                                }) : ""
                     }
                 </div>
             </Box>

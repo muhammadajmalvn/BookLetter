@@ -4,14 +4,19 @@ import PhoneInput from "react-phone-input-2";
 import { auth } from "../../../Firebase/firebase.config";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { toast, Toaster } from "react-hot-toast";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button';
 import { useForm } from 'react-hook-form'
-import {userOtpLoginAction} from "../../../Redux/Actions/userActions/LoginActions";
+import { userOtpLoginAction } from "../../../Redux/Actions/userActions/LoginActions";
 import "react-phone-input-2/lib/style.css";
+import Loading from "../../Loading";
+import ErrorMessage from "../../Error";
 
 function OtpLogin() {
+
+  const userLoginData = useSelector(state => state.userLogin)
+  const { error, loading, userLoginDetails } = userLoginData
 
   const [otp, setOtp] = useState("")
   const [phone, setPhone] = useState("")
@@ -50,13 +55,12 @@ function OtpLogin() {
     signInWithPhoneNumber(auth, phoneNumber, appVerifier)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
-
         setShowOtp(true);
         toast.success("OTP sended successfully!");
       })
       .catch((error) => {
         console.log('otp error', error);
-
+        toast.error('Firebase error: ' + error)
       });
   }
 
@@ -69,32 +73,30 @@ function OtpLogin() {
         console.log("mobile", result.user.phoneNumber);
         const phone = result.user.phoneNumber.substring(3)
         console.log("MOBILE", phone);
-
         dispatch(userOtpLoginAction(phone))
-        toast.success('Logged in successfully!')
-
+        // toast.success('Logged in successfully!')
       })
       .catch((err) => {
         console.log(err);
-
+        toast.error('Invalid OTP');
       });
   }
 
-
-
   return (
     <div className='otp-login'>
+      <p style={{ margin: '0' }}> {error ? <ErrorMessage variant='danger'>{error}</ErrorMessage> : ""}
+        {loading ? <Loading /> : ""}{userLoginDetails ?
+          toast.success('Logged in successfully!')
+          : " "}</p>
       <div id='recaptcha-container'></div>
       <Toaster toastOptions={{ duration: 4000 }}></Toaster>
-
-
 
 
       <div className='login-box'>
 
         {
           showOtp ?
-           
+
 
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', backgroundColor: '#f2f2f2' }} className='login-body'>
               <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '2rem' }} className='login-header'>Verify OTP</h2>

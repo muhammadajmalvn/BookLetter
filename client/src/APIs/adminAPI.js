@@ -11,7 +11,7 @@ const config = {
 const configToken = {
     headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + admin.token
+        Authorization: "Bearer " + admin?.token
     }
 }
 const configFormData = {

@@ -72,38 +72,34 @@ exports.loginPost = (req, res) => {
     }
 }
 
-exports.otpLoginPost = (req, res) => {
+exports.otpLoginPost = async (req, res) => {
     try {
-        userSchema.findOne({ phone: req.body.phone }).then((userData) => {
-            if (userData) {
-                if (userData.status) {
+        let user = await userSchema.findOne({ phone: req.body.phone })
+        if (user == null) {
+            res.status(400).json("User not found with phone number")
+        }
+        else if (user.status) {
+            const { id, firstName, lastName, email, status, phone, photo } = user
 
-                    const { id, firstName, lastName, email, status, phone, photo } = userData
-
-                    const result = {
-                        id, 
-                        firstName,
-                        lastName,
-                        email,
-                        phone,
-                        photo,
-                        status,
-                        token: generateToken(id)
-                    }
-                    console.log(result, 'result otp');
-
-                    res.status(200).json(result)
-                } else {
-                    res.json(400).json("Account suspended Temporarily")
-                }
-            } else {
-                res.status(400).json("phone number not registred")
+            const result = {
+                id,
+                firstName,
+                lastName,
+                email,
+                phone,
+                photo,
+                status,
+                token: generateToken(id)
             }
-        })
-            .catch((error) => {
-                res.json(error)
-            })
-    } catch (error) {
+            console.log(result, 'result otp');
 
+            res.status(200).json(result)
+        }
+        else {
+            res.json(400).json("Account suspended Temporarily")
+
+        }
+    } catch (error) {
+        return res.status(500).send("Internal Server Error");
     }
 }

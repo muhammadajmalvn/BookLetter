@@ -130,7 +130,7 @@ const BooksView = () => {
           <NovelBooks />
         </TabPanel>
       </Box>
-      <br /><br />
+      <br /><br /><br /><br /><br /><br /><br /><br />
       <Footer />
     </>
   )
