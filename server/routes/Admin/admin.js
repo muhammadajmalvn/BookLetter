@@ -12,20 +12,22 @@ const upload = require('../../utils/multer')
 router.post('/', loginController.adminLogin)
 
 /* GET home page. */
-router.route('/users', protect)
-    .get(userController.getUsers)
-    .delete(userController.deleteUser)
-    .post(userController.searchUser)
+router.route('/users')
+    .get(protect, userController.getUsers)
+    .delete(protect, userController.deleteUser)
+    .post(protect, userController.searchUser)
 router.route('/manage-users').get(userController.blockUnblockUser)
 
 router.route('/books')
-    .get(bookController.getAllBooks)
+    .get(protect, bookController.getAllBooks)
     .delete(protect, bookController.deleteBook)
+
 router.route('/add-books').post(upload.array('images'), protect, bookController.addBook)
 router.route('/edit-book').post(upload.array('images'), protect, bookController.editBook)
 
-router.route('/add-genre').post(protect, genreController.addgenre)
-router.route('/genres').get(protect, genreController.getAllGenres)
+router.route('/genres')
+    .get(protect, genreController.getAllGenres)
+    .post(protect, genreController.addGenre)
 router.route('/delete-genre').get(protect, genreController.deleteGenre)
 
 router.route('/orders').get(protect, ordersController.getAllOrders)

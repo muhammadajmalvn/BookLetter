@@ -111,7 +111,7 @@ const BooksView = () => {
             <Tabs aria-label="basic tabs example" value={value} onChange={handleChange} centered>
               <Tab label="All Books" />
               {genreData &&
-                genreData.data.map((data, index) => (
+                genreData.data.filter(genre => !genre.isDeleted).map((data, index) => (
                   <Tab key={index} label={data.name} />
                 ))}
             </Tabs>

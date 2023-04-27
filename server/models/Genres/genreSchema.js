@@ -6,6 +6,11 @@ const genreSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
 });
 
 const model = mongoose.model('Genre', genreSchema);

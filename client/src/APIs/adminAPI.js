@@ -2,7 +2,6 @@ import axios from 'axios'
 const API = axios.create({ baseURL: "http://localhost:5000/admin" })
 
 const admin = JSON.parse(localStorage.getItem('adminInfo'))
-
 const config = {
     headers: {
         "Content-Type": "application/json",
@@ -33,7 +32,7 @@ export const adminGetBooksAPI = () => API.get('/books', configToken)
 export const adminDeleteBookAPI = (id) => API.delete("/books?id=" + id, configToken)
 export const adminEditBookAPI = (id, formdata) => API.post('/edit-book?id=' + id, formdata, configFormData)
 
-export const adminAddGenreAPI = (genre) => API.post('/add-genre', { genre }, configToken);
+export const adminAddGenreAPI = (genre) => API.post('/genres', { genre }, configToken);
 export const adminGetGenresAPI = () => API.get('/genres', configToken);
 export const adminDeleteGenresAPI = (id) => API.get("/delete-genre?id=" + id, configToken)
 

@@ -126,7 +126,7 @@ const AddBook = () => {
                                         >
                                             <option value="" disabled>Select a Genre</option>
                                             {genreData &&
-                                                genreData.data.map((genre) => (
+                                                genreData.data.filter(genre => !genre.isDeleted).map((genre) => (
                                                     <option key={genre._id} value={genre.name}>
                                                         {genre.name}
                                                     </option>

@@ -25,6 +25,9 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import CategoryIcon from '@mui/icons-material/Category';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { adminLogout } from '../../../Redux/Actions/adminActions/adminLoginActions';
+import { useDispatch } from 'react-redux';
 
 const drawerWidth = 240;
 
@@ -93,9 +96,15 @@ const DrawerWrapper = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'op
     })
 );
 
+
 function Sidebar() {
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
+    const logOut = () => {
+        console.log('Hiii');
+        dispatch(adminLogout())
+        navigate("/admin")
+    }
     const theme = useTheme();
     const [open, setOpen] = useState(false);
 
@@ -148,6 +157,7 @@ function Sidebar() {
                         { name: 'Orders', icon: <LocalShippingIcon /> },
                         { name: 'Sell Request', icon: <StorefrontIcon /> },
                         { name: 'Report', icon: <SummarizeIcon /> },
+                        { name: 'Logout', icon: <LogoutIcon /> },
 
 
                     ].map((text, index) => (
@@ -180,7 +190,7 @@ function Sidebar() {
                                         text2 === "add-book" && navigate('/admin/add-book')
                                         text2 === "genres" && navigate('/admin/genre')
                                         text2 === "orders" && navigate('/admin/orders')
-
+                                        text2 === "logout" && logOut()
                                     }} />
                             </ListItemButton>
                         </ListItem>

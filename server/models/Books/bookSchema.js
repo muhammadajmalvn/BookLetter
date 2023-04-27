@@ -16,7 +16,7 @@ const bookSchema = new mongoose.Schema({
   publishedDate: {
     type: Date,
     required: true,
-    get: function(value) {
+    get: function (value) {
       return value.toLocaleDateString();
     }
   },
@@ -36,11 +36,16 @@ const bookSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  photo:[],
-  quantity:{
+  photo: [],
+  quantity: {
     type: Number,
     required: true,
-    default:1
+    default: 1
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+    required: true
   },
   copies: [
     {

@@ -72,11 +72,15 @@ exports.getOrders = async (req, res) => {
                             ]
                         }
                     }
+                }, {
+                    $sort: {
+                        createdAt: -1
+                    }
                 }
             ]
 
         )
-        // console.log(bookOrders, 'orderssss');
+        console.log(bookOrders, 'orderssss');
         res.status(200).json(bookOrders)
     } catch (error) {
         res.status(400).json("error while getting data from the orders")
@@ -85,8 +89,7 @@ exports.getOrders = async (req, res) => {
     }
 }
 
-exports.returnOrder =async(req,res)=>{
-    console.log('hoooooooooooooooo');
+exports.returnOrder = async (req, res) => {
     try {
         await orderSchema.updateOne({ _id: req.body.orderId }
             , { $set: { status: 'returned' } })

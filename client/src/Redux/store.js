@@ -32,10 +32,13 @@ const rootReducer = combineReducers({
 
 
 let userData = JSON.parse(localStorage.getItem('user-login'))
+let adminInfo = JSON.parse(localStorage.getItem("adminInfo"))
+
 
 const initialState = {
-  userLogin: { userinfo: userData }
-}
+  userLogin: { userLoginDetails: userData },
+  adminLogin: { adminLoginDetails: adminInfo }
+};
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware))
 

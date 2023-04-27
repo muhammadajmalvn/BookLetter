@@ -160,7 +160,7 @@ const EditBook = () => {
                                         >
                                             <option value="" disabled>{location.state.adminBookData.genre}</option>
                                             {genreData &&
-                                                genreData.data.map((genre) => (
+                                                genreData.data.filter(genres => !genres.isDeleted).map((genre) => (
                                                     <option key={genre._id} value={genre.name}>
                                                         {genre.name}
                                                     </option>

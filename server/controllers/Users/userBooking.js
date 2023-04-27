@@ -4,19 +4,25 @@ const dotenv = require('dotenv')
 dotenv.config()
 const Stripe = require("stripe")
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
+const moment = require('moment');
 
 exports.booking = async (req, res) => {
-    let { userId, bookId, bookData, totalAmount, totalDays, address, bookedTimePeriod } = req.body.bookingData
+    try {
+        let { userId, bookId, bookData, totalAmount, totalDays, address, bookedTimePeriod } = req.body.bookingData
 
-    const [day1, month1, year1] = bookedTimePeriod.startDate.split(" ");
-    const date1 = new Date(`${year1}-${month1}-${day1}`);
-    bookedTimePeriod.startDate = new Date(date1.toISOString());
+        bookedTimePeriod.startDate = moment(bookedTimePeriod.startDate, 'DD MMMM YYYY').toDate();
+        bookedTimePeriod.endDate = moment(bookedTimePeriod.endDate, 'DD MMMM YYYY').toDate();
 
-    const [day2, month2, year2] = bookedTimePeriod.endDate.split(" ");
-    const date2 = new Date(`${year2}-${month2}-${day2}`);
-    bookedTimePeriod.endDate = new Date(date2.toISOString());
+        // const [day1, month1, year1] = bookedTimePeriod.startDate.split(" ");
+        // const date1 = new Date(`${year1}-${month1}-${day1}`);
+        // bookedTimePeriod.startDate = new Date(date1.toISOString());
 
-    // if (bookData.quantity > 0) {
+        // const [day2, month2, year2] = bookedTimePeriod.endDate.split(" ");
+        // const date2 = new Date(`${year2}-${month2}-${day2}`);
+        // bookedTimePeriod.endDate = new Date(date2.toISOString());
+
+        // if (bookData.quantity > 0) {
+
         const session = await stripe.checkout.sessions.create({
             line_items: [
                 {
@@ -39,11 +45,9 @@ exports.booking = async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: 'http://localhost:3000/profile',
+            success_url: 'http://localhost:3000/booking-success',
             cancel_url: 'http://localhost:4242/cancel',
         })
-
-
 
         const available = await bookSchema.findOne(
             { _id: bookId },
@@ -61,27 +65,24 @@ exports.booking = async (req, res) => {
             address: address,
             stripeSessionId: session.id, // store the session id for future reference
         });
-        try {
-            await order.save();
-            console.log('Booking saved successfully');
+        await order.save();
+        console.log('Booking saved successfully');
 
 
-            await bookSchema.updateOne(
-                { _id: bookId, "copies.$.id": copyId },
-                { $set: { "copies.$.available": false } }
-            );
-            const book = await bookSchema.findOneAndUpdate({ _id: bookId }, { $inc: { quantity: -1 }, $push: { bookedTimePeriod: bookedTimePeriod } })
+        await bookSchema.updateOne(
+            { _id: bookId, "copies._id": copyId },
+            { $set: { "copies.$.available": false } }
+        );
+        const book = await bookSchema.findOneAndUpdate({ _id: bookId }, { $inc: { quantity: -1 }, $push: { bookedTimePeriod: bookedTimePeriod } })
 
-            if (!book.bookedTimePeriod) {
-                book.bookedTimePeriod = [bookedTimePeriod];
-                await book.save();
-            }
-            res.send({ url: session.url })
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Server error');
+        if (!book.bookedTimePeriod) {
+            book.bookedTimePeriod = [bookedTimePeriod];
+            await book.save();
         }
-    // } else {
-    //     res.status(500).send('Book is not available in stock')
-    // }
+        res.send({ url: session.url })
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+  
 }

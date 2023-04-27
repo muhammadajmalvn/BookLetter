@@ -24,6 +24,7 @@ const SingleBookView = lazy(() => import('./Pages/User/SingleBookView/SingleBook
 const Category = lazy(() => import('./Pages/Admin/Manage-Category/Category'))
 const Booking = lazy(() => import('./Pages/User/Booking/Booking'))
 const OrderedBooks = lazy(() => import('./Pages/User/Booking/OrderedBooks'))
+const OrderSuccess = lazy(() => import('./Pages/User/Booking/OrderSuccess'))
 const OtpLogin = lazy(() => import('./Pages/User/OTP-Login/OtpLogin'))
 const Orders = lazy(() => import('./Pages/Admin/Manage-Orders/Orders'))
 
@@ -51,6 +52,7 @@ const App = () => {
             <Route path='/ordered-book' exact element={userData ? <OrderedBooks /> : <Login />} />
             <Route path='/sell-books' exact element={userData ? <SellBooks /> : <Login />} />
             <Route path='/validity-extend' exact element={userData ? <Validityext /> : <Login />} />
+            <Route path='/booking-success' exact element={< OrderSuccess />} />
             <Route path='*' element={<NotFound />} />
 
             <Route path='/admin' exact element={adminData ? <Dashboard /> : <AdminLogin />} />
@@ -60,7 +62,7 @@ const App = () => {
             <Route path='/admin/edit-book' exact element={adminData ? <EditBook /> : <AdminLogin />} />
             <Route path='/admin/genre' exact element={adminData ? <Category /> : <AdminLogin />} />
             <Route path='/admin/orders' exact element={adminData ? <Orders /> : <AdminLogin />} />
-
+            
           </Routes>
         </Suspense>
       </Router>

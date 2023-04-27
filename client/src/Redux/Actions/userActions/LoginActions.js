@@ -43,12 +43,11 @@ export const userOtpLoginAction = (phone) => async (dispatch) => {
             }
         }
         const { data } = await API.post("/otp-login", { phone }, config);
-        console.log(data, '88888888888');
         dispatch({
             type: USER_LOGIN_SUCCESS,
             payload: data
         })
-        localStorage.setItem("user-login", JSON.stringify(data.data))
+        localStorage.setItem("user-login", JSON.stringify(data))
     } catch (error) {
         dispatch({
             type: USER_LOGIN_FAILURE,

@@ -19,8 +19,8 @@ router.route('/genrebooks').post(userBooks.getGenreBooks)
 router.route('/search-book').post(userBooks.searchBook)
 router.route('/genres').get(userBooks.getAllGenres)
 
-router.route('/booking-book').post(userBooking.booking)
-router.route('/orders').get(protect,userOrders.getOrders)
-router.route('/return').post(protect,userOrders.returnOrder)
+router.route('/booking-book').post(protect, userBooking.booking)
+router.route('/orders').get(protect, userOrders.getOrders)
+router.route('/return').post(protect, userOrders.returnOrder)
 
 module.exports = router;

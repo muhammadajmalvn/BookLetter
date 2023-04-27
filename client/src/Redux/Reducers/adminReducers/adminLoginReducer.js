@@ -1,7 +1,8 @@
 import {
     ADMIN_LOGIN_REQUEST,
     ADMIN_LOGIN_SUCCESS,
-    ADMIN_LOGIN_FAILURE
+    ADMIN_LOGIN_FAILURE,
+    ADMIN_LOGOUT
 } from '../../Constants/adminConstants'
 
 
@@ -14,8 +15,8 @@ export const adminLoginReducer = (state = {}, action) => {
             return { loading: false, adminLoginDetails: action.payload }
         case ADMIN_LOGIN_FAILURE:
             return { loading: false, error: action.payload }
-        // case ADMIN_LOGOUT:
-        //     return { adminLoginDetails: false }
+        case ADMIN_LOGOUT:
+            return { adminLoginDetails: false }
         default:
             return state
     }

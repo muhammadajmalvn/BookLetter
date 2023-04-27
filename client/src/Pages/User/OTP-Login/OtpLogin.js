@@ -69,8 +69,8 @@ function OtpLogin() {
     window.confirmationResult
       .confirm(otp)
       .then(async (result) => {
-        console.log('result', result);
-        console.log("mobile", result.user.phoneNumber);
+        // console.log('result', result);
+        // console.log("mobile", result.user.phoneNumber);
         const phone = result.user.phoneNumber.substring(3)
         console.log("MOBILE", phone);
         dispatch(userOtpLoginAction(phone))
@@ -83,64 +83,64 @@ function OtpLogin() {
   }
 
   return (
-    <div className='otp-login'>
-      <p style={{ margin: '0' }}> {error ? <ErrorMessage variant='danger'>{error}</ErrorMessage> : ""}
-        {loading ? <Loading /> : ""}{userLoginDetails ?
-          toast.success('Logged in successfully!')
-          : " "}</p>
-      <div id='recaptcha-container'></div>
-      <Toaster toastOptions={{ duration: 4000 }}></Toaster>
+    <>
+      <div className='otp-login'>
+        <p style={{ margin: '0' }}> {error ? <ErrorMessage variant='danger'>{error}</ErrorMessage> : ""}
+          {loading ? <Loading /> : ""}{userLoginDetails ?
+            toast.success('Logged in successfully!')
+            : " "}</p>
+        <div id='recaptcha-container'></div>
+        <Toaster toastOptions={{ duration: 4000 }}></Toaster>
 
 
-      <div className='login-box'>
+        <div className='login-box'>
 
-        {
-          showOtp ?
-
-
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', backgroundColor: '#f2f2f2' }} className='login-body'>
-              <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '2rem' }} className='login-header'>Verify OTP</h2>
-              <div className='form-div'>
-                <label htmlFor="">Enter the OTP*</label>
-                <input type="text" placeholder='OTP'
-                  {...register('OTP', {
-                    required: true,
-                    maxLength: 6,
-                    minLength: 6,
-                  })}
-                  onChange={(e) => setOtp(e.target.value)}
-                  style={{ padding: '0.5rem', borderRadius: '0.25rem', border: '1px solid #ccc', marginBottom: '1rem' }}
-                />
-                {errors.OTP && <p style={{ color: "red" }}>Please check the OTP</p>}
-                <Button type='submit' className='otp-button' style={{ backgroundColor: '#0e7be8', color: 'white', padding: '0.5rem', borderRadius: '0.25rem', border: 'none' }}
-                  onClick={onOTPVerify}
-                >
-                  LOGIN
-                </Button>
-                <div id='recaptcha-container'></div>
-              </div>
-            </div>
-            :
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-              <div className='login-body' style={{ maxWidth: '400px', width: '100%', backgroundColor: '#f5f5f5', padding: '20px', borderRadius: '10px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)' }}>
-                <h2 className='login-header'>OTP Login</h2>
+          {
+            showOtp ?
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', backgroundColor: '#f2f2f2' }} className='login-body'>
+                <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '2rem' }} className='login-header'>Verify OTP</h2>
                 <div className='form-div'>
-                  <label htmlFor="">Enter the mobile no*</label>
-                  <PhoneInput country={"in"}
-                    value={phone}
-                    onChange={setPhone}
+                  <label htmlFor="">Enter the OTP*</label>
+                  <input type="text" placeholder='OTP'
+                    {...register('OTP', {
+                      required: true,
+                      maxLength: 6,
+                      minLength: 6,
+                    })}
+                    onChange={(e) => setOtp(e.target.value)}
+                    style={{ padding: '0.5rem', borderRadius: '0.25rem', border: '1px solid #ccc', marginBottom: '1rem' }}
                   />
-                  {errors.phone && <p style={{ color: "red" }}>Please check the Mobile No</p>}
-                  <Button type='submit' className='otp-button'
-                    style={{ backgroundColor: '#0e7be8', color: 'white', marginTop: '10px' }}
-                    onClick={onSignup}
-                  >Send OTP via SMS</Button>
+                  {errors.OTP && <p style={{ color: "red" }}>Please check the OTP</p>}
+                  <Button type='submit' className='otp-button' style={{ backgroundColor: 'rgb(53,91,62)', color: 'white', padding: '0.5rem', borderRadius: '0.25rem', border: 'none' }}
+                    onClick={onOTPVerify}
+                  >
+                    LOGIN
+                  </Button>
+                  <div id='recaptcha-container'></div>
                 </div>
               </div>
-            </div>
-        }
+              :
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <div className='login-body' style={{ maxWidth: '400px', width: '100%', backgroundColor: '#f5f5f5', padding: '20px', borderRadius: '10px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)' }}>
+                  <h2 className='login-header'>OTP Login</h2>
+                  <div className='form-div'>
+                    <label htmlFor="">Enter the mobile no*</label>
+                    <PhoneInput country={"in"}
+                      value={phone}
+                      onChange={setPhone}
+                    />
+                    {errors.phone && <p style={{ color: "red" }}>Please check the Mobile No</p>}
+                    <Button type='submit' className='otp-button'
+                      style={{ backgroundColor: 'rgb(53,91,62)', color: 'white', marginTop: '10px' }}
+                      onClick={onSignup}
+                    >Send OTP via SMS</Button>
+                  </div>
+                </div>
+              </div>
+          }
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

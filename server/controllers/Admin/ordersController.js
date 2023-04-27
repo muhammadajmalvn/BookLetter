@@ -69,6 +69,10 @@ exports.getAllOrders = async (req, res) => {
                                 ]
                             }
                         }
+                    }, {
+                        $sort: {
+                            createdAt: -1
+                        }
                     }
                 ]
 

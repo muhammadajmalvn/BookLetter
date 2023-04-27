@@ -10,6 +10,7 @@ import { adminAddGenreAction, adminGetAllGenreAction, deleteGenre } from '../../
 import { useForm } from 'react-hook-form'
 import ErrorMessage from '../../Error';
 import Loading from '../../Loading';
+import swal from 'sweetalert';
 
 
 const Category = () => {
@@ -35,6 +36,7 @@ const Category = () => {
 
 
   const handleDeleteGenre = async (id) => {
+    console.log(id);
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this genre!",
@@ -52,9 +54,8 @@ const Category = () => {
         } else {
           swal("Genre deletion cancelled!");
         }
-        dispatch(adminGetAllGenreAction());
-
       });
+    dispatch(adminGetAllGenreAction());
   }
   return (
     <>
@@ -88,7 +89,7 @@ const Category = () => {
               </thead>
               <tbody>
                 {
-                  genreData ? genreData.data.map((genre, index) => {
+                  genreData ? genreData.data.filter(genres => !genres.isDeleted).map((genre, index) => {
                     return (
                       <>
                         <tr>
