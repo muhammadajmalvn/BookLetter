@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 
 const addressSchema = new mongoose.Schema({
-    street: { type: String, required: true },
-    city: { type: String, required: true },
+    addressLine1: { type: String, required: true },
+    addressLine2: { type: String, required: true },
+    postcode: { type: String, required: true },
     state: { type: String, required: true },
-    zip: { type: String, required: true }
+    phoneNumber: { type: String, required: true }
 });
 
 const userSchema = new mongoose.Schema({
@@ -38,7 +39,8 @@ const userSchema = new mongoose.Schema({
         default: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     },
     address: {
-        type: addressSchema,
+        type: [addressSchema],
+        default: []
     },
 
 },

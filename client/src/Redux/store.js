@@ -9,7 +9,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import thunkMiddleware from 'redux-thunk'
 import { userGetOrderedBooksReducer } from "./Reducers/userReducers/userOrderReducer";
 import { adminGetOrdersReducer } from "./Reducers/adminReducers/adminOrderReducer";
-
+import { userAddressReducer } from "./Reducers/userReducers/userAddressReducer"
 
 const rootReducer = combineReducers({
   userSignup: userSignupReducer,
@@ -19,6 +19,7 @@ const rootReducer = combineReducers({
   userGetBooks: userGetBookReducer,
   userGenreReducer: userGenreReducer,
   getorderedBooks: userGetOrderedBooksReducer,
+  userAddressReducer: userAddressReducer,
 
   adminLogin: adminLoginReducer,
   adminControl: adminControlReducer,

@@ -3,7 +3,6 @@ const userSchema = require('../../models/Users/userSchema')
 exports.getUsers = async (req, res) => {
   try {
     userSchema.find().then((data) => {
-      console.log(data);
       res.status(200).json(data);
     })
   } catch (err) {
@@ -45,7 +44,6 @@ exports.searchUser = async (req, res) => {
     })
       .then((data) => {
         res.status(200).json(data);
-        console.log(data);
       })
       .catch((err) => {
         res.status(400).json(err);

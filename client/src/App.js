@@ -35,7 +35,7 @@ const App = () => {
     <div>
       <Router>
 
-        <Suspense fallback={<div class="vh-100 d-flex justify-content-center align-items-center">
+        <Suspense fallback={<div className="vh-100 d-flex justify-content-center align-items-center">
           <Spinner animation="border" role="status" />
           <span>Loading</span>
         </div>
@@ -62,7 +62,7 @@ const App = () => {
             <Route path='/admin/edit-book' exact element={adminData ? <EditBook /> : <AdminLogin />} />
             <Route path='/admin/genre' exact element={adminData ? <Category /> : <AdminLogin />} />
             <Route path='/admin/orders' exact element={adminData ? <Orders /> : <AdminLogin />} />
-            
+
           </Routes>
         </Suspense>
       </Router>

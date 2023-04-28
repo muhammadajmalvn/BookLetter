@@ -23,4 +23,5 @@ router.route('/booking-book').post(protect, userBooking.booking)
 router.route('/orders').get(protect, userOrders.getOrders)
 router.route('/return').post(protect, userOrders.returnOrder)
 
+router.route('/add-address').post(protect, userOrders.addAddress)
 module.exports = router;

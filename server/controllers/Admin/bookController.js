@@ -31,7 +31,7 @@ exports.addBook = async (req, res) => {
             }
 
             let books = await bookSchema.findOne({ title: req.body.title })
-            console.log(books,'copy found');
+            console.log(books, 'copy found');
             if (books) {
                 const copy = {
                     id: uuidv4(),
@@ -90,10 +90,9 @@ exports.getAllBooks = async (req, res) => {
     }
 }
 
-
 exports.deleteBook = async (req, res) => {
     try {
-        await bookSchema.deleteOne({ _id: req.query.id })
+        await bookSchema.updateOne({ _id: req.query.id }, { $set: { isDeleted: true } })
         const data = await bookSchema.find()
         res.status(200).json(data)
     } catch (err) {

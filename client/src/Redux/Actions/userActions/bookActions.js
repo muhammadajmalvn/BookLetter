@@ -69,7 +69,7 @@ export const userBookSearchAction = (searchTerm) => async (dispatch) => {
     try {
         dispatch({ type: USER_BOOK_SEARCH_REQUEST })
         userBookSearchAPI(searchTerm).then((data) => {
-            dispatch({ type: USER_BOOK_SEARCH_SUCCESS, payload: data })
+            dispatch({ type: USER_BOOK_SEARCH_SUCCESS, payload: data.data })
         })
     } catch (error) {
         dispatch({

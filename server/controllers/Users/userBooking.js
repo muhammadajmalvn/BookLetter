@@ -13,15 +13,7 @@ exports.booking = async (req, res) => {
         bookedTimePeriod.startDate = moment(bookedTimePeriod.startDate, 'DD MMMM YYYY').toDate();
         bookedTimePeriod.endDate = moment(bookedTimePeriod.endDate, 'DD MMMM YYYY').toDate();
 
-        // const [day1, month1, year1] = bookedTimePeriod.startDate.split(" ");
-        // const date1 = new Date(`${year1}-${month1}-${day1}`);
-        // bookedTimePeriod.startDate = new Date(date1.toISOString());
 
-        // const [day2, month2, year2] = bookedTimePeriod.endDate.split(" ");
-        // const date2 = new Date(`${year2}-${month2}-${day2}`);
-        // bookedTimePeriod.endDate = new Date(date2.toISOString());
-
-        // if (bookData.quantity > 0) {
 
         const session = await stripe.checkout.sessions.create({
             line_items: [
@@ -63,7 +55,7 @@ exports.booking = async (req, res) => {
             totalDays: totalDays,
             bookedTimePeriod: bookedTimePeriod,
             address: address,
-            stripeSessionId: session.id, // store the session id for future reference
+            stripeSessionId: session.id, 
         });
         await order.save();
         console.log('Booking saved successfully');

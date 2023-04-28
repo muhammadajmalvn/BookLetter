@@ -22,7 +22,7 @@ function NavBar() {
     navigate("/profile")
   }
   return (
-    <div>
+    <div className="outer">
       <div className={click ? "main-container" : ""} onClick={() => Close()} />
       <nav className="navbar" onClick={e => e.stopPropagation()}>
         <div className="nav-container">

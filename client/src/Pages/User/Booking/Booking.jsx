@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { DatePicker } from "antd"
 import StripePayButton from '../../../Components/User/Buttons/StripePayButton';
 import Footer from '../Footer/Footer';
+import AddressModal from '../../../Components/User/Modals/AddressModal';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const { RangePicker } = DatePicker
@@ -20,13 +21,13 @@ const Booking = () => {
   const [endDate, setEndDate] = useState('')
   const [totalDays, setTotalDays] = useState(0)
   const [totalAmount, setTotalAmount] = useState(0)
-  const [address, setAddress] = useState({
-    addressLine1: "",
-    addressLine2: "",
-    postcode: "",
-    state: "",
-    phoneNumber: ""
-  });
+
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleAddAddress = () => {
+    setShowModal(true);
+  };
 
 
   const bookingData = {
@@ -36,7 +37,7 @@ const Booking = () => {
     bookData: clickedBook,
     totalAmount,
     totalDays,
-    address,
+    // address,
     bookedTimePeriod: {
       startDate,
       endDate
@@ -44,16 +45,7 @@ const Booking = () => {
   }
 
 
-
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setAddress((prevAddress) => ({
-      ...prevAddress,
-      [name]: value
-    }));
-  };
-  const isFieldsFilled = Object.values(address).every((field) => field !== "");
+  // const isFieldsFilled = Object.values(address).every((field) => field !== "");
 
   const selectDaySlots = (values) => {
     setStartDate(values[0].format('DD MM YYYY'))
@@ -99,7 +91,18 @@ const Booking = () => {
             <Typography variant="h6" sx={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold', my: 2 }}>Book your copy with us now</Typography>
           </Container>
           <Container maxWidth="md">
-
+            <div>
+              <div className='container'>
+                <div className='row'>
+                  <div className='d-flex justify-content-end'>
+                    <button className='btn btn-success' onClick={handleAddAddress}>
+                      Address+
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <AddressModal isOpen={showModal} onRequestClose={() => setShowModal(false)} />
+            </div>
             <Box sx={{ height: "50px", mt: 3 }}>
               <Typography>
                 Select Date Range
@@ -112,65 +115,26 @@ const Booking = () => {
                 disabledDate={disabledDate}
               />
             </Box>
+            <br /><br />
 
             <Box sx={{ display: 'flex', gap: 2, mt: 3 }}>
-              <FormControl fullWidth sx={{ mt: 3 }}>
-                <div className="col-md-12">
-                  <label className="labels">Address Line 1</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="enter address line 1"
-                    name="addressLine1"
-                    value={address.addressLine1}
-                    onChange={handleInputChange}
-                  />
+              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                <div className='md-3'>
+                  <div className="grid">
+                    <input name="plan" className="radio" type="radio" checked />
+                    <span className="plan-details">
+                      <div className="card bg-warning px-2">
+                        <span className="plan-type">Muhammad Ajmal</span>
+                        <span className="pt-1">street</span>
+                        <span>city</span>
+                        <span>state</span>
+                        <span>zip</span>
+                      </div>
+                    </span>
+                  </div>
                 </div>
-                <div className="col-md-12">
-                  <label className="labels">Address Line 2</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="enter address line 2"
-                    name="addressLine2"
-                    value={address.addressLine2}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="col-md-12">
-                  <label className="labels">Postcode</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="enter the pincode"
-                    name="postcode"
-                    value={address.postcode}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="col-md-12">
-                  <label className="labels">State</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="enter the state"
-                    name="state"
-                    value={address.state}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="col-md-12">
-                  <label className="labels">Phone number</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    placeholder="enter phone number"
-                    name="phoneNumber"
-                    value={address.phoneNumber}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </FormControl>
+
+              </div>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'end', mt: 3 }}>
               <Typography variant="h6">Rent per Day : {clickedBook?.price}/day</Typography>
@@ -187,7 +151,7 @@ const Booking = () => {
           </Container>
         </Container>
       </Container>
-      <Footer/>
+      <Footer />
     </>
   )
 }

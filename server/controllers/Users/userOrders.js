@@ -1,5 +1,6 @@
 const orderSchema = require('../../models/Bookings/OrderSchema')
 const bookSchema = require('../../models/Books/bookSchema')
+const userSchema = require('../../models/Users/userSchema')
 const mongoose = require('mongoose');
 
 exports.getOrders = async (req, res) => {
@@ -96,5 +97,25 @@ exports.returnOrder = async (req, res) => {
         res.status(200).json('Updated order status')
     } catch (e) {
         res.status(500).json("Error updating")
+    }
+}
+
+exports.addAddress = async (req, res) => {
+    try {
+        const { addressLine1, addressLine2, postcode, state, phoneNumber } = req.body.address;
+        let address = {
+            addressLine1: addressLine1,
+            addressLine2: addressLine2,
+            postcode: postcode,
+            state: state,
+            phoneNumber: phoneNumber
+        }
+        await userSchema.updateOne({ _id: req.query.id }, { $push: { address: address } })
+        // const data = await userSchema.aggregate([
+        //     { $match: { _id: req.query.id } },
+        // ])
+        res.status(200).json('added')
+    } catch (error) {
+        res.status(400).json("Error adding address")
     }
 }

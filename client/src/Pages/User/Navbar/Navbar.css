@@ -15,9 +15,9 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
-  position: sticky;
   top: 0;
   z-index: 20;
+  position: fixed;
 }
 
 .nav-container {
@@ -79,6 +79,12 @@ body {
   width: 0;
   background: transparent;
   transition: width 0.7s ease, background-color 0.5s ease;
+}
+
+.outer {
+  position: fixed;
+  width: 100%;
+  z-index: 30;
 }
 
 .nav-item:hover:after {
