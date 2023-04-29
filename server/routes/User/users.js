@@ -24,4 +24,5 @@ router.route('/orders').get(protect, userOrders.getOrders)
 router.route('/return').post(protect, userOrders.returnOrder)
 
 router.route('/add-address').post(protect, userOrders.addAddress)
+router.route('/get-address').get(protect, userOrders.getAddress)
 module.exports = router;

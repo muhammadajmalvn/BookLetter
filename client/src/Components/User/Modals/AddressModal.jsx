@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
-import { addAddress } from '../../../Redux/Actions/userActions/addressActions';
+import { addAddress, getAddressAction } from '../../../Redux/Actions/userActions/addressActions';
 
 const AddressModal = ({ isOpen, onRequestClose }) => {
     const [address, setAddress] = useState({
@@ -12,6 +12,7 @@ const AddressModal = ({ isOpen, onRequestClose }) => {
         phoneNumber: '',
     });
 
+    const [isAddressAdded, setIsAddressAdded] = useState(false); // state variable to keep track of whether a new address has been added
     const dispatch = useDispatch();
 
     const handleInputChange = (e) => {
@@ -30,7 +31,11 @@ const AddressModal = ({ isOpen, onRequestClose }) => {
             phoneNumber: '',
         });
         onRequestClose();
+        setIsAddressAdded(true);
     };
+    useEffect(() => {
+        dispatch(getAddressAction());
+    }, [dispatch, isAddressAdded]);
     return (
         <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles}>
             <h2>Enter Address Details</h2>

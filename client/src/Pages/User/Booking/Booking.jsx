@@ -8,12 +8,14 @@ import { DatePicker } from "antd"
 import StripePayButton from '../../../Components/User/Buttons/StripePayButton';
 import Footer from '../Footer/Footer';
 import AddressModal from '../../../Components/User/Modals/AddressModal';
+import { getAddressAction } from '../../../Redux/Actions/userActions/addressActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const { RangePicker } = DatePicker
 
 const Booking = () => {
-
+  const dispatch = useDispatch()
   const location = useLocation();
   const { booksData } = location.state;
   const clickedBook = booksData?.find((book) => book._id === location.state.bookId)
@@ -28,7 +30,11 @@ const Booking = () => {
   const handleAddAddress = () => {
     setShowModal(true);
   };
+  const [selectedAddress, setSelectedAddress] = useState(null);
 
+  const handleAddressSelect = (selectedAddress) => {
+    setSelectedAddress(selectedAddress);
+  };
 
   const bookingData = {
     userId: JSON.parse(localStorage.getItem("user-login")).id,
@@ -37,15 +43,18 @@ const Booking = () => {
     bookData: clickedBook,
     totalAmount,
     totalDays,
-    // address,
+    address: selectedAddress,
     bookedTimePeriod: {
       startDate,
       endDate
     },
   }
 
-
-  // const isFieldsFilled = Object.values(address).every((field) => field !== "");
+  const addressData = useSelector((state) => state.userAddressReducer)
+  const { loading, addresses, error } = addressData
+  useEffect(() => {
+    dispatch(getAddressAction())
+  }, [dispatch])
 
   const selectDaySlots = (values) => {
     setStartDate(values[0].format('DD MM YYYY'))
@@ -103,6 +112,35 @@ const Booking = () => {
               </div>
               <AddressModal isOpen={showModal} onRequestClose={() => setShowModal(false)} />
             </div>
+            <Box sx={{ display: 'flex', gap: 2, mt: 3 }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                {Array.isArray(addresses) && addresses.map((address) => {
+                  return (
+                    <div className='md-3 ms-5'>
+                      <div className="grid">
+                        <input
+                          type="radio"
+                          name="address"
+                          value={address.id}
+                          onChange={() => handleAddressSelect(address)}
+                        />
+                        <span className="plan-details">
+                          <div className="card bg-warning px-2">
+                            <span className="plan-type">{address.addressLine1}</span>
+                            <span className="pt-1">{address.addressLine2}</span>
+                            <span>{address.state}</span>
+                            <span>{address.postcode}</span>
+                            <span>{address.phoneNumber}</span>
+                          </div>
+                        </span>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </Box>
+            <br /><br />
+
             <Box sx={{ height: "50px", mt: 3 }}>
               <Typography>
                 Select Date Range
@@ -115,27 +153,8 @@ const Booking = () => {
                 disabledDate={disabledDate}
               />
             </Box>
-            <br /><br />
 
-            <Box sx={{ display: 'flex', gap: 2, mt: 3 }}>
-              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                <div className='md-3'>
-                  <div className="grid">
-                    <input name="plan" className="radio" type="radio" checked />
-                    <span className="plan-details">
-                      <div className="card bg-warning px-2">
-                        <span className="plan-type">Muhammad Ajmal</span>
-                        <span className="pt-1">street</span>
-                        <span>city</span>
-                        <span>state</span>
-                        <span>zip</span>
-                      </div>
-                    </span>
-                  </div>
-                </div>
-
-              </div>
-            </Box>
+            <br />
             <Box sx={{ display: 'flex', justifyContent: 'end', mt: 3 }}>
               <Typography variant="h6">Rent per Day : {clickedBook?.price}/day</Typography>
             </Box>

@@ -119,3 +119,37 @@ exports.addAddress = async (req, res) => {
         res.status(400).json("Error adding address")
     }
 }
+
+exports.getAddress = async (req, res) => {
+    try {
+        console.log(req.query.id);
+        const userId = new mongoose.Types.ObjectId(req.query.id);
+        const data = await userSchema.aggregate([
+
+            {
+                '$match': {
+                    '_id': userId
+                }
+            }, {
+                $unwind: {
+                    path: '$address',
+
+                }
+            }, {
+                '$project': {
+                    '_id': 0,
+                    'address': 1
+                }
+            }, {
+                '$replaceRoot': {
+                    'newRoot': '$address'
+                }
+            }
+
+        ])
+        console.log(data);
+        res.status(200).json(data)
+    } catch (e) {
+        res.status(500).json("Error getting address")
+    }
+}

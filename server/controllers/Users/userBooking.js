@@ -9,7 +9,6 @@ const moment = require('moment');
 exports.booking = async (req, res) => {
     try {
         let { userId, bookId, bookData, totalAmount, totalDays, address, bookedTimePeriod } = req.body.bookingData
-
         bookedTimePeriod.startDate = moment(bookedTimePeriod.startDate, 'DD MMMM YYYY').toDate();
         bookedTimePeriod.endDate = moment(bookedTimePeriod.endDate, 'DD MMMM YYYY').toDate();
 

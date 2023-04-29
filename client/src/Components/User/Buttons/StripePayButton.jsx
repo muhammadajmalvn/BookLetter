@@ -6,8 +6,14 @@ import { Button } from '@mui/material'
 function StripePayButton({ bookingData }) {
     const handleCheckOut = () => {
         // need to change to correct format now just checking if it is working or not 
-
-        axios.post('http://localhost:5000/booking-book', { bookingData })
+        const user = JSON.parse(localStorage.getItem('user-login'))
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + user.token
+            }
+        }
+        axios.post('http://localhost:5000/booking-book', { bookingData }, config)
             .then((response) => {
                 if (response.data.url) {
                     window.location.href = response.data.url
