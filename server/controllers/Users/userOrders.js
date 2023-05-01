@@ -93,11 +93,16 @@ exports.getOrders = async (req, res) => {
 exports.returnOrder = async (req, res) => {
     try {
         const orderId = new mongoose.Types.ObjectId(req.query.id);
+        const order = await orderSchema.findOne({_id: orderId});
+        console.log(order,'8888888');
         await orderSchema.updateOne({ _id: orderId }
             , { $set: { status: 'returned' } })
         const returnRequest = new returnSchema({
             trackingId : req.body.trackingId,
             orderId : orderId,
+            bookId: order.bookId,
+            copyId: order.copyId,
+            userId: order.userId
         })
         await returnRequest.save()
         res.status(200)

@@ -38,3 +38,6 @@ export const adminDeleteGenresAPI = (id) => API.get("/delete-genre?id=" + id, co
 
 export const adminGetOrdersAPI = () => API.get('/orders', configToken);
 export const adminChangeOrderStatusAPI = (orderId, status) => API.post('/order-status', { orderId, status }, configToken)
+
+export const adminGetRetunAPI = () => API.get('/returns', configToken);
+export const adminAcceptReturnAPI = (id, orderId, bookId, copyId) =>API.put('/returns',{id,orderId,bookId,copyId},configToken)

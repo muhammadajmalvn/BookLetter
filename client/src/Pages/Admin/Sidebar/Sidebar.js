@@ -26,6 +26,7 @@ import SummarizeIcon from '@mui/icons-material/Summarize';
 import CategoryIcon from '@mui/icons-material/Category';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AssignmentReturnedIcon from '@mui/icons-material/AssignmentReturned';
 import { adminLogout } from '../../../Redux/Actions/adminActions/adminLoginActions';
 import { useDispatch } from 'react-redux';
 
@@ -155,11 +156,10 @@ function Sidebar() {
                         { name: 'Add-Book', icon: <BookmarkAddIcon /> },
                         { name: 'Genres', icon: <CategoryIcon /> },
                         { name: 'Orders', icon: <LocalShippingIcon /> },
+                        { name: 'Returns', icon: <AssignmentReturnedIcon /> },
                         { name: 'Sell Request', icon: <StorefrontIcon /> },
                         { name: 'Report', icon: <SummarizeIcon /> },
                         { name: 'Logout', icon: <LogoutIcon /> },
-
-
                     ].map((text, index) => (
                         <ListItem key={text.name} disablePadding sx={{ display: 'block' }}>
                             <ListItemButton
@@ -190,6 +190,7 @@ function Sidebar() {
                                         text2 === "add-book" && navigate('/admin/add-book')
                                         text2 === "genres" && navigate('/admin/genre')
                                         text2 === "orders" && navigate('/admin/orders')
+                                        text2 === "returns" && navigate('/admin/returns')
                                         text2 === "logout" && logOut()
                                     }} />
                             </ListItemButton>

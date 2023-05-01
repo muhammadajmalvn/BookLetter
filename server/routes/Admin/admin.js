@@ -33,5 +33,8 @@ router.route('/delete-genre').get(protect, genreController.deleteGenre)
 router.route('/orders').get(protect, ordersController.getAllOrders)
 router.route('/order-status').post(protect, ordersController.changeOrderStatus)
 
+router.route('/returns')
+.get(protect, ordersController.getReturns)
+.put(protect, ordersController.acceptReturns)
 
 module.exports = router;

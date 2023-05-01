@@ -10,6 +10,7 @@ import thunkMiddleware from 'redux-thunk'
 import { userGetOrderedBooksReducer } from "./Reducers/userReducers/userOrderReducer";
 import { adminGetOrdersReducer } from "./Reducers/adminReducers/adminOrderReducer";
 import { userAddressReducer } from "./Reducers/userReducers/userAddressReducer"
+import { adminGetReturnReducer } from "./Reducers/adminReducers/adminReturnReducer";
 
 const rootReducer = combineReducers({
   userSignup: userSignupReducer,
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   adminGenreAdd: adminGenreAddReducer,
   adminGenreReducer: adminGenreReducer,
   adminOrderReducer: adminGetOrdersReducer,
+  adminReturnReducer: adminGetReturnReducer,
 });
 
 

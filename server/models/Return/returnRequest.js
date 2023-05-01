@@ -8,6 +8,15 @@ const returnSchema = new mongoose.Schema({
     orderId: {
         type: mongoose.Schema.Types.ObjectId
     },
+    bookId: {
+        type: mongoose.Schema.Types.ObjectId
+    },
+    copyId: {
+        type: mongoose.Schema.Types.ObjectId
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId
+    },
     status: {
         type: String,
         default: 'pending'

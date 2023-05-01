@@ -27,6 +27,8 @@ const OrderedBooks = lazy(() => import('./Pages/User/Booking/OrderedBooks'))
 const OrderSuccess = lazy(() => import('./Pages/User/Booking/OrderSuccess'))
 const OtpLogin = lazy(() => import('./Pages/User/OTP-Login/OtpLogin'))
 const Orders = lazy(() => import('./Pages/Admin/Manage-Orders/Orders'))
+const Returns = lazy(() => import('./Pages/Admin/Manage-Orders/Returns'))
+
 
 const App = () => {
   const userData = useSelector((state) => state.userLogin.userLoginDetails)
@@ -62,6 +64,7 @@ const App = () => {
             <Route path='/admin/edit-book' exact element={adminData ? <EditBook /> : <AdminLogin />} />
             <Route path='/admin/genre' exact element={adminData ? <Category /> : <AdminLogin />} />
             <Route path='/admin/orders' exact element={adminData ? <Orders /> : <AdminLogin />} />
+            <Route path='/admin/returns' exact element={adminData ? <Returns /> : <AdminLogin />} />
 
           </Routes>
         </Suspense>
