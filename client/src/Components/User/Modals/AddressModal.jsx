@@ -12,7 +12,7 @@ const AddressModal = ({ isOpen, onRequestClose }) => {
         phoneNumber: '',
     });
 
-    const [isAddressAdded, setIsAddressAdded] = useState(false); // state variable to keep track of whether a new address has been added
+    const [isAddressAdded, setIsAddressAdded] = useState(false); 
     const dispatch = useDispatch();
 
     const handleInputChange = (e) => {

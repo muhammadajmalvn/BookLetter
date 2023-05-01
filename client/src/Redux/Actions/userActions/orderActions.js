@@ -40,7 +40,7 @@ export const getOrderedBooksAction = (userId) => async (dispatch) => {
 }
 
 
-export const userOrderReturnAction = (orderId) => async (dispatch) => {
+export const userOrderReturnAction = (orderId, trackingId) => async (dispatch) => {
     try {
         dispatch({
             type: USER_ORDER_RETURN_REQUEST
@@ -52,7 +52,7 @@ export const userOrderReturnAction = (orderId) => async (dispatch) => {
                 Authorization: "Bearer " + user.token
             }
         }
-        const { data } = await API.post('/return?id=' + orderId, config)
+        const { data } = await API.post('/return?id=' + orderId, {trackingId},config)
         dispatch({
             type: USER_ORDER_RETURN_SUCCESS,
             payload: data

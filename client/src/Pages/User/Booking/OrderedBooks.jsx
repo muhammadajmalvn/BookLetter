@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     MDBCard,
     MDBCardBody,
     MDBCol,
     MDBContainer,
     MDBCardImage,
-    MDBRow
+    MDBRow,
 } from "mdb-react-ui-kit";
 import NavBar from '../Navbar/Navbar'
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,29 +13,51 @@ import { getOrderedBooksAction, userOrderReturnAction } from '../../../Redux/Act
 import { Button } from '@mui/material';
 import Footer from '../Footer/Footer';
 import { useNavigate } from 'react-router-dom';
+import Modal from 'react-modal';
 
 const OrderedBooks = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-  
+
 
     const userId = JSON.parse(localStorage.getItem("user-login")).id
     const Books = useSelector((state) => state.getorderedBooks)
     const { loading, orderedBooks, error } = Books
     console.log(orderedBooks);
 
-    const handleReturn = (orderId) => {
-        dispatch(userOrderReturnAction(orderId));
-        dispatch(getOrderedBooksAction(userId))
-    };
-    
+  
+
+
     useEffect(() => {
         dispatch(getOrderedBooksAction(userId))
     }, [])
 
+    const handleReturn = (orderId, trackingId) => {
+        console.log(trackingId);
+        console.log(orderId);
+        dispatch(userOrderReturnAction(orderId, trackingId));
+        dispatch(getOrderedBooksAction(userId));
+        handleCloseModal();
+    };
+
+
     const today = new Date().toISOString()
 
+    const [trackingId, setTrackingId] = useState('');
+    const handleTrackingIdChange = (e) => {
+        setTrackingId(e.target.value);
+    }
+
+    const [showModal, setShowModal] = useState(false);
+    const handleOpenModal = () => {
+        setShowModal(true);
+    };
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setTrackingId('');
+    };
+console.log(orderedBooks,'88888888888888888888');
     return (
         <>
             <NavBar />
@@ -46,7 +68,7 @@ const OrderedBooks = () => {
                             {/* <p className="lead fw-bold mb-5" style={{ color: "#f37a27" }}>
                                Your Orders
                             </p> */}
-                            {orderedBooks?.map((book) => {
+                            {orderedBooks?orderedBooks.map((book) => {
                                 return (
                                     <MDBCard className="border-top border-bottom border-3 border-color-custom mt-3 ">
                                         <MDBCardBody className="p-5">
@@ -66,9 +88,21 @@ const OrderedBooks = () => {
                                                 style={{ backgroundColor: "#f2f2f2" }}
                                             >
                                                 <MDBRow>
-                                                    <MDBCardImage src={book.photo} alt="Card image" className='w-25 h-25 ' />
+                                                    <MDBCol>
+                                                        <MDBCardImage src={book.photo} alt="Card image" className='w-50 h-50 ' />
+                                                    </MDBCol>
+                                                    <MDBCol>
+                                                        <MDBRow>
+                                                            <span>{book.address.addressLine1}</span>
+                                                            <span>{book.address.addressLine2}</span>
+                                                            <span>{book.address.state}</span>
+                                                            <span>{book.address.phoneNumber}</span>
+                                                            <MDBRow>
+                                                                <span>{new Date(book.bookedTimePeriod.startDate).toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })} to {new Date(book.bookedTimePeriod.endDate).toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}</span>
+                                                            </MDBRow>
+                                                        </MDBRow>
+                                                    </MDBCol>
                                                 </MDBRow>
-                                                <br />
                                                 <MDBRow>
                                                     <MDBCol md="8" lg="9">
                                                         <p>{book.title}</p>
@@ -113,8 +147,8 @@ const OrderedBooks = () => {
 
                                                     </li>
                                                     <br /><br />
-                                                    <div className='d-flex justify-content-between'>
-                                                        <div>
+                                                    <div className='d-flex justify-content-end'>
+                                                        {/* <div>
                                                             {book.bookedTimePeriod.endDate <= today && book.status === "delivered" && (
 
                                                                 <button
@@ -125,22 +159,22 @@ const OrderedBooks = () => {
                                                                 </button>
 
                                                             )}
-                                                        </div>
+                                                        </div> */}
                                                         <div>
                                                             {book.status === "delivered" && (
-
-                                                                <button
-                                                                    className="btn btn-sm btn-danger"
-                                                                    onClick={ ()=>
-                                                                        handleReturn(book._id)
-                                                                    }
-                                                                >
-                                                                    Return
-                                                                </button>
-
+                                                                <Button variant="contained" color="primary" onClick={handleOpenModal}>Return</Button>
                                                             )}
+                                                            <Modal isOpen={showModal} toggle={handleCloseModal} style={customStyles}>
+                                                                <h2 toggle={handleCloseModal}>Enter Tracking ID</h2>
+                                                                <div>
+                                                                    <input type="text" className="form-control mb-3" placeholder="Tracking ID" value={trackingId} onChange={handleTrackingIdChange} />
+                                                                </div>
+                                                                <div>
+                                                                    <Button variant="contained" color="primary" onClick={() => handleReturn(book._id, trackingId)}>Submit</Button>
+                                                                    <Button variant="contained" color="secondary" onClick={handleCloseModal}>Cancel</Button>
+                                                                </div>
+                                                            </Modal>
                                                         </div>
-
                                                     </div>
                                                 </MDBCol>
                                             </MDBRow>
@@ -148,7 +182,7 @@ const OrderedBooks = () => {
                                     </MDBCard>
 
                                 )
-                            })}
+                            }):''}
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>
@@ -158,6 +192,11 @@ const OrderedBooks = () => {
     )
 }
 
+const customStyles = {
+    content: {
+        top: '20%',
+    },
+};
 export default OrderedBooks
 
 

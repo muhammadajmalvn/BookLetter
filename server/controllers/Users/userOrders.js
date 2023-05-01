@@ -1,7 +1,8 @@
+const mongoose = require('mongoose');
 const orderSchema = require('../../models/Bookings/OrderSchema')
 const bookSchema = require('../../models/Books/bookSchema')
 const userSchema = require('../../models/Users/userSchema')
-const mongoose = require('mongoose');
+const returnSchema = require('../../models/Return/returnRequest')
 
 exports.getOrders = async (req, res) => {
     try {
@@ -81,7 +82,6 @@ exports.getOrders = async (req, res) => {
             ]
 
         )
-        console.log(bookOrders, 'orderssss');
         res.status(200).json(bookOrders)
     } catch (error) {
         res.status(400).json("error while getting data from the orders")
@@ -92,9 +92,15 @@ exports.getOrders = async (req, res) => {
 
 exports.returnOrder = async (req, res) => {
     try {
-        await orderSchema.updateOne({ _id: req.body.orderId }
+        const orderId = new mongoose.Types.ObjectId(req.query.id);
+        await orderSchema.updateOne({ _id: orderId }
             , { $set: { status: 'returned' } })
-        res.status(200).json('Updated order status')
+        const returnRequest = new returnSchema({
+            trackingId : req.body.trackingId,
+            orderId : orderId,
+        })
+        await returnRequest.save()
+        res.status(200)
     } catch (e) {
         res.status(500).json("Error updating")
     }

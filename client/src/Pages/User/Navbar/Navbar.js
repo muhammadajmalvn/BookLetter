@@ -22,9 +22,9 @@ function NavBar() {
     navigate("/profile")
   }
   return (
-    <div className="outer">
+    <>
       <div className={click ? "main-container" : ""} onClick={() => Close()} />
-      <nav className="navbar" onClick={e => e.stopPropagation()}>
+      <nav className="navbar" onClick={e => e.stopPropagation()} style={{ position: "fixed", width: '100%', marginTop: '0%' }}>
         <div className="nav-container">
           <NavLink exact to="/" className="nav-logo">
             LetterBox &nbsp;
@@ -125,7 +125,7 @@ function NavBar() {
           </div>
         </div>
       </nav>
-    </ div>
+    </ >
   );
 }
 export default NavBar
