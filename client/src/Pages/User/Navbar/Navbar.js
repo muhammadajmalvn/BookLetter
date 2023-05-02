@@ -79,6 +79,17 @@ function NavBar() {
               </NavLink>
             </li>
             <li className="nav-item">
+              <NavLink
+                exact
+                to="/sell-requests"
+                activeClassName="active"
+                className="nav-links"
+                onClick={click ? handleClick : null}
+              >
+                <i class="fa-regular fa-power-off"></i>
+              </NavLink>
+            </li>
+            <li className="nav-item">
               {userData ?
                 <a
                   activeClassName="active"

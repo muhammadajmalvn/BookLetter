@@ -13,6 +13,8 @@ const Homepage = lazy(() => import('./Pages/User/Homepage/Homepage'))
 const UserProfile = lazy(() => import('./Pages/User/UserProfile/UserProfile'))
 const BooksView = lazy(() => import('./Pages/User/BooksView/BooksView'))
 const SellBooks = lazy(() => import('./Pages/User/Selling/SellBooks'))
+const SellRequests = lazy(() => import('./Pages/User/Selling/SellRequests'))
+
 
 const AdminLogin = lazy(() => import('./Pages/Admin/AdminLogin'))
 const Dashboard = lazy(() => import('./Pages/Admin/Dashboard/Dashboard'))
@@ -55,6 +57,7 @@ const App = () => {
             <Route path='/sell-books' exact element={userData ? <SellBooks /> : <Login />} />
             <Route path='/validity-extend' exact element={userData ? <Validityext /> : <Login />} />
             <Route path='/booking-success' exact element={< OrderSuccess />} />
+            <Route path='/sell-requests' exact element={< SellRequests/>} />
             <Route path='*' element={<NotFound />} />
 
             <Route path='/admin' exact element={adminData ? <Dashboard /> : <AdminLogin />} />

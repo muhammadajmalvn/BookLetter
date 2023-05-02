@@ -20,10 +20,7 @@ exports.sellBook = async (req, res) => {
                 urls.push(url)
                 fs.unlinkSync(path)
             }
-
-
             let photo = []
-
             for (let i = 0; i < urls.length; i++) {
                 photo.push(urls[i])
             }
@@ -37,7 +34,6 @@ exports.sellBook = async (req, res) => {
                 publishedDate: req.body.date,
                 damage: req.body.damage,
                 photo
-
             }
             console.log(bookDetails, 'hfhfhfffh');
             sellRequestSchema.create(bookDetails).then((data) => {
@@ -51,5 +47,14 @@ exports.sellBook = async (req, res) => {
         }
     } catch (error) {
         res.status(400).json('Error in sell request')
+    }
+}
+
+exports.getSellBook = async (req, res) => {
+    try {
+        const data = await sellRequestSchema.find()
+        res.status(200).json(data)
+    } catch (error) {
+        res.status(400).json('error getting sell request')
     }
 }

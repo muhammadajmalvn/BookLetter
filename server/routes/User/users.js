@@ -29,5 +29,7 @@ router.route('/add-address').post(protect, userOrders.addAddress)
 router.route('/get-address').get(protect, userOrders.getAddress)
 
 router.route('/sell-book').post(upload.array('images'), protect, userSelling.sellBook)
+router.route('/sell-requests').get( protect, userSelling.getSellBook)
+
 
 module.exports = router;

@@ -8,10 +8,9 @@ const ordersController = require('../../controllers/Admin/ordersController');
 const { protect } = require('../../Middlewares/verifyToken')
 const upload = require('../../utils/multer')
 
-/* GET home page. */
+
 router.post('/', loginController.adminLogin)
 
-/* GET home page. */
 router.route('/users')
     .get(protect, userController.getUsers)
     .delete(protect, userController.deleteUser)
@@ -38,3 +37,5 @@ router.route('/returns')
 .put(protect, ordersController.acceptReturns)
 
 module.exports = router;
+
+

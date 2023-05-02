@@ -29,3 +29,4 @@ export const userAddAddressAPI = (address) => API.post('/add-address?id=' + user
 export const userGetAddressesAPI = () => API.get('/get-address?id=' + user.id, configToken)
 
 export const userSellBookAPI = (formdata) => API.post('/sell-book', formdata, configFormData)
+export const userGetSellRequestsAPI =(userId)=> API.get('/sell-requests?id=' + userId, configToken)
