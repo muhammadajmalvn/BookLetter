@@ -6,6 +6,8 @@ const userProfile = require('../../controllers/Users/userProfile')
 const userBooks = require('../../controllers/Users/userBooks')
 const userBooking = require('../../controllers/Users/userBooking')
 const userOrders = require('../../controllers/Users/userOrders')
+const userSelling = require('../../controllers/Users/userSelling')
+const upload = require('../../utils/multer')
 
 router.post('/user-signup', userSignupLogin.signupPost)
 router.post('/user-login', userSignupLogin.loginPost)
@@ -25,4 +27,7 @@ router.route('/return').post(protect, userOrders.returnOrder)
 
 router.route('/add-address').post(protect, userOrders.addAddress)
 router.route('/get-address').get(protect, userOrders.getAddress)
+
+router.route('/sell-book').post(upload.array('images'), protect, userSelling.sellBook)
+
 module.exports = router;

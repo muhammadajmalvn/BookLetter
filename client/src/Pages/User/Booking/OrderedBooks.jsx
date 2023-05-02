@@ -14,6 +14,7 @@ import { Button } from '@mui/material';
 import Footer from '../Footer/Footer';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
+import Box from '@mui/material/Box';
 
 const OrderedBooks = () => {
     const dispatch = useDispatch()
@@ -26,7 +27,7 @@ const OrderedBooks = () => {
     const { loading, orderedBooks, error } = Books
     console.log(orderedBooks);
 
-  
+
 
 
     useEffect(() => {
@@ -57,18 +58,26 @@ const OrderedBooks = () => {
         setShowModal(false);
         setTrackingId('');
     };
-console.log(orderedBooks,'88888888888888888888');
+    console.log(orderedBooks, '88888888888888888888');
     return (
         <>
             <NavBar />
             <section className="h-100 h-custom" style={{ backgroundColor: "" }}>
-                <MDBContainer className="py-5 h-100">
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <h1>Orders </h1>
+                </Box>
+                <MDBContainer className="pt-2 pb-5 h-100">
                     <MDBRow className="justify-content-center align-items-center h-100">
                         <MDBCol lg="8" xl="6">
                             {/* <p className="lead fw-bold mb-5" style={{ color: "#f37a27" }}>
                                Your Orders
                             </p> */}
-                            {orderedBooks?orderedBooks.map((book) => {
+                            {orderedBooks ? orderedBooks.map((book) => {
                                 return (
                                     <MDBCard className="border-top border-bottom border-3 border-color-custom mt-3 ">
                                         <MDBCardBody className="p-5">
@@ -182,7 +191,7 @@ console.log(orderedBooks,'88888888888888888888');
                                     </MDBCard>
 
                                 )
-                            }):''}
+                            }) : ''}
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>
