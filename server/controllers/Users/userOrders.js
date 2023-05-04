@@ -52,7 +52,8 @@ exports.getOrders = async (req, res) => {
                         address: 1,
                         totalAmount: 1,
                         totalDays: 1,
-                        bookedTimePeriod: 1
+                        bookedTimePeriod: 1,
+                        statusHistory: 1
                     }
                 }, {
                     $project: {
@@ -67,6 +68,7 @@ exports.getOrders = async (req, res) => {
                         bookedTimePeriod: 1,
                         createdAt: 1,
                         updatedAt: 1,
+                        statusHistory: 1,
                         photo: {
                             $arrayElemAt: [
                                 '$photo',
@@ -93,13 +95,19 @@ exports.getOrders = async (req, res) => {
 exports.returnOrder = async (req, res) => {
     try {
         const orderId = new mongoose.Types.ObjectId(req.query.id);
-        const order = await orderSchema.findOne({_id: orderId});
-        console.log(order,'8888888');
         await orderSchema.updateOne({ _id: orderId }
-            , { $set: { status: 'returned' } })
+            , {
+                $set: { status: 'returned' }, $push: {
+                    statusHistory: {
+                        status: 'returned',
+                        date: new Date()
+                    }
+                }
+            })
+        const order = await orderSchema.findOne({ _id: orderId });
         const returnRequest = new returnSchema({
-            trackingId : req.body.trackingId,
-            orderId : orderId,
+            trackingId: req.body.trackingId,
+            orderId: orderId,
             bookId: order.bookId,
             copyId: order.copyId,
             userId: order.userId

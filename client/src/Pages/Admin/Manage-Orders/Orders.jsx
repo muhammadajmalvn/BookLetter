@@ -77,12 +77,11 @@ const Orders = () => {
                                                         {order.address.addressLine2}<br />
                                                         {order.address.postcode}<br />
                                                         {order.address.phoneNumber}<br />
-
                                                     </td>
                                                     <td>{order.totalAmount}</td>
                                                     <td>{order.status} </td>
                                                     <td>
-                                                        {order.status === "placed" && (
+                                                        {/* {order.status === "placed" && (
                                                             <select onChange={(e) => handleChangeStatus(e.target.value)}>
                                                                 <option value="{order.status}">{order.status}</option>
                                                                 <option value="shipped">Shipped</option>
@@ -98,7 +97,8 @@ const Orders = () => {
                                                         {order.status === "delivered" && <span>Delivered</span>}
                                                         <button onClick={() => handleSubmitStatus(order._id)} disabled={order.status === "delivered"} className='btn btn-sm btn-primary ms-2 '>
                                                             Save
-                                                        </button>
+                                                        </button> */}
+                                                        <button className='btn btn-sm btn-primary' onClick={(e) => navigate('/admin/single-order-view', { state: { adminOrderData, orderId: order._id } })}>View Details</button>
                                                     </td>
 
                                                 </tr>

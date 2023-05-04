@@ -41,7 +41,23 @@ const orderSchema = new mongoose.Schema({
     status: {
         type: String,
         default: 'placed',
+    }, statusHistory: {
+        type: [{
+            status: {
+                type: String,
+                default: 'placed'
+            },
+            date: {
+                type: Date,
+                default: Date.now
+            }
+        }],
+        default: [{
+            status: 'placed',
+            date: Date.now()
+        }]
     }
+
 }, {
     timestamps: true
 }

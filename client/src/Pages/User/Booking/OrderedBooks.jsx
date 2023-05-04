@@ -42,6 +42,23 @@ const OrderedBooks = () => {
         handleCloseModal();
     };
 
+    const [currentOrderId, setCurrentOrderId] = useState(null);
+
+    // Define a function to handle the "Return" button click
+    const handleReturnClick = (orderId) => {
+        // Set the current order ID to the clicked order ID
+        setCurrentOrderId(orderId);
+        // Open the modal
+        handleOpenModal();
+    };
+
+    // Define a function to handle the modal submit button click
+    const handleModalSubmit = () => {
+        // Call the handleReturn function with the current order ID and tracking ID
+        handleReturn(currentOrderId, trackingId);
+        // Close the modal
+        handleCloseModal();
+    };
 
     const today = new Date().toISOString()
 
@@ -58,7 +75,6 @@ const OrderedBooks = () => {
         setShowModal(false);
         setTrackingId('');
     };
-    console.log(orderedBooks, '88888888888888888888');
     return (
         <>
             <NavBar />
@@ -73,13 +89,13 @@ const OrderedBooks = () => {
                 </Box>
                 <MDBContainer className="pt-2 pb-5 h-100">
                     <MDBRow className="justify-content-center align-items-center h-100">
-                        <MDBCol lg="8" xl="6">
+                        <MDBCol lg="8" xl="12">
                             {/* <p className="lead fw-bold mb-5" style={{ color: "#f37a27" }}>
                                Your Orders
                             </p> */}
                             {orderedBooks ? orderedBooks.map((book) => {
                                 return (
-                                    <MDBCard className="border-top border-bottom border-3 border-color-custom mt-3 ">
+                                    <MDBCard className="border-top border-bottom border-3 border-color-custom mt-3 " key={book._id}>
                                         <MDBCardBody className="p-5">
                                             <MDBRow>
                                                 <MDBCol className="mb-3">
@@ -97,11 +113,12 @@ const OrderedBooks = () => {
                                                 style={{ backgroundColor: "#f2f2f2" }}
                                             >
                                                 <MDBRow>
-                                                    <MDBCol>
+                                                    {/* <MDBCol className='w-25'>
                                                         <MDBCardImage src={book.photo} alt="Card image" className='w-50 h-50 ' />
-                                                    </MDBCol>
+                                                    </MDBCol> */}
                                                     <MDBCol>
                                                         <MDBRow>
+                                                            <h5>Shipping Address</h5>
                                                             <span>{book.address.addressLine1}</span>
                                                             <span>{book.address.addressLine2}</span>
                                                             <span>{book.address.state}</span>
@@ -112,6 +129,7 @@ const OrderedBooks = () => {
                                                         </MDBRow>
                                                     </MDBCol>
                                                 </MDBRow>
+                                                <br />
                                                 <MDBRow>
                                                     <MDBCol md="8" lg="9">
                                                         <p>{book.title}</p>
@@ -142,36 +160,30 @@ const OrderedBooks = () => {
 
                                             <p
                                                 className="lead fw-bold mb-4 pb-2"
-                                                style={{ color: "#f37a27" }}
                                             >
-                                                Order Status
+                                                Order History
                                             </p>
 
                                             <MDBRow>
-                                                <MDBCol lg="12">
-                                                    <li className="list-inline-item items-list ">
-                                                        <div className="py-1 px-2 rounded text-white" style={{ backgroundColor: book.status === 'placed' ? '#f37a27' : book.status === 'shipped' ? 'blue' : book.status === 'delivered' ? '#4caf50' : '#f37a27' }}>
-                                                            {book.status}
-                                                        </div>
-
-                                                    </li>
+                                                <MDBCol lg="12 d-flex justify-content-between">
+                                                    {book.statusHistory ? book.statusHistory.map((status) => {
+                                                        return (
+                                                            <li className="list-inline-item items-list ">
+                                                                <div className="py-1 px-2 rounded text-white d-flex justify-content-between" style={{ backgroundColor: status.status === 'placed' ? '#f37a27' : status.status === 'shipped' ? 'blue' : status.status === 'delivered' ? '#4caf50' : status.status === 'return accepted' ? '#4caf50' : '#f37a27' }}>
+                                                                    {status.status}
+                                                                </div>
+                                                                <div className="py-1 px-2 rounded text-white d-flex justify-content-around" style={{ backgroundColor: status.status === 'placed' ? '#f37a27' : status.status === 'shipped' ? 'blue' : status.status === 'delivered' ? '#4caf50' : status.status === 'return accepted' ? '#4caf50' : '#f37a27' }}>
+                                                                    {new Date(status.date).toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}
+                                                                </div>
+                                                            </li>
+                                                        );
+                                                    }) : ''}
                                                     <br /><br />
                                                     <div className='d-flex justify-content-end'>
-                                                        {/* <div>
-                                                            {book.bookedTimePeriod.endDate <= today && book.status === "delivered" && (
 
-                                                                <button
-                                                                    className="btn btn-sm btn-primary"
-                                                                    onClick={(e) => navigate('/validity-extend', { state: { orderedBooks, orderId: book._id } })}
-                                                                >
-                                                                    Extend Validity
-                                                                </button>
-
-                                                            )}
-                                                        </div> */}
                                                         <div>
                                                             {book.status === "delivered" && (
-                                                                <Button variant="contained" color="primary" onClick={handleOpenModal}>Return</Button>
+                                                                <Button variant="contained" color="primary" onClick={() => handleReturnClick(book._id)}>Return</Button>
                                                             )}
                                                             <Modal isOpen={showModal} toggle={handleCloseModal} style={customStyles}>
                                                                 <h2 toggle={handleCloseModal}>Enter Tracking ID</h2>
@@ -179,7 +191,7 @@ const OrderedBooks = () => {
                                                                     <input type="text" className="form-control mb-3" placeholder="Tracking ID" value={trackingId} onChange={handleTrackingIdChange} />
                                                                 </div>
                                                                 <div>
-                                                                    <Button variant="contained" color="primary" onClick={() => handleReturn(book._id, trackingId)}>Submit</Button>
+                                                                    <Button variant="contained" color="primary" onClick={handleModalSubmit}>Submit</Button>
                                                                     <Button variant="contained" color="secondary" onClick={handleCloseModal}>Cancel</Button>
                                                                 </div>
                                                             </Modal>
@@ -191,7 +203,9 @@ const OrderedBooks = () => {
                                     </MDBCard>
 
                                 )
-                            }) : ''}
+                            }) : (
+                                <p>No orders to display</p>
+                            )}
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>

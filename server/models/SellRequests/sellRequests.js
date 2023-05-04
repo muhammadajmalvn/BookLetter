@@ -32,7 +32,28 @@ const sellRequestSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    status: {
+        type: String,
+        default: 'pending'
+    }, statusHistory: {
+        type: [{
+            status: {
+                type: String,
+                default: 'placed'
+            },
+            date: {
+                type: Date,
+                default: Date.now
+            }
+        }],
+        default: [{
+            status: 'placed',
+            date: Date.now()
+        }]
+    },
     photo: [],
+}, {
+    timestamps: true
 })
 
 

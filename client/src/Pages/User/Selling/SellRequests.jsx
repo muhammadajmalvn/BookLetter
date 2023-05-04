@@ -56,7 +56,6 @@ const SellRequests = () => {
                           <p>{book._id}</p>
                         </MDBCol>
                       </MDBRow>
-
                       <div
                         className="mx-n5 px-5 py-4"
                         style={{ backgroundColor: "#f2f2f2" }}
@@ -69,9 +68,7 @@ const SellRequests = () => {
                             <p>Rs {book.askingPrice}</p>
                           </MDBCol>
                         </MDBRow>
-
                       </div>
-
                       <p
                         className="lead fw-bold mb-4 pb-2"
                         style={{ color: "#f37a27" }}
