@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import Loading from '../../Loading';
 import { userSellBookAPI } from '../../../APIs/userAPI';
 import { sellBook } from '../../../Redux/Actions/userActions/sellActions';
+import { userGetAllGenreAction } from '../../../Redux/Actions/userActions/bookActions';
 
 
 const SellBooks = () => {
@@ -84,8 +85,12 @@ const SellBooks = () => {
             })
     }
 
+    useEffect(() => {
+        dispatch(userGetAllGenreAction())
+    }, [])
 
-
+    const userGenres = useSelector(state => state.userGenreReducer)
+    const { genreLoading, error, genreData } = userGenres
 
     return (
         <>
@@ -99,7 +104,7 @@ const SellBooks = () => {
                     <div className="card flex flex-column md:flex-row gap-3">
 
                         <h1 className='text-center mt-2'>Sell Book with us</h1>
-                        {loading ? (
+                        {loading || genreLoading ? (
                             <div className="loading-container text-center ">
                                 <Loading />
                             </div>
@@ -124,9 +129,30 @@ const SellBooks = () => {
                             <MDBRow className='pt-2 ms-3 me-3 mb-4'>
                                 <MDBCol>
 
-                                    <p style={{ color: 'red', margin: '0' }}>{errors.genre && "Enter a valid genre name"}</p>
-                                    <div className="form-outline">
-                                        <MDBInput id='form3Example2' label='Genre of Book' type='text' {...register("genre", { required: true })} onChange={(e) => setGenre(e.target.value)} />
+                                    <p style={{ color: 'red', margin: '0' }}>{errors.genre && "Select a valid Genre"}</p>
+                                    <div className="form-group">
+                                        <select
+                                            {...register("genre", { required: true })}
+                                            value={genre}
+                                            onChange={(e) => setGenre(e.target.value)}
+                                            id="genre"
+                                            className="form-select"
+                                        >
+                                            <option value="" disabled>Select a Genre</option>
+                                            {genreData &&
+                                                genreData.data.filter(genre => !genre.isDeleted).map((genre) => (
+                                                    <option key={genre._id} value={genre.name}>
+                                                        {genre.name}
+                                                    </option>
+                                                ))}
+                                        </select>
+                                        {errors.genre && (
+                                            <div className="text-danger">Select a valid Genre</div>
+                                        )}
+                                        {!genreData && <div>Loading genres...</div>}
+                                        {genreData && !genreData.data.length && (
+                                            <div className="text-danger">No genres found</div>
+                                        )}
                                     </div>
                                 </MDBCol>
                                 <MDBCol>

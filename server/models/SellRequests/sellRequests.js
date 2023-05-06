@@ -39,7 +39,7 @@ const sellRequestSchema = new mongoose.Schema({
         type: [{
             status: {
                 type: String,
-                default: 'placed'
+                default: 'pending'
             },
             date: {
                 type: Date,
@@ -47,7 +47,7 @@ const sellRequestSchema = new mongoose.Schema({
             }
         }],
         default: [{
-            status: 'placed',
+            status: 'pending',
             date: Date.now()
         }]
     },
