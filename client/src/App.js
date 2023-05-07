@@ -33,6 +33,9 @@ const OtpLogin = lazy(() => import('./Pages/User/OTP-Login/OtpLogin'))
 const Orders = lazy(() => import('./Pages/Admin/Manage-Orders/Orders'))
 const SingleOrder = lazy(() => import('./Pages/Admin/Manage-Orders/SingleOrder'))
 const Returns = lazy(() => import('./Pages/Admin/Manage-Orders/Returns'))
+const SellReq = lazy(() => import('./Pages/Admin/Sell-Requests/Sell'))
+const SingleSellRequest = lazy(() => import('./Pages/Admin/Sell-Requests/SingleSellRequest'))
+
 
 
 const App = () => {
@@ -64,7 +67,7 @@ const App = () => {
             <Route path='/single-sell-view' exact element={< SingleSellView />} />
             <Route path='*' element={<NotFound />} />
 
-            
+
 
             <Route path='/admin' exact element={adminData ? <Dashboard /> : <AdminLogin />} />
             <Route path='/admin/users' exact element={adminData ? <UserManage /> : <AdminLogin />} />
@@ -75,6 +78,10 @@ const App = () => {
             <Route path='/admin/orders' exact element={adminData ? <Orders /> : <AdminLogin />} />
             <Route path='/admin/single-order-view' exact element={adminData ? <SingleOrder /> : <AdminLogin />} />
             <Route path='/admin/returns' exact element={adminData ? <Returns /> : <AdminLogin />} />
+            <Route path='/admin/sell-request' exact element={adminData ? <SellReq /> : <AdminLogin />} />
+            <Route path='/admin/single-sellrequest-view' exact element={adminData ? <SingleSellRequest /> : <AdminLogin />} />
+
+
 
           </Routes>
         </Suspense>

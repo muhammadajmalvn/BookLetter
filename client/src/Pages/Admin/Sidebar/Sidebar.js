@@ -157,7 +157,7 @@ function Sidebar() {
                         { name: 'Genres', icon: <CategoryIcon /> },
                         { name: 'Orders', icon: <LocalShippingIcon /> },
                         { name: 'Returns', icon: <AssignmentReturnedIcon /> },
-                        { name: 'Sell Request', icon: <StorefrontIcon /> },
+                        { name: 'Sell-Request', icon: <StorefrontIcon /> },
                         { name: 'Report', icon: <SummarizeIcon /> },
                         { name: 'Logout', icon: <LogoutIcon /> },
                     ].map((text, index) => (
@@ -182,7 +182,6 @@ function Sidebar() {
                                 </ListItemIcon>
                                 <ListItemText primary={text.name} sx={{ opacity: open ? 1 : 0 }}
                                     onClick={() => {
-                                        console.log(text.name);
                                         let text2 = text.name.toLowerCase()
                                         text2 === "users" && navigate('/admin/users')
                                         text2 === "dashboard" && navigate('/admin')
@@ -191,6 +190,7 @@ function Sidebar() {
                                         text2 === "genres" && navigate('/admin/genre')
                                         text2 === "orders" && navigate('/admin/orders')
                                         text2 === "returns" && navigate('/admin/returns')
+                                        text2 === "sell-request" && navigate('/admin/sell-request')
                                         text2 === "logout" && logOut()
                                     }} />
                             </ListItemButton>

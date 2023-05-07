@@ -75,7 +75,7 @@ const SellBooks = () => {
             setSuccess(true)
 
             setTimeout(() => {
-                navigate("/ordered-book", { state: { bookAdded: true } })
+                navigate("/sell-requests", { state: { bookAdded: true } })
                 setSuccess(false)
             }, 3000)
         })

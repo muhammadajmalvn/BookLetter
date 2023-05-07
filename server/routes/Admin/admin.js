@@ -5,6 +5,7 @@ const userController = require('../../controllers/Admin/userController');
 const bookController = require('../../controllers/Admin/bookController');
 const genreController = require('../../controllers/Admin/genreController');
 const ordersController = require('../../controllers/Admin/ordersController');
+const sellController = require('../../controllers/Admin/sellController');
 const { protect } = require('../../Middlewares/verifyToken')
 const upload = require('../../utils/multer')
 
@@ -33,8 +34,12 @@ router.route('/orders').get(protect, ordersController.getAllOrders)
 router.route('/order-status').post(protect, ordersController.changeOrderStatus)
 
 router.route('/returns')
-.get(protect, ordersController.getReturns)
-.put(protect, ordersController.acceptReturns)
+    .get(protect, ordersController.getReturns)
+    .put(protect, ordersController.acceptReturns)
+
+router.route('/sell')
+    .get(protect, sellController.getSellRequests)
+    .post(protect, sellController.changeStatus)
 
 module.exports = router;
 

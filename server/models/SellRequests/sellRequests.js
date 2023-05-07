@@ -32,6 +32,9 @@ const sellRequestSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    trackingId: {
+        type: String,
+    },
     status: {
         type: String,
         default: 'pending'
