@@ -11,6 +11,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Sidebar from '../Sidebar/Sidebar';
 import { adminGetAllSellAction } from '../../../Redux/Actions/adminActions/adminSellActions';
+import { adminChangeStatusAPI } from '../../../APIs/adminAPI';
 
 const SingleSellRequest = () => {
     const location = useLocation()
@@ -158,7 +159,7 @@ const SingleSellRequest = () => {
                                                         <option value="received">Received</option>
                                                     </select>
                                                 )}
-                                                {clickedOrder.status !== "received" && clickedOrder.status !== "accepted" ?
+                                                {clickedOrder.status !== "received" && clickedOrder.status !== "accepted" && clickedOrder.status !== "rejected" ?
                                                     <button onClick={() => handleSubmitStatus(clickedOrder._id)} className='btn btn-sm btn-primary ms-2'>
                                                         Save
                                                     </button>

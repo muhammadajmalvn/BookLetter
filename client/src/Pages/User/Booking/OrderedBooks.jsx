@@ -4,7 +4,6 @@ import {
     MDBCardBody,
     MDBCol,
     MDBContainer,
-    MDBCardImage,
     MDBRow,
 } from "mdb-react-ui-kit";
 import NavBar from '../Navbar/Navbar'
@@ -44,19 +43,13 @@ const OrderedBooks = () => {
 
     const [currentOrderId, setCurrentOrderId] = useState(null);
 
-    // Define a function to handle the "Return" button click
     const handleReturnClick = (orderId) => {
-        // Set the current order ID to the clicked order ID
         setCurrentOrderId(orderId);
-        // Open the modal
         handleOpenModal();
     };
 
-    // Define a function to handle the modal submit button click
     const handleModalSubmit = () => {
-        // Call the handleReturn function with the current order ID and tracking ID
         handleReturn(currentOrderId, trackingId);
-        // Close the modal
         handleCloseModal();
     };
 

@@ -3,19 +3,17 @@ import Navbar from '../Navbar/Navbar'
 import {
     MDBCard,
     MDBCardBody,
-    MDBCardFooter,
-    MDBCardHeader,
     MDBCardImage,
     MDBCol,
     MDBContainer,
-    MDBProgress,
-    MDBProgressBar,
     MDBRow,
-    MDBTypography,
 } from "mdb-react-ui-kit";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Footer from '../Footer/Footer';
+import { Button } from '@mui/material';
+import Modal from 'react-modal';
+import { userSendSelledBookAction } from '../../../Redux/Actions/userActions/sellActions';
 
 const SingleOrder = () => {
     const location = useLocation()
@@ -23,7 +21,36 @@ const SingleOrder = () => {
     const dispatch = useDispatch()
     const { sellBooks } = location.state
     const clickedOrder = sellBooks.find((order) => order._id === location.state.sellId)
+    const userId = JSON.parse(localStorage.getItem("user-login")).id
 
+
+    const [trackingId, setTrackingId] = useState('');
+    const handleTrackingIdChange = (e) => {
+        setTrackingId(e.target.value);
+    }
+    const [currentOrderId, setCurrentOrderId] = useState(null);
+    const handleSendClick = (orderId) => {
+        setCurrentOrderId(orderId);
+        handleOpenModal();
+    };
+    const [showModal, setShowModal] = useState(false);
+    const handleOpenModal = () => {
+        setShowModal(true);
+    };
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setTrackingId('');
+    };
+
+    const handleModalSubmit = () => {
+        handleSend(currentOrderId, trackingId);
+        handleCloseModal();
+    };
+    const handleSend = (orderId, trackingId) => {
+        dispatch(userSendSelledBookAction(orderId, trackingId));
+        handleCloseModal();
+        navigate('/sell-requests')
+    };
 
     return (
         <>
@@ -114,6 +141,23 @@ const SingleOrder = () => {
                                                     )
                                                 }) : ''}
                                             </MDBRow>
+                                            <MDBRow>
+                                                {clickedOrder.status === "accepted" && (
+                                                    <div className='d-flex justify-content-end mt-3'>
+                                                        <Button variant="contained" color="primary" onClick={() => handleSendClick(clickedOrder._id)}>Send Book</Button>
+                                                    </div>
+                                                )}
+                                                <Modal isOpen={showModal} toggle={handleCloseModal} style={customStyles}>
+                                                    <h2 toggle={handleCloseModal}>Enter Tracking ID</h2>
+                                                    <div>
+                                                        <input type="text" className="form-control mb-3" placeholder="Tracking ID" value={trackingId} onChange={handleTrackingIdChange} />
+                                                    </div>
+                                                    <div>
+                                                        <Button variant="contained" color="primary" onClick={handleModalSubmit}>Submit</Button>
+                                                        <Button variant="contained" color="secondary" onClick={handleCloseModal}>Cancel</Button>
+                                                    </div>
+                                                </Modal>
+                                            </MDBRow>
                                         </MDBCardBody>
 
                                     </MDBCard>
@@ -130,5 +174,9 @@ const SingleOrder = () => {
         </>
     )
 }
-
+const customStyles = {
+    content: {
+        top: '20%',
+    },
+};
 export default SingleOrder

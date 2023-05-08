@@ -1,9 +1,9 @@
+const mongoose = require('mongoose');
 const sellRequestSchema = require('../../models/SellRequests/sellRequests')
 const path = require('path')
 const upload = require("../../utils/multer")
 const fs = require('fs')
 const cloudinary = require('../../utils/cloudinary')
-const { title } = require('process')
 
 
 exports.sellBook = async (req, res) => {
@@ -25,6 +25,7 @@ exports.sellBook = async (req, res) => {
                 photo.push(urls[i])
             }
             let bookDetails = {
+                userId: req.query.id,
                 title: req.body.title,
                 author: req.body.author,
                 publisher: req.body.publisher,
@@ -52,9 +53,26 @@ exports.sellBook = async (req, res) => {
 
 exports.getSellBook = async (req, res) => {
     try {
-        const data = await sellRequestSchema.find()
+        const userId = new mongoose.Types.ObjectId(req.query.id);
+        const data = await sellRequestSchema.find({ userId: userId })
         res.status(200).json(data)
     } catch (error) {
         res.status(400).json('error getting sell request')
+    }
+}
+
+exports.sendAcceptedBook = async (req, res) => {
+    try {
+        const data = await sellRequestSchema.findByIdAndUpdate(req.query.id, {
+            $set: { status: 'shipped', trackingId: req.body.trackingId }, $push: {
+                statusHistory: {
+                    status: "shipped",
+                    date: new Date()
+                }
+            }
+        }, { new: true })
+        res.status(200).json(data)
+    } catch (error) {
+        res.status(500).json(error.message);
     }
 }

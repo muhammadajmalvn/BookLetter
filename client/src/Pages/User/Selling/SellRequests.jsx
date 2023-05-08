@@ -9,13 +9,12 @@ import { useNavigate } from 'react-router-dom';
 const SellRequests = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const userId = JSON.parse(localStorage.getItem("user-login")).id
 
   const Books = useSelector((state) => state.getSellBooks)
   const { loading, sellBooks, error } = Books
 
   useEffect(() => {
-    dispatch(getsellRequestedBooksAction(userId))
+    dispatch(getsellRequestedBooksAction())
   }, [])
 
   return (
