@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 import NavBar from '../Navbar/Navbar'
-import { Box, Button, Checkbox, Container, FormControl, FormControlLabel, InputLabel, MenuItem, Select, Typography } from '@mui/material'
-import { useLocation } from 'react-router-dom';
+import { Box, Button, Checkbox, Container, FormControl, FormControlLabel, InputLabel, MenuItem, Select, Typography, FormLabel, RadioGroup, Radio } from '@mui/material'
+import { useLocation, useNavigate } from 'react-router-dom';
 import moment from "moment"
 import { useEffect } from 'react';
 import { DatePicker } from "antd"
-import StripePayButton from '../../../Components/User/Buttons/StripePayButton';
 import Footer from '../Footer/Footer';
 import AddressModal from '../../../Components/User/Modals/AddressModal';
 import { getAddressAction } from '../../../Redux/Actions/userActions/addressActions';
 import { useDispatch, useSelector } from 'react-redux';
+import { userGetWalletAction } from '../../../Redux/Actions/userActions/walletActions';
+import { userOrderBookAction } from '../../../Redux/Actions/userActions/orderActions';
+import { userOrderAPI } from '../../../APIs/userAPI';
+import swal from 'sweetalert';
+
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const { RangePicker } = DatePicker
@@ -17,6 +21,8 @@ const { RangePicker } = DatePicker
 const Booking = () => {
   const dispatch = useDispatch()
   const location = useLocation();
+  const navigate = useNavigate()
+
   const { booksData } = location.state;
   const clickedBook = booksData?.find((book) => book._id === location.state.bookId)
   const [startDate, setStartDate] = useState('')
@@ -24,6 +30,41 @@ const Booking = () => {
   const [totalDays, setTotalDays] = useState(0)
   const [totalAmount, setTotalAmount] = useState(0)
 
+  const walletAmount = useSelector((state) => state.userGetWalletReducer?.walletData)
+  useEffect(() => {
+    dispatch(userGetWalletAction())
+  }, [])
+
+  const handleBookNow = () => {
+    if (wallet === false && stripe == true) {
+      setWalletError(false)
+      dispatch(userOrderBookAction(stripeData))
+    } else if (wallet === true && stripe === false) {
+      if (walletAmount?.walletAmount >= totalAmount) {
+        userOrderAPI(walletBookingData).then((data) => {
+          swal(
+            'Congrats!',
+            'You booking is successful!',
+            'success'
+          ).then(() => {
+            navigate('/ordered-book')
+          })
+        })
+      } else {
+        setWalletError(true)
+      }
+    }
+  }
+
+  const [stripe, setStripe] = useState(false)
+  const [value, setValue] = useState("")
+
+  const [wallet, setWallet] = useState(false)
+  const [walletError, setWalletError] = useState(false)
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
 
   const [showModal, setShowModal] = useState(false);
 
@@ -31,12 +72,13 @@ const Booking = () => {
     setShowModal(true);
   };
   const [selectedAddress, setSelectedAddress] = useState(null);
-
+  const [address, setAddress] = useState(false)
   const handleAddressSelect = (selectedAddress) => {
     setSelectedAddress(selectedAddress);
+    setAddress(true)
   };
 
-  const bookingData = {
+  const stripeData = {
     userId: JSON.parse(localStorage.getItem("user-login")).id,
     userName: JSON.parse(localStorage.getItem("user-login")).firstName,
     bookId: clickedBook._id,
@@ -48,6 +90,23 @@ const Booking = () => {
       startDate,
       endDate
     },
+    paymentType: "stripe"
+  }
+
+  const walletBookingData = {
+    userId: JSON.parse(localStorage.getItem("user-login")).id,
+    userName: JSON.parse(localStorage.getItem("user-login")).firstName,
+    bookId: clickedBook._id,
+    bookData: clickedBook,
+    totalAmount,
+    totalDays,
+    address: selectedAddress,
+    bookedTimePeriod: {
+      startDate,
+      endDate
+    },
+    paymentType: "wallet",
+    walletId: walletAmount?._id
   }
 
   const addressData = useSelector((state) => state.userAddressReducer)
@@ -165,7 +224,65 @@ const Booking = () => {
             <Box sx={{ display: 'flex', justifyContent: 'end', mt: 2 }}>
               <Typography variant='h6'>Total Amount : Rs {totalAmount} </Typography>
             </Box>
-            <StripePayButton bookingData={bookingData} />
+            {/* <StripePayButton bookingData={bookingData} /> */}
+            <Container sx={{ display: 'flex', mt: 2 }} >
+              <Box>
+                <FormControl>
+                  {walletError ?
+                    <p style={{ color: 'red' }}>Insufficient wallet amount</p>
+                    : ' '}
+                  <FormLabel id="demo-row-radio-buttons-group-label">Payment</FormLabel>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="row-radio-buttons-group"
+                    value={value}
+                    onChange={handleChange}
+                  >
+                    <FormControlLabel
+                      value="wallet"
+                      control={<Radio />}
+                      label="With Wallet"
+                      onChange={() => {
+                        setWallet(true)
+                        setStripe(false)
+                      }}
+                    />
+
+                    <FormControlLabel
+                      value="stripe"
+                      control={<Radio />}
+                      label="With Stripe"
+                      onChange={() => {
+                        setStripe(true)
+                        setWallet(false)
+                        setWalletError(false)
+                      }}
+                    />
+
+                  </RadioGroup>
+                </FormControl>
+              </Box>
+            </Container>
+            <Container>
+              {
+                wallet && address || stripe && address ? <Button
+                  variant='outlined'
+                  fullWidth
+                  onClick={handleBookNow}
+                  sx={{
+                    mt: 2, backgroundColor: "#355B3E", color: 'white', "&.MuiButtonBase-root:hover": {
+                      bgcolor: "#6366F1"
+                    }
+                  }}>CheckOut</Button>
+                  :
+                  <Button
+                    variant='outlined'
+                    fullWidth
+                    disabled
+                    sx={{ backgroundColor: "#355B3E" }}>CheckOut</Button>
+              }
+            </Container>
             <br /><br />
           </Container>
         </Container>

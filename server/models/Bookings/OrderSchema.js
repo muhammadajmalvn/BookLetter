@@ -38,6 +38,12 @@ const orderSchema = new mongoose.Schema({
     stripeSessionId: {
         type: String
     },
+    walletId: {
+        type: mongoose.Schema.Types.ObjectId
+    }, 
+    paymentType: {
+        type: String
+    },
     status: {
         type: String,
         default: 'placed',

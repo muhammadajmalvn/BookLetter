@@ -7,7 +7,8 @@ const userBooks = require('../../controllers/Users/userBooks')
 const userBooking = require('../../controllers/Users/userBooking')
 const userOrders = require('../../controllers/Users/userOrders')
 const userSelling = require('../../controllers/Users/userSelling')
-const upload = require('../../utils/multer')
+const upload = require('../../utils/multer');
+const walletController = require('../../controllers/Users/walletController');
 
 router.post('/user-signup', userSignupLogin.signupPost)
 router.post('/user-login', userSignupLogin.loginPost)
@@ -32,5 +33,8 @@ router.route('/sell-book').post(upload.array('images'), protect, userSelling.sel
 router.route('/sell-requests')
     .get(protect, userSelling.getSellBook)
     .post(protect, userSelling.sendAcceptedBook)
+
+//wallet
+router.route("/get-wallet").get(protect, walletController.getWalletController)
 
 module.exports = router;

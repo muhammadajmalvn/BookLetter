@@ -31,3 +31,7 @@ export const userGetAddressesAPI = () => API.get('/get-address?id=' + user.id, c
 export const userSellBookAPI = (formdata) => API.post('/sell-book?id=' + ID, formdata, configFormData)
 export const userGetSellRequestsAPI = () => API.get('/sell-requests?id=' + ID, configToken)
 export const userSendSellBookAPI = (orderId, trackingId) => API.post('/sell-requests?id=' + orderId, { trackingId }, configToken)
+
+export const userGetWalletAPI = () => API.get('/get-wallet?id=' + ID, configToken)
+
+export const userOrderAPI=(bookingData)=> API.post('/booking-book',{bookingData}, configToken)
