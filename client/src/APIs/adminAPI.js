@@ -44,3 +44,6 @@ export const adminAcceptReturnAPI = (id, orderId, bookId, copyId) =>API.put('/re
 
 export const adminGetAllSellRequest=()=>API.get('/sell',configToken)
 export const adminChangeStatusAPI = (orderId, status) => API.post('/sell', { orderId, status }, configToken)
+
+export const adminGetDashboardDetailsAPI =()=>API.get('/dashboard',configToken)
+

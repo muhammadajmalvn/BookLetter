@@ -14,6 +14,7 @@ import { adminGetReturnReducer } from "./Reducers/adminReducers/adminReturnReduc
 import { userGetSellBooksReducer } from "./Reducers/userReducers/userSellBookReducer";
 import { adminGetSellBooksReducer } from "./Reducers/adminReducers/adminSellBookReducer";
 import { userGetWalletReducer } from "./Reducers/userReducers/userWalletReducer";
+import { getDashboardDetailsReducer } from "./Reducers/adminReducers/adminDashboardReducer";
 
 const rootReducer = combineReducers({
   userSignup: userSignupReducer,
@@ -25,7 +26,7 @@ const rootReducer = combineReducers({
   getorderedBooks: userGetOrderedBooksReducer,
   userAddressReducer: userAddressReducer,
   getSellBooks: userGetSellBooksReducer,
-  userGetWalletReducer :userGetWalletReducer,
+  userGetWalletReducer: userGetWalletReducer,
 
 
   adminLogin: adminLoginReducer,
@@ -38,7 +39,7 @@ const rootReducer = combineReducers({
   adminOrderReducer: adminGetOrdersReducer,
   adminReturnReducer: adminGetReturnReducer,
   adminGetSellBooks: adminGetSellBooksReducer,
-
+  getDashboardDetails: getDashboardDetailsReducer
 });
 
 
