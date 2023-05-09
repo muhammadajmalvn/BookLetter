@@ -9,6 +9,7 @@ const userOrders = require('../../controllers/Users/userOrders')
 const userSelling = require('../../controllers/Users/userSelling')
 const upload = require('../../utils/multer');
 const walletController = require('../../controllers/Users/walletController');
+const chatContoller = require('../../controllers/Users/chatController');
 
 router.post('/user-signup', userSignupLogin.signupPost)
 router.post('/user-login', userSignupLogin.loginPost)
@@ -36,5 +37,11 @@ router.route('/sell-requests')
 
 //wallet
 router.route("/get-wallet").get(protect, walletController.getWalletController)
+
+// chat
+router.route("/contacts").get(protect, chatContoller.userContactController)
+router.route("/add-message").post(protect, chatContoller.addMessageController)
+router.route("/get-all-messages").post(protect, chatContoller.getAllMessageController)
+router.route("/send-image").post(protect, chatContoller.sendImageController)
 
 module.exports = router;

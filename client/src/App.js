@@ -15,7 +15,8 @@ const BooksView = lazy(() => import('./Pages/User/BooksView/BooksView'))
 const SellBooks = lazy(() => import('./Pages/User/Selling/SellBooks'))
 const SellRequests = lazy(() => import('./Pages/User/Selling/SellRequests'))
 const SingleSellView = lazy(() => import('./Pages/User/Selling/SingleSellView'))
-
+const Wallet = lazy(()=> import('./Pages/User/Wallet/Wallet'))
+const Chat = lazy(() => import('./Pages/User/Chat/Chat'))
 
 
 const AdminLogin = lazy(() => import('./Pages/Admin/AdminLogin'))
@@ -63,8 +64,10 @@ const App = () => {
             <Route path='/sell-books' exact element={userData ? <SellBooks /> : <Login />} />
             <Route path='/validity-extend' exact element={userData ? <Validityext /> : <Login />} />
             <Route path='/booking-success' exact element={< OrderSuccess />} />
-            <Route path='/sell-requests' exact element={< SellRequests />} />
-            <Route path='/single-sell-view' exact element={< SingleSellView />} />
+            <Route path='/sell-requests' exact element={userData ? <SellRequests /> : <Login />} />
+            <Route path='/single-sell-view' exact element={userData ? < SingleSellView /> : <Login />} />
+            <Route path='/wallet' exact element={userData ? <Wallet /> : <Login />} />
+            <Route path='/chat' exact element={userData ? <Chat /> : <Login />} />
             <Route path='*' element={<NotFound />} />
 
 

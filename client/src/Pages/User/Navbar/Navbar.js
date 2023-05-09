@@ -86,7 +86,31 @@ function NavBar() {
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
-                <i class="fa-regular fa-power-off"></i>
+                <i class="fa-solid fa-sack-dollar"></i>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                exact
+                to="/wallet"
+                activeClassName="active"
+                className="nav-links"
+                onClick={click ? handleClick : null}
+              >
+                <i class="fa-solid fa-wallet"></i>
+
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                exact
+                to="/chat"
+                activeClassName="active"
+                className="nav-links"
+                onClick={click ? handleClick : null}
+              >
+                <i class="fa-solid fa-comment"></i>
+
               </NavLink>
             </li>
             <li className="nav-item">

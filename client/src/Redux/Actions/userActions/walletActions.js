@@ -4,21 +4,21 @@ import { USER_GET_WALLET_FAILURE, USER_GET_WALLET_REQUEST, USER_GET_WALLET_SUCCE
 
 
 
-export const userGetWalletAction =()=>async(dispatch)=>{
+export const userGetWalletAction = () => async (dispatch) => {
+  dispatch({
+    type: USER_GET_WALLET_REQUEST
+  })
+
+  userGetWalletAPI().then((data) => {
     dispatch({
-      type :USER_GET_WALLET_REQUEST
+      type: USER_GET_WALLET_SUCCESS,
+      payload: data.data
     })
-  
-    userGetWalletAPI().then((data)=>{
+  })
+    .catch((error) => {
       dispatch({
-        type : USER_GET_WALLET_SUCCESS,
-        payload : data.data
+        type: USER_GET_WALLET_FAILURE,
+        payload: error.response.data
       })
     })
-    .catch((error)=>{
-      dispatch({
-        type:USER_GET_WALLET_FAILURE,
-        payload : error.response.data
-      })
-    })
-  }
+}
