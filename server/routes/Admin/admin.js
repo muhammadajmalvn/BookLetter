@@ -8,7 +8,8 @@ const ordersController = require('../../controllers/Admin/ordersController');
 const sellController = require('../../controllers/Admin/sellController');
 const dashboardController = require('../../controllers/Admin/dashboardController');
 const { protect } = require('../../Middlewares/verifyToken')
-const upload = require('../../utils/multer')
+const upload = require('../../utils/multer');
+const salesReportController = require('../../controllers/Admin/salesReportController');
 
 //login admin
 router.post('/', loginController.adminLogin)
@@ -49,8 +50,11 @@ router.route('/sell')
     .get(protect, sellController.getSellRequests)
     .post(protect, sellController.changeStatus)
 
-    //Dashboard
-    router.route('/dashboard').get(protect, dashboardController.getDashboardDetails)
+//Dashboard
+router.route('/dashboard').get(protect, dashboardController.getDashboardDetails)
+
+//sales report
+router.route('/sales-report').get(protect, salesReportController.getSalesReportDetails)
 module.exports = router;
 
 

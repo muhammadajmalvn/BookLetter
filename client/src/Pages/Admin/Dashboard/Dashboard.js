@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Sidebar from '../Sidebar/Sidebar'
-import { Box, Button, Card, CardActions, CardContent, Grid, Paper, Stack, Typography, styled } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import { MDBContainer, MDBRow, MDBCol } from 'mdb-react-ui-kit';
 import BasicCard from '../../../Components/Admin/Dashboard/BasicCard';
 import OrderGraph from './OrderGraph';
@@ -15,7 +15,7 @@ const Dashboard = () => {
   }, [])
 
   const details = useSelector((state) => state.getDashboardDetails.dashBoardData)
-  
+
   return (
     <div>
       <Box sx={{ display: 'flex' }}>

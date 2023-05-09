@@ -4,7 +4,7 @@ import { ADMIN_GET_DASHBOARD_DETAILS_FAILURE, ADMIN_GET_DASHBOARD_DETAILS_REQUES
 
 
 
-export const getDashboardDetailsAction= (id) => async (dispatch) => {
+export const getDashboardDetailsAction = (id) => async (dispatch) => {
     dispatch({ type: ADMIN_GET_DASHBOARD_DETAILS_REQUEST })
     try {
         adminGetDashboardDetailsAPI(id).then((data) => {
@@ -13,7 +13,7 @@ export const getDashboardDetailsAction= (id) => async (dispatch) => {
             })
         })
     }
-    catch {
+    catch (error) {
         dispatch({
             type: ADMIN_GET_DASHBOARD_DETAILS_FAILURE, payload: error.response.data
         })

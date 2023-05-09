@@ -191,6 +191,7 @@ function Sidebar() {
                                         text2 === "orders" && navigate('/admin/orders')
                                         text2 === "returns" && navigate('/admin/returns')
                                         text2 === "sell-request" && navigate('/admin/sell-request')
+                                        text2 === "report" && navigate('/admin/sales-report')
                                         text2 === "logout" && logOut()
                                     }} />
                             </ListItemButton>

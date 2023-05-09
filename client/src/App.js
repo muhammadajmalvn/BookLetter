@@ -35,7 +35,7 @@ const SingleOrder = lazy(() => import('./Pages/Admin/Manage-Orders/SingleOrder')
 const Returns = lazy(() => import('./Pages/Admin/Manage-Orders/Returns'))
 const SellReq = lazy(() => import('./Pages/Admin/Sell-Requests/Sell'))
 const SingleSellRequest = lazy(() => import('./Pages/Admin/Sell-Requests/SingleSellRequest'))
-
+const SalesReport = lazy(() => import('./Pages/Admin/SalesReport/SalesReport'))
 
 
 const App = () => {
@@ -80,7 +80,7 @@ const App = () => {
             <Route path='/admin/returns' exact element={adminData ? <Returns /> : <AdminLogin />} />
             <Route path='/admin/sell-request' exact element={adminData ? <SellReq /> : <AdminLogin />} />
             <Route path='/admin/single-sellrequest-view' exact element={adminData ? <SingleSellRequest /> : <AdminLogin />} />
-
+            <Route path='/admin/sales-report' exact element={adminData ? <SalesReport /> : <AdminLogin />} />
 
 
           </Routes>

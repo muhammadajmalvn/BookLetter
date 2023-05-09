@@ -40,10 +40,10 @@ export const adminGetOrdersAPI = () => API.get('/orders', configToken);
 export const adminChangeOrderStatusAPI = (orderId, status) => API.post('/order-status', { orderId, status }, configToken)
 
 export const adminGetRetunAPI = () => API.get('/returns', configToken);
-export const adminAcceptReturnAPI = (id, orderId, bookId, copyId) =>API.put('/returns',{id,orderId,bookId,copyId},configToken)
+export const adminAcceptReturnAPI = (id, orderId, bookId, copyId) => API.put('/returns', { id, orderId, bookId, copyId }, configToken)
 
-export const adminGetAllSellRequest=()=>API.get('/sell',configToken)
+export const adminGetAllSellRequest = () => API.get('/sell', configToken)
 export const adminChangeStatusAPI = (orderId, status) => API.post('/sell', { orderId, status }, configToken)
 
-export const adminGetDashboardDetailsAPI =()=>API.get('/dashboard',configToken)
-
+export const adminGetDashboardDetailsAPI = () => API.get('/dashboard', configToken)
+export const getSalesReportAPI = () => API.get('/sales-report', configToken)
