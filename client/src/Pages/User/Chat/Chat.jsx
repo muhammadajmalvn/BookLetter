@@ -6,6 +6,9 @@ import { getAllUserContacts } from '../../../APIs/userAPI'
 import Contacts from '../../../Components/User/Chat/Contacts'
 import Welcome from '../../../Components/User/Chat/Welcome'
 import ChatContainer from '../../../Components/User/Chat/ChatContainer'
+import { io } from 'socket.io-client'
+const socket = io("http://localhost:5000")
+
 
 
 const Chat = () => {
@@ -23,6 +26,11 @@ const Chat = () => {
             details();
         }
     }, [])
+    useEffect(() => {
+        if (user) {
+            socket.emit("add-user", user.id)
+        }
+    })
 
     const handleChatChange = (chat) => {
         setCurrentChat(chat)

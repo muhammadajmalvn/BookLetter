@@ -6,6 +6,7 @@ var logger = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv')
 const cors = require("cors");
+const socket = require('socket.io')
 dotenv.config()
 
 var usersRouter = require('./routes/User/users');
@@ -14,13 +15,13 @@ var adminRouter = require('./routes/Admin/admin');
 
 var app = express();
 
-const corsOptions = {
-  origin: 'http://localhost:3000',
-  credentials: true,            //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
-}
+// const corsOptions = {
+//   origin: 'http://localhost:3000',
+//   credentials: true,            //access-control-allow-credentials:true
+//   optionSuccessStatus: 200,
+// }
 
-app.use(cors(corsOptions)) // Use this after the variable declaration
+app.use(cors()) // Use this after the variable declaration`
 
 
 // view engine setup
@@ -59,6 +60,29 @@ app.use(function (err, req, res, next) {
 
 
 const PORT = process.env.PORT || 5000
-app.listen(PORT, console.log(`Port is running in http://localhost:${PORT}/`))
+const server = app.listen(PORT, console.log(`Port is running in http://localhost:${PORT}/`))
 
+const io = socket(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+    credentials: true,
+  },
+});
+global.onlineUsers = new Map();
+io.on("connection", (socket) => {
+  global.chatSocket = socket
+  socket.on("add-user", (userId) => {
+    onlineUsers.set(userId, socket.id)
+
+  })
+
+
+  socket.on("send-msg", (data) => {
+    const sendUserSocket = onlineUsers.get(data.to);
+
+    if (sendUserSocket) {
+      socket.to(sendUserSocket).emit("msg-receive", data.message);
+    }
+  });
+})
 module.exports = app;
