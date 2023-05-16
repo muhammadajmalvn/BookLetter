@@ -63,7 +63,6 @@ const BooksView = () => {
   const [searchTerm, setSearchTerm] = useState('')
 
   const handleSubmit = (e) => {
-    e.preventDefault()
     dispatch(userBookSearchAction(searchTerm))
   }
   const books = useSelector((state) => state.userGetBooks)
@@ -90,15 +89,9 @@ const BooksView = () => {
             value={searchTerm}
             fullWidth
 
-            onChange={(e) => setSearchTerm(e.target.value)}
-
-            sx={{ mb: 2 }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start" style={{ cursor: 'pointer' }} onClick={handleSubmit}>
-                  <ImageSearchIcon />
-                </InputAdornment>
-              ),
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              handleSubmit()
             }}
           />
         </Box>

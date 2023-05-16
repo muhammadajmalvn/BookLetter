@@ -74,7 +74,8 @@ exports.changeStatus = async (req, res) => {
                 }
                 walletSchema.create(newWallet)
             } else {
-                walletSchema.updateOne({ userId: walletExists.userId }, {
+                const kitti = await walletSchema.findOne({ userId: walletExists.userId })
+                await walletSchema.updateOne({ userId: walletExists.userId }, {
                     $inc: { walletAmount: item.askingPrice }, $push: {
                         walletHistory: {
                             transactionType: 'Book sell transaction',

@@ -42,6 +42,9 @@ const userSchema = new mongoose.Schema({
         type: [addressSchema],
         default: []
     },
+    verifytoken: {
+        type: String,
+    }
 
 },
     {

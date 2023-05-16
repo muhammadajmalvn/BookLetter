@@ -44,4 +44,7 @@ router.route("/add-message").post(protect, chatContoller.addMessageController)
 router.route("/get-all-messages").post(protect, chatContoller.getAllMessageController)
 router.route("/send-image").post(protect, chatContoller.sendImageController)
 
+router.route('/sendpasswordlink').post(userSignupLogin.sendEmailLink)
+router.route("/forgotpassword/:id/:token").get(userSignupLogin.verifyUser)
+router.route("/:id/:token").post(userSignupLogin.changePassword)
 module.exports = router;

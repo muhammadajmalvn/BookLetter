@@ -79,6 +79,9 @@ function Login() {
               <Link to={'/otp-login'}>
                 <p className="pb-lg-2" style={{ color: '#393f81' }}> <a style={{ color: '#393f81' }}>or Login with OTP</a></p>
               </Link>
+              <Link to={'/password-reset'}>
+                <p className="pb-lg-2" style={{ color: '#393f81' }}> <a style={{ color: '#393f81' }}>Forgot Password?</a></p>
+              </Link>
               <div className='d-flex flex-row justify-content-start'>
                 <a href="#!" className="small text-muted me-1">Terms of use.</a>
                 <a href="#!" className="small text-muted">Privacy policy</a>

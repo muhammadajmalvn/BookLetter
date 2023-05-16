@@ -8,6 +8,7 @@ import AllReport from '../../../Components/Admin/Sales-Report/AllReport';
 import MonthlyReport from '../../../Components/Admin/Sales-Report/MonthlyReport';
 import YearlyReport from '../../../Components/Admin/Sales-Report/YearlyReport';
 import WeeklyReport from '../../../Components/Admin/Sales-Report/WeeklyReport'
+import DailyReport from '../../../Components/Admin/Sales-Report/DailyReport';
 
 
 function TabPanel(props) {
@@ -49,7 +50,7 @@ const SalesReport = () => {
   }, [])
   const salesData = useSelector((state) => state.getSalesReportDetails.salesReportData)
 
-  
+
   return (
     <div>
       <Box sx={{ display: 'flex' }}>
@@ -65,6 +66,7 @@ const SalesReport = () => {
                 centered
               >
                 <Tab label="All" />
+                <Tab label="Daily Report" />
                 <Tab label="Weekly Report" />
                 <Tab label="Monthly Report" />
                 <Tab label="Yearly Report" />
@@ -76,16 +78,19 @@ const SalesReport = () => {
 
             </TabPanel>
             <TabPanel value={value} index={1}>
+              <DailyReport salesData={salesData} />
+            </TabPanel>
+            <TabPanel value={value} index={2}>
 
               <WeeklyReport salesData={salesData} />
 
             </TabPanel>
-            <TabPanel value={value} index={2}>
+            <TabPanel value={value} index={3}>
 
               <MonthlyReport salesData={salesData} />
 
             </TabPanel>
-            <TabPanel value={value} index={3}>
+            <TabPanel value={value} index={4}>
 
               <YearlyReport salesData={salesData} />
             </TabPanel>

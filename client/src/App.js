@@ -15,7 +15,7 @@ const BooksView = lazy(() => import('./Pages/User/BooksView/BooksView'))
 const SellBooks = lazy(() => import('./Pages/User/Selling/SellBooks'))
 const SellRequests = lazy(() => import('./Pages/User/Selling/SellRequests'))
 const SingleSellView = lazy(() => import('./Pages/User/Selling/SingleSellView'))
-const Wallet = lazy(()=> import('./Pages/User/Wallet/Wallet'))
+const Wallet = lazy(() => import('./Pages/User/Wallet/Wallet'))
 const Chat = lazy(() => import('./Pages/User/Chat/Chat'))
 
 
@@ -31,6 +31,11 @@ const Booking = lazy(() => import('./Pages/User/Booking/Booking'))
 const OrderedBooks = lazy(() => import('./Pages/User/Booking/OrderedBooks'))
 const OrderSuccess = lazy(() => import('./Pages/User/Booking/OrderSuccess'))
 const OtpLogin = lazy(() => import('./Pages/User/OTP-Login/OtpLogin'))
+const ForgotPassword = lazy(() => import('./Pages/User/Login/ForgotPassword'))
+const PasswordReset = lazy(() => import('./Pages/User/Login/PasswordReset'))
+
+
+
 const Orders = lazy(() => import('./Pages/Admin/Manage-Orders/Orders'))
 const SingleOrder = lazy(() => import('./Pages/Admin/Manage-Orders/SingleOrder'))
 const Returns = lazy(() => import('./Pages/Admin/Manage-Orders/Returns'))
@@ -68,6 +73,8 @@ const App = () => {
             <Route path='/single-sell-view' exact element={userData ? < SingleSellView /> : <Login />} />
             <Route path='/wallet' exact element={userData ? <Wallet /> : <Login />} />
             <Route path='/chat' exact element={userData ? <Chat /> : <Login />} />
+            <Route path='/password-reset' exact element={<PasswordReset />} />
+            <Route path='/forgotpassword/:id/:token' exact element={<ForgotPassword />} />
             <Route path='*' element={<NotFound />} />
 
 

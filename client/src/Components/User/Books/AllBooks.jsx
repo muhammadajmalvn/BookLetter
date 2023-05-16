@@ -56,7 +56,7 @@ function AllBooks({ allBooks }) {
                                             </CardActions>
                                         </Card>
                                     )
-                                }) : ""
+                                }) : "No books to show"
                     }
                 </div>
             </Box>

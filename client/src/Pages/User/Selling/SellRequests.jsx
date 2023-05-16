@@ -23,9 +23,9 @@ const SellRequests = () => {
       {sellBooks ? sellBooks.map((sellbook) => {
         return (
           <section style={{ backgroundColor: '#eee' }}>
-            <div className="container py-5">
+            <div className="container py-1">
               <div className="row justify-content-center mb-3">
-                <div className="col-md-12 col-xl-10">
+                <div className="col-md-12 col-xl-10 mt-4">
                   <div className="card shadow-0 border rounded-3">
                     <div className="card-body">
                       <div className="row">
@@ -59,7 +59,7 @@ const SellRequests = () => {
                             <h4 className="mb-1 me-1">Rs {sellbook.askingPrice}</h4>
                           </div>
                           <div className="d-flex flex-column mt-4">
-                            <button className="btn btn-primary btn-sm" onClick={(e)=>navigate('/single-sell-view',{state:{sellBooks,sellId:sellbook._id}})}>Details</button>
+                            <button className="btn btn-primary btn-sm" onClick={(e) => navigate('/single-sell-view', { state: { sellBooks, sellId: sellbook._id } })}>Details</button>
                           </div>
                         </div>
                       </div>

@@ -4,10 +4,10 @@ import PhoneInput from "react-phone-input-2";
 import { auth } from "../../../Firebase/firebase.config";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { toast, Toaster } from "react-hot-toast";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button';
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form';
 import { userOtpLoginAction } from "../../../Redux/Actions/userActions/LoginActions";
 import "react-phone-input-2/lib/style.css";
 import Loading from "../../Loading";
@@ -94,7 +94,6 @@ function OtpLogin() {
 
 
         <div className='login-box'>
-
           {
             showOtp ?
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', backgroundColor: '#f2f2f2' }} className='login-body'>

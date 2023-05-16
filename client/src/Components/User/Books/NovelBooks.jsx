@@ -55,7 +55,7 @@ function NovelBooks() {
                                         </CardActions>
                                     </Card>
                                 )
-                            }) : ""
+                            }) : "No Books to show"
                     }
                 </div>
             </Box>

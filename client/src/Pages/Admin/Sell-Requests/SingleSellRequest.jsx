@@ -119,7 +119,7 @@ const SingleSellRequest = () => {
                                                         md="2"
                                                         className="text-center d-flex justify-content-center align-items-center mx-auto"
                                                     >
-                                                        <p className="text-muted mb-0 small">Tracking Id: {clickedOrder.status}</p>
+                                                        <p className="text-muted mb-0 small">Tracking Id: {clickedOrder.trackingId}</p>
                                                     </MDBCol>
                                                     : ""}
                                             </MDBRow>

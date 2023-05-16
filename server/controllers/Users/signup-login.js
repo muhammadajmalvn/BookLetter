@@ -1,8 +1,18 @@
 const userSchema = require('../../models/Users/userSchema')
 const bcrypt = require('bcryptjs')
 const generateToken = require('../../utils/generateToken')
+const nodemailer = require('nodemailer')
+const jwt = require('jsonwebtoken')
+const dotenv = require('dotenv')
+dotenv.config()
 
-
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.NODEMAIL_USER,
+        pass: process.env.NODEMAIL_PASS,
+    }
+})
 //SIGNUP POST CONTROLLER
 exports.signupPost = async (req, res) => {
     try {
@@ -101,5 +111,96 @@ exports.otpLoginPost = async (req, res) => {
         }
     } catch (error) {
         return res.status(500).send("Internal Server Error");
+    }
+}
+
+
+// send email Link For reset Password
+exports.sendEmailLink = async (req, res) => {
+    const { email } = req.body;
+    if (!email) {
+        res.status(401).json({ status: 401, message: 'Enter a valid email address' })
+    }
+    try {
+        const userExists = await userSchema.findOne({ email: email });
+        if (!userExists) {
+            res.status(401).json({ status: 401, message: 'Invalid user' });
+        }
+        const token = jwt.sign({ _id: userExists._id }, process.env.JWT_SECRET_KEY, {
+            expiresIn: "120s"
+        });
+
+        const setusertoken = await userSchema.findByIdAndUpdate({ _id: userExists._id }, { verifytoken: token }, { new: true });
+        if (setusertoken) {
+            const mailOptions = {
+                from: process.env.NODEMAIL_USER,
+                to: email,
+                subject: "Sending email For password Reset",
+                text: `This Link Valid For 2 MINUTES http://localhost:3000/forgotpassword/${userExists.id}/${setusertoken.verifytoken}`
+            }
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.log("error", error);
+                    res.status(401).json({ status: 401, message: "email not send" })
+                } else {
+                    console.log("Email sent", info.response);
+                    res.status(201).json({ status: 201, message: "Email sent Succsfully" })
+                }
+            })
+
+        }
+    } catch (error) {
+        console.error('An unexpected error occurred:', error);
+        res.status(500).json({ status: 500, message: 'An unexpected error occurred' });
+    }
+}
+
+// verify user for forgot password time
+exports.verifyUser = async (req, res) => {
+    const { id, token } = req.params;
+
+    try {
+        const validuser = await userSchema.findOne({ _id: id, verifytoken: token });
+
+        const verifyToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+
+        console.log(verifyToken)
+
+        if (validuser && verifyToken._id) {
+            res.status(201).json({ status: 201, validuser })
+        } else {
+            res.status(401).json({ status: 401, message: "user not exist" })
+        }
+
+    } catch (error) {
+        res.status(401).json({ status: 401, error })
+    }
+}
+
+
+// change password
+exports.changePassword = async (req, res) => {
+    const { id, token } = req.params;
+
+    const { password } = req.body;
+
+    try {
+        const validuser = await userSchema.findOne({ _id: id, verifytoken: token });
+
+        const verifyToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+
+        if (validuser && verifyToken._id) {
+            const newpassword = await bcrypt.hash(password, 10);
+
+            const setnewuserpass = await userSchema.findByIdAndUpdate({ _id: id }, { password: newpassword });
+
+            setnewuserpass.save();
+            res.status(201).json({ status: 201, setnewuserpass })
+
+        } else {
+            res.status(401).json({ status: 401, message: "user not exist" })
+        }
+    } catch (error) {
+        res.status(401).json({ status: 401, error })
     }
 }

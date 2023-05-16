@@ -55,7 +55,7 @@ function SelfHelpBooks() {
                                         </CardActions>
                                     </Card>
                                 )
-                            }) : ""
+                            }) : "No books to show"
                     }
                 </div>
             </Box>
