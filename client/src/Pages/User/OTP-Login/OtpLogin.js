@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import { auth } from "../../../Firebase/firebase.config";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
@@ -22,6 +22,8 @@ function OtpLogin() {
   const [phone, setPhone] = useState("")
   const [showOtp, setShowOtp] = useState(false)
   const [user, setUser] = useState(null)
+  const [timer, setTimer] = useState(60)
+  const timerRef = useRef(null)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -65,7 +67,6 @@ function OtpLogin() {
   }
 
   function onOTPVerify() {
-
     window.confirmationResult
       .confirm(otp)
       .then(async (result) => {
@@ -80,6 +81,43 @@ function OtpLogin() {
         console.log(err);
         toast.error('Invalid OTP');
       });
+  }
+
+  useEffect(() => {
+    if (showOtp) {
+      startTimer();
+    }
+  }, [showOtp]);
+
+  function startTimer() {
+    setTimer(60);
+
+    clearInterval(timerRef.current);
+
+    timerRef.current = setInterval(() => {
+      setTimer((prevTimer) => prevTimer - 1);
+    }, 1000);
+  }
+
+  function resendOTP() {
+    onCaptchVerify();
+
+    const appVerifier = window.recaptchaVerifier;
+
+    const phoneNumber = "+" + phone;
+
+    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+      .then((confirmationResult) => {
+        window.confirmationResult = confirmationResult;
+        setShowOtp(true);
+        toast.success("OTP sended successfully!");
+      })
+      .catch((error) => {
+        console.log('otp error', error);
+        toast.error('Firebase error: ' + error)
+      });
+
+    startTimer();
   }
 
   return (
@@ -115,6 +153,16 @@ function OtpLogin() {
                   >
                     LOGIN
                   </Button>
+                  <div>
+                    {timer >= 0 &&
+                      <p>Resend OTP in {timer} seconds</p>
+                    }
+                    {timer <= 0 && (
+                      <button onClick={resendOTP} style={{ backgroundColor: 'rgb(53,91,62)', color: 'white' }}>
+                        Resend OTP
+                      </button>
+                    )}
+                  </div>
                   <div id='recaptcha-container'></div>
                 </div>
               </div>
