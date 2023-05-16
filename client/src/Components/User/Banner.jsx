@@ -1,17 +1,12 @@
 import React from 'react';
-
+import './Banner.css'
 const Banner = ({ image }) => {
-    return (
-        <div
-        style={{
-          backgroundImage: `url(${image})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          height: '100%',
-          width: '100%',
-        }}
-      />
-    );
+  return (
+    <div className="image-container">
+      <img src={image} className='img-fluid' />
+    </div>
+  );
 };
+
 
 export default Banner;

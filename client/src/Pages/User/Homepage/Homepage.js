@@ -13,55 +13,18 @@ const HomePage = () => {
       <Navbar />
       <div style={{ backgroundColor: '#f2f2f2' }}>
         <div style={{ backgroundColor: '#fff' }}>
-          {/* Banner */}
-          <div style={{ height: 650 }}>
+          <div>
             <Banner image={bannerImg} />
           </div>
 
-          {/* First poster */}
           <div style={{ height: 'auto' }}>
             <Poster title={'Rent Book with us at easy steps:'} image={orderImg} />
           </div>
 
-          {/* Second poster */}
           <div style={{ height: 'auto' }}>
             <Poster title={'Sell Book with us at easy steps:'} image={orderImg} />
           </div>
         </div>
-
-        {/* <div style={{ display: 'flex', justifyContent: 'space-between', margin: '50px 0' }}>
-          <div style={{ width: '30%', backgroundColor: '#fff', padding: 20 }}>
-            <h2>Card 1</h2>
-            <p>Some text</p>
-          </div>
-
-          <div style={{ width: '30%', backgroundColor: '#fff', padding: 20 }}>
-            <h2>Card 2</h2>
-            <p>Some text</p>
-          </div>
-
-          <div style={{ width: '30%', backgroundColor: '#fff', padding: 20 }}>
-            <h2>Card 3</h2>
-            <p>Some text</p>
-          </div>
-        </div> */}
-
-        {/* <div style={{ display: 'flex', justifyContent: 'space-between', margin: '50px 0' }}>
-          <div style={{ width: '30%', backgroundColor: '#fff', padding: 20 }}>
-            <h2>Card 4</h2>
-            <p>Some text</p>
-          </div>
-
-          <div style={{ width: '30%', backgroundColor: '#fff', padding: 20 }}>
-            <h2>Card 5</h2>
-            <p>Some text</p>
-          </div>
-
-          <div style={{ width: '30%', backgroundColor: '#fff', padding: 20 }}>
-            <h2>Card 6</h2>
-            <p>Some text</p>
-          </div>
-        </div> */}
       </div>
       <Footer />
     </>
