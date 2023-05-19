@@ -18,7 +18,7 @@ const ForgotPassword = () => {
   const [message, setMessage] = useState("");
 
   const userValid = async () => {
-    const res = await fetch(`http://localhost:5000/forgotpassword/${id}/${token}`, {
+    const res = await fetch(`https://bookletterbackend.onrender.com/forgotpassword/${id}/${token}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -51,7 +51,7 @@ const ForgotPassword = () => {
         position: "top-center"
       }); 
     } else {
-      const res = await fetch(`http://localhost:5000/${id}/${token}`, {
+      const res = await fetch(`https://bookletterbackend.onrender.com/${id}/${token}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -91,7 +91,7 @@ const ForgotPassword = () => {
                 </div>
 
                 <form>
-                  {message ? <p style={{ color: "green", fontWeight: "bold" }}>Password Succesfulyy Update </p> : ""}
+                  {message ? <p style={{ color: "green", fontWeight: "bold" }}>Password Succesfully updated </p> : ""}
                   <div className="form_input">
                     <label htmlFor="password">New password</label>
                     <input type="password" value={password} onChange={setval} name="password" id="password" placeholder='Enter Your new password' />

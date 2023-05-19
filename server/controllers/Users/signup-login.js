@@ -136,7 +136,7 @@ exports.sendEmailLink = async (req, res) => {
                 from: process.env.NODEMAIL_USER,
                 to: email,
                 subject: "Sending email For password Reset",
-                text: `This Link Valid For 2 MINUTES http://localhost:3000/forgotpassword/${userExists.id}/${setusertoken.verifytoken}`
+                text: `This Link Valid For 2 MINUTES https://bookletter.netlify.app/forgotpassword/${userExists.id}/${setusertoken.verifytoken}`
             }
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
@@ -144,7 +144,7 @@ exports.sendEmailLink = async (req, res) => {
                     res.status(401).json({ status: 401, message: "email not send" })
                 } else {
                     console.log("Email sent", info.response);
-                    res.status(201).json({ status: 201, message: "Email sent Succsfully" })
+                    res.status(201).json({ status: 201, message: "Email sent Successfully" })
                 }
             })
 

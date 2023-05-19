@@ -113,7 +113,7 @@ const Booking = () => {
   const { loading, addresses, error } = addressData
   useEffect(() => {
     dispatch(getAddressAction())
-  }, [dispatch])
+  }, [dispatch, AddressModal])
 
   const selectDaySlots = (values) => {
     setStartDate(values[0].format('DD MM YYYY'))

@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API = axios.create({ baseURL: "http://localhost:5000" })
+const API = axios.create({ baseURL: "https://bookletterbackend.onrender.com" })
 const user = JSON.parse(localStorage.getItem('user-login'))
 const ID = user?.id
 const config = {
@@ -31,7 +31,7 @@ export const userGetGenreBooksAPI = (genre) => API.post('/genrebooks', { genre }
 
 //addresses api
 export const userAddAddressAPI = (address) => API.post('/add-address?id=' + ID, { address }, configToken)
-export const userGetAddressesAPI = () => API.get('/get-address?id=' + user.id, configToken)
+export const userGetAddressesAPI = () => API.get('/get-address?id=' + ID, configToken)
 
 //sell-books api
 export const userSellBookAPI = (formdata) => API.post('/sell-book?id=' + ID, formdata, configFormData)

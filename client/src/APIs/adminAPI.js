@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API = axios.create({ baseURL: "http://localhost:5000/admin" })
+const API = axios.create({ baseURL: "https://bookletterbackend.onrender.com/admin" })
 
 const admin = JSON.parse(localStorage.getItem('adminInfo'))
 const config = {
@@ -21,10 +21,10 @@ const configFormData = {
 }
 
 
+export const adminSearchAPI = (searchkeyword) => API.post("/user-search", { searchkeyword }, configToken)
 export const adminGetUsersAPI = () => API.get('/users', configToken)
 export const adminUserBlockUnblockAPI = (id) => API.get('/manage-users?id=' + id, configToken)
 export const adminDeleteUserAPI = (id) => API.delete("/users?id=" + id, configToken)
-export const adminSearchAPI = (searchkeyword) => API.post("/users", { searchkeyword }, configToken)
 
 
 export const adminAddBookAPI = (formdata) => API.post("/add-books", formdata, configFormData)

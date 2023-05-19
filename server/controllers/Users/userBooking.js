@@ -37,8 +37,8 @@ exports.booking = async (req, res) => {
                     },
                 ],
                 mode: 'payment',
-                success_url: 'http://localhost:3000/booking-success',
-                cancel_url: 'http://localhost:4242/cancel',
+                success_url: 'https://bookletter.netlify.app/booking-success',
+                cancel_url: 'https://bookletter.netlify.app/cancel',
             })
 
 
