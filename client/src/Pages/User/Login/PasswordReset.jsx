@@ -23,7 +23,7 @@ const PasswordReset = () => {
         position: "top-center"
       });
     } else {
-      const res = await fetch("https://bookletterbackend.onrender.com/sendpasswordlink", {
+      const res = await fetch("https://goalcart.store/sendpasswordlink", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

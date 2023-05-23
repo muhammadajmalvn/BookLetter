@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API = axios.create({ baseURL: "https://bookletterbackend.onrender.com/admin" })
+const API = axios.create({ baseURL: "https://goalcart.store/admin" })
 
 const admin = JSON.parse(localStorage.getItem('adminInfo'))
 const config = {

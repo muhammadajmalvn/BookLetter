@@ -51,7 +51,7 @@ const ForgotPassword = () => {
         position: "top-center"
       }); 
     } else {
-      const res = await fetch(`https://bookletterbackend.onrender.com/forgotpassword/${id}/${token}`, {
+      const res = await fetch(`https://goalcart.store/forgotpassword/${id}/${token}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

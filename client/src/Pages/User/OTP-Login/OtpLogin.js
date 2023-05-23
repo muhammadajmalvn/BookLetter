@@ -62,7 +62,6 @@ function OtpLogin() {
       })
       .catch((error) => {
         console.log('otp error', error);
-        toast.error('Firebase error: ' + error)
       });
   }
 
@@ -114,7 +113,6 @@ function OtpLogin() {
       })
       .catch((error) => {
         console.log('otp error', error);
-        toast.error('Firebase error: ' + error)
       });
 
     startTimer();

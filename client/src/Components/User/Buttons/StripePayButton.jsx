@@ -13,7 +13,7 @@ function StripePayButton({ bookingData }) {
                 Authorization: "Bearer " + user.token
             }
         }
-        axios.post('http://localhost:5000/booking-book', { bookingData }, config)
+        axios.post('https://goalcart.store/booking-book', { bookingData }, config)
             .then((response) => {
                 if (response.data.url) {
                     window.location.href = response.data.url
