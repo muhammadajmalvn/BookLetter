@@ -53,7 +53,7 @@ const Wallet = () => {
             <Container>
                 <Box sx={{ marginTop: '10%' }}>
                     <Typography variant='h4' sx={{ textAlign: 'center' }}>Wallet Histroy</Typography>
-                    <Typography variant='h6' sx={{ textAlign: 'left' }}>Wallet Balance : Rs {walletData?.walletAmount}</Typography>
+                    <Typography variant='h6' sx={{ textAlign: 'left' }}>Wallet Balance : Rs {walletData ? walletData.walletAmount : '0'}</Typography>
                 </Box>
                 <Box>
                     <MDBDataTable

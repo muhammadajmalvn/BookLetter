@@ -41,6 +41,9 @@ const ForgotPassword = () => {
   const setval = (e) => {
     setPassword(e.target.value)
   }
+  const setConfirmPasswordValue = (e) => {
+    setConfirmPassword(e.target.value);
+  };
 
   const sendpassword = async (e) => {
     e.preventDefault();
@@ -112,7 +115,7 @@ const ForgotPassword = () => {
                   </div>
                   <div className="form_input">
                     <label htmlFor="confirmPassword">confirm password</label>
-                    <input type="password" value={confirmPassword} onChange={setConfirmPassword} name="confirmPassword" id="confirmPassword" placeholder='Retype password' />
+                    <input type="password" value={confirmPassword} onChange={setConfirmPasswordValue} name="confirmPassword" id="confirmPassword" placeholder='Retype password' />
                   </div>
                   <button className='btn' onClick={sendpassword}>Send</button>
                 </form>
