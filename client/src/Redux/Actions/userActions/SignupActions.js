@@ -6,7 +6,7 @@ import {
 
 import axios from 'axios'
 
-const API = axios.create({ baseURL: "https://bookletterbackend.onrender.com" })
+const API = axios.create({ baseURL: "https://goalcart.store" })
 
 export const userSignup = (firstName, lastName, email, phone, password) => async (dispatch) => {
     console.log(firstName, lastName, email, phone, password, 'inside userActionsssssssssssssssssss');

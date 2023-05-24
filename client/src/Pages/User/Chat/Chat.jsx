@@ -7,7 +7,7 @@ import Contacts from '../../../Components/User/Chat/Contacts'
 import Welcome from '../../../Components/User/Chat/Welcome'
 import ChatContainer from '../../../Components/User/Chat/ChatContainer'
 import { io } from 'socket.io-client'
-const socket = io("https://bookletterbackend.onrender.com")
+const socket = io("https://goalcart.store")
 
 
 

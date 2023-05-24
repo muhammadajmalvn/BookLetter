@@ -12,7 +12,7 @@ import {
 import { userOrderAPI } from '../../../APIs/userAPI'
 import axios from 'axios'
 
-const API = axios.create({ baseURL: "https://bookletterbackend.onrender.com" })
+const API = axios.create({ baseURL: "https://goalcart.store" })
 
 
 export const getOrderedBooksAction = (userId) => async (dispatch) => {

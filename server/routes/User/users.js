@@ -18,10 +18,10 @@ router.post('/otp-login', userSignupLogin.otpLoginPost)
 router.route('/profile').get(protect, userProfile.viewProfile)
 router.route('/profileImageUpdate').post(protect, userProfile.imageUpdate)
 
-router.route('/books').get(userBooks.getAllBooks)
+router.route('/home-books').get(userBooks.getAllBooks)
 router.route('/genrebooks').post(userBooks.getGenreBooks)
 router.route('/search-book').post(userBooks.searchBook)
-router.route('/genres').get(userBooks.getAllGenres)
+router.route('/home-genres').get(userBooks.getAllGenres)
 
 router.route('/booking-book').post(protect, userBooking.booking)
 router.route('/orders').get(protect, userOrders.getOrders)

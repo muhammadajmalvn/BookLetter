@@ -22,11 +22,11 @@ const configFormData = {
 }
 
 //books data api
-export const userGetBooksAPI = () => API.get('/books', config)
+export const userGetBooksAPI = () => API.get('/home-books', config)
 export const userBookSearchAPI = (searchTerm) => API.post('/search-book', { searchTerm }, config)
 
 //genres API
-export const userGetGenresAPI = () => API.get('/genres', config)
+export const userGetGenresAPI = () => API.get('/home-genres', config)
 export const userGetGenreBooksAPI = (genre) => API.post('/genrebooks', { genre }, config)
 
 //addresses api

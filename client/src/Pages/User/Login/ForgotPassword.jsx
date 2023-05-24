@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams, NavLink } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import './Password.css';
@@ -15,10 +16,12 @@ const ForgotPassword = () => {
 
   const [password, setPassword] = useState("");
 
+  const [confirmPassword, setConfirmPassword] = useState("")
+
   const [message, setMessage] = useState("");
 
   const userValid = async () => {
-    const res = await fetch(`https://bookletterbackend.onrender.com/forgotpassword/${id}/${token}`, {
+    const res = await fetch(`https://goalcart.store/forgotpassword/${id}/${token}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -41,6 +44,7 @@ const ForgotPassword = () => {
 
   const sendpassword = async (e) => {
     e.preventDefault();
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
 
     if (password === "") {
       toast.error("password is required!", {
@@ -49,7 +53,16 @@ const ForgotPassword = () => {
     } else if (password.length < 6) {
       toast.error("password must be 6 char!", {
         position: "top-center"
-      }); 
+      });
+    } else if (!passwordRegex.test(password)) {
+      toast.error("Password must contain at least 6 characters, one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*)", {
+        position: "top-center"
+      });
+    }
+    else if (password !== confirmPassword) {
+      toast.error("Passwords do not match!", {
+        position: "top-center"
+      });
     } else {
       const res = await fetch(`https://goalcart.store/forgotpassword/${id}/${token}`, {
         method: "POST",
@@ -63,6 +76,7 @@ const ForgotPassword = () => {
 
       if (data.status == 201) {
         setPassword("")
+        setConfirmPassword("")
         setMessage(true)
       } else {
         toast.error("! Token Expired generate new LInk", {
@@ -87,7 +101,7 @@ const ForgotPassword = () => {
             <section>
               <div className="form_data">
                 <div className="form_heading">
-                  <h1>Enter Your NEW Password</h1>
+                  <h1>Enter Your new Password</h1>
                 </div>
 
                 <form>
@@ -96,10 +110,13 @@ const ForgotPassword = () => {
                     <label htmlFor="password">New password</label>
                     <input type="password" value={password} onChange={setval} name="password" id="password" placeholder='Enter Your new password' />
                   </div>
-
+                  <div className="form_input">
+                    <label htmlFor="confirmPassword">confirm password</label>
+                    <input type="password" value={confirmPassword} onChange={setConfirmPassword} name="confirmPassword" id="confirmPassword" placeholder='Retype password' />
+                  </div>
                   <button className='btn' onClick={sendpassword}>Send</button>
                 </form>
-                <p><NavLink to="/">Home</NavLink></p>
+                <p><NavLink to="/login">Login</NavLink></p>
                 <ToastContainer />
               </div>
             </section>

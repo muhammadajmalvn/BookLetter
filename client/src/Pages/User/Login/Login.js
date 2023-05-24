@@ -67,9 +67,16 @@ function Login() {
                 </p>
                 <MDBInput wrapperClass='mb-3' label='Email address' id='formControlLg' type='email' size="lg"  {...register("email", { required: true })} onChange={(e) => setEmail(e.target.value)} />
 
-                <p style={{ color: 'red', margin: '0' }}>{errors.password && "Enter a valid password"}
+                <p style={{ color: 'red', margin: '0' }}>{errors.password?.message}
                 </p>
-                <MDBInput wrapperClass='mb-3' label='Password' id='formControlLg' type='password' size="lg"  {...register("password", { required: true })} onChange={(e) => setPassword(e.target.value)} />
+                <MDBInput wrapperClass='mb-3' label='Password' id='formControlLg' type='password' size="lg"  {...register("password", {
+                  required: "Enter a valid password", minLength: { value: 6, message: "Password must be min 16 characters" }, maxLength: { value: 16, message: "Password must be max 16 characters" }, pattern: {
+                    value:
+                      /^(?=.*[0-9])(?=.*[!@#$%^&*.,])[a-zA-Z0-9!@#$%^&*.,]{6,16}$/,
+                    message:
+                      "Password Must Contain Atleast 6 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character",
+                  }
+                })} onChange={(e) => setPassword(e.target.value)} />
                 <MDBBtn className="px-5" size='lg' style={{ backgroundColor: '#355B3E', width: '100%' }}>Login</MDBBtn>
               </form>
 

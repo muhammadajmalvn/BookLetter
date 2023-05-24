@@ -8,7 +8,7 @@ import {
 
 import axios from 'axios'
 
-const API = axios.create({ baseURL: "https://bookletterbackend.onrender.com/admin" })
+const API = axios.create({ baseURL: "https://goalcart.store/admin" })
 
 
 export const adminLogin = (email, password) => async (dispatch) => {
