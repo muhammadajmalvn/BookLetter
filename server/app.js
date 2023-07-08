@@ -23,7 +23,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions)) // Use this after the variable declaration`
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

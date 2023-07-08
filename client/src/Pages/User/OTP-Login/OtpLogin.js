@@ -98,25 +98,25 @@ function OtpLogin() {
     }, 1000);
   }
 
-  function resendOTP() {
-    onCaptchVerify();
+  // function resendOTP() {
+  //   onCaptchVerify();
 
-    const appVerifier = window.recaptchaVerifier;
+  //   const appVerifier = window.recaptchaVerifier;
 
-    const phoneNumber = "+" + phone;
+  //   const phoneNumber = "+" + phone;
 
-    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-      .then((confirmationResult) => {
-        window.confirmationResult = confirmationResult;
-        setShowOtp(true);
-        toast.success("OTP sended successfully!");
-      })
-      .catch((error) => {
-        console.log('otp error', error);
-      });
+  //   signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+  //     .then((confirmationResult) => {
+  //       window.confirmationResult = confirmationResult;
+  //       setShowOtp(true);
+  //       toast.success("OTP sended successfully!");
+  //     })
+  //     .catch((error) => {
+  //       console.log('otp error', error);
+  //     });
 
-    startTimer();
-  }
+  //   startTimer();
+  // }
 
   return (
     <>
@@ -151,7 +151,7 @@ function OtpLogin() {
                   >
                     LOGIN
                   </Button>
-                  <div>
+                  {/* <div>
                     {timer >= 0 &&
                       <p>Resend OTP in {timer} seconds</p>
                     }
@@ -160,7 +160,7 @@ function OtpLogin() {
                         Resend OTP
                       </button>
                     )}
-                  </div>
+                  </div> */}
                   <div id='recaptcha-container'></div>
                 </div>
               </div>

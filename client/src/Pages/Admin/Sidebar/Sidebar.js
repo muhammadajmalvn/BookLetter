@@ -30,7 +30,8 @@ import AssignmentReturnedIcon from '@mui/icons-material/AssignmentReturned';
 import { adminLogout } from '../../../Redux/Actions/adminActions/adminLoginActions';
 import { useDispatch } from 'react-redux';
 
-const drawerWidth = 240;
+
+const drawerWidth = 200;
 
 const openedMixin = (theme) => ({
     width: drawerWidth,
