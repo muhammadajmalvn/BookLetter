@@ -20,6 +20,7 @@ const SellRequests = () => {
   return (
     <>
       <NavBar />
+      <h1 style={{ marginTop: '6%' }}>Sell Book Requests</h1>
       {sellBooks ? sellBooks.map((sellbook) => {
         return (
           <section style={{ backgroundColor: '#eee' }}>

@@ -6,8 +6,12 @@ exports.addGenre = async (req, res) => {
     try {
         genreSchema.find({ name: name }).then((genre) => {
             if (genre.length > 0) {
-                console.log('Genre already exists');
-                res.status(500).json("Genre Already Exists")
+                if (genre.isDeleted) {
+                    genre.updateOne({ $set: { isDeleted: false } })
+                } else {
+                    console.log('Genre already exists');
+                    res.status(500).json("Genre Already Exists")
+                }
             } else {
                 genreSchema.create({ name }).then((result) => {
                     res.status(201).json(result)

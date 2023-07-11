@@ -158,7 +158,7 @@ const EditBook = () => {
                                             id="genre"
                                             className="form-select"
                                         >
-                                            <option value="" disabled>{location.state.adminBookData.genre}</option>
+                                            <option>{location.state.adminBookData.genre}</option>
                                             {genreData &&
                                                 genreData.data.filter(genres => !genres.isDeleted).map((genre) => (
                                                     <option key={genre._id} value={genre.name}>

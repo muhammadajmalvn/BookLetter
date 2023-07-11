@@ -88,6 +88,7 @@ const Returns = () => {
     return (
         <>
             <Sidebar />
+            <h1 style={{ marginLeft: '8%' }}>Returns</h1>
             <div className='w-75 mt-3 mx-auto '>
                 <p style={{ margin: '0' }}>          {error ? <ErrorMessage variant='danger'>{error}</ErrorMessage> : " "} </p>
                 <p style={{ margin: '0' }}>          {loading ? <Loading variant='danger'>{error}</Loading> : " "} </p>

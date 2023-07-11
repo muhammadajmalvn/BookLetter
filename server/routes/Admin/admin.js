@@ -7,9 +7,9 @@ const genreController = require('../../controllers/Admin/genreController');
 const ordersController = require('../../controllers/Admin/ordersController');
 const sellController = require('../../controllers/Admin/sellController');
 const dashboardController = require('../../controllers/Admin/dashboardController');
+const salesReportController = require('../../controllers/Admin/salesReportController');
 const { protect } = require('../../Middlewares/verifyToken')
 const upload = require('../../utils/multer');
-const salesReportController = require('../../controllers/Admin/salesReportController');
 
 //login admin
 router.post('/', loginController.adminLogin)
@@ -35,6 +35,7 @@ router.route('/edit-book').post(upload.array('images'), protect, bookController.
 //genres
 router.route('/genres')
     .get(protect, genreController.getAllGenres)
+    .post(protect, genreController.addGenre)
 router.route('/delete-genre').get(protect, genreController.deleteGenre)
 
 //orders

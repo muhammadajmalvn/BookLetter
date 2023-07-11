@@ -16,7 +16,7 @@ function KidsBooks() {
     const navigate = useNavigate()
     const books = useSelector((state) => state.userGetBooks)
     const { booksDataLoading, booksData, booksDataError } = books
-
+    console.log(booksData,'8999999999');
     useEffect(() => {
         dispatch(userGetGenreBooksAction('Kids'))
     }, [])

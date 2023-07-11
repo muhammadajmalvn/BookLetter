@@ -45,11 +45,10 @@ const Books = () => {
 
   return (
     <>
-      <Box sx={{ display: 'flex', marginLeft: '6%', marginTop: '6%',zIndex:'-10' }}>
-
+      <Box sx={{ display: 'flex', marginLeft: '6%', marginTop: '6%', zIndex: '-10' }}>
         <Sidebar />
-        <Box component="main" sx={{ flexGrow: 1, p: 3, mr: 1 }}>
-
+        <h1>Books</h1>
+        <Box component="main" sx={{ flexGrow: 1, p: 3, mr: 1, mt: 4 }}>
           <div className="table-responsive">
 
             <Table bordered hover striped="columns" variant="dark">

@@ -25,7 +25,7 @@ const Sell = () => {
 
                 <Sidebar />
                 <Box component="main" sx={{ flexGrow: 1, p: 3, mr: 1 }}>
-
+                    <h1>Sell Requests</h1>
                     <div className="table-responsive">
 
                         <Table bordered hover striped="columns" variant="dark">

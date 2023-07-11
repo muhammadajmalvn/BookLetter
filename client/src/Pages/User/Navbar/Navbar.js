@@ -27,8 +27,7 @@ function NavBar() {
       <nav className="navbar" onClick={e => e.stopPropagation()} style={{ position: "fixed", width: '100%', marginTop: '0%' }}>
         <div className="nav-container">
           <NavLink exact to="/" className="nav-logo">
-            LetterBox &nbsp;
-            <i className="fa-solid fa-book-open-reader"></i>
+            <i className="fa-solid fa-book-open-reader"> Bookletter</i>
           </NavLink>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
@@ -39,7 +38,7 @@ function NavBar() {
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
-                <i class="fa-solid fa-house"></i>
+                <i class="fa-solid fa-house"></i> Home
               </NavLink>
             </li>
             <li className="nav-item">
@@ -50,8 +49,7 @@ function NavBar() {
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
-                <i class="fa-solid fa-book"></i>
-
+                <i class="fa-solid fa-book"></i> Books
               </NavLink>
             </li>
 
@@ -63,7 +61,7 @@ function NavBar() {
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
-                <i class="fa-solid fa-bag-shopping"></i>
+                <i class="fa-solid fa-bag-shopping"></i> Orders
 
               </NavLink>
             </li>
@@ -75,7 +73,7 @@ function NavBar() {
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
-                <i class="fa-brands fa-sellcast"></i>
+                <i class="fa-brands fa-sellcast"></i> Sell
               </NavLink>
             </li>
             <li className="nav-item">
@@ -86,7 +84,7 @@ function NavBar() {
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
-                <i class="fa-solid fa-sack-dollar"></i>
+                <i class="fa-solid fa-sack-dollar"></i> Requests
               </NavLink>
             </li>
             <li className="nav-item">
@@ -97,7 +95,7 @@ function NavBar() {
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
-                <i class="fa-solid fa-wallet"></i>
+                <i class="fa-solid fa-wallet"></i> Wallet
 
               </NavLink>
             </li>
@@ -109,38 +107,8 @@ function NavBar() {
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
-                <i class="fa-solid fa-comment"></i>
+                <i class="fa-solid fa-comment"></i> Chat
 
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              {userData ?
-                <a
-                  activeClassName="active"
-                  className="nav-links"
-                  onClick={logOut}
-                >
-                  <i class="fa-solid fa-power-off"></i>
-                </a> :
-                <NavLink
-                  exact
-                  to="/login"
-                  activeClassName="active"
-                  className="nav-links"
-                  onClick={click ? handleClick : null}
-                >
-                  <i class="fa-solid fa-power-off"></i>
-                </NavLink>}
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/signup"
-                activeClassName="active"
-                className="nav-links"
-                onClick={click ? handleClick : null}
-              >
-                <i class="fa-solid fa-right-to-bracket"></i>
               </NavLink>
             </li>
             <li className="nav-item">
@@ -151,8 +119,27 @@ function NavBar() {
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
-                <i class="fa-solid fa-user"></i>
+                <i class="fa-solid fa-user"></i> Profile
               </NavLink>
+            </li>
+            <li className="nav-item">
+              {userData ?
+                <a
+                  activeClassName="active"
+                  className="nav-links"
+                  onClick={logOut}
+                >
+                  <i class="fa-solid fa-power-off"></i> Logout
+                </a> :
+                <NavLink
+                  exact
+                  to="/login"
+                  activeClassName="active"
+                  className="nav-links"
+                  onClick={click ? handleClick : null}
+                >
+                  <i class="fa-solid fa-power-off"></i> Login
+                </NavLink>}
             </li>
           </ul>
           <div className="nav-icon" onClick={handleClick}>

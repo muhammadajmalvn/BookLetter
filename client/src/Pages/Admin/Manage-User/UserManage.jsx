@@ -15,14 +15,14 @@ import { userLogout } from '../../../Redux/Actions/userActions/LoginActions';
 const UserManage = () => {
     const dispatch = useDispatch()
 
-    
+
     useEffect(() => {
         dispatch(userDetailsFetch());
     }, [dispatch]);
-    
+
     const userDetails = useSelector(state => state.adminControl)
     let { loading, adminUserData, error } = userDetails
-   
+
 
     const handleBlockUser = async (id) => {
         dispatch(userBlockUnblock(id));
@@ -151,8 +151,9 @@ const UserManage = () => {
         <>
             <Box sx={{ display: 'flex', marginLeft: '6%', marginTop: '6%' }}>
                 <Sidebar />
-                <Box component="main" sx={{ flexGrow: 1, p: 3, mr: 1 }}>
-                    <Form style={{ width: "50%" }} className="d-flex mt-2 mb-2">
+                <h1>Users</h1>
+                <Box component="main" sx={{ flexGrow: 1, p: 3, mr: 1, mt: 2 }}>
+                    <Form style={{ width: "50%" }} className="d-flex mt-4 mb-2">
                         <Form.Control
                             type="search"
                             onChange={(e) => { settingsearch(e.target.value) }}
